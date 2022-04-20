@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
-import '../controller/navigator_controller.dart';
+import '../navigator_controller.dart';
 
 class NavigatorPage extends StatefulWidget {
   const NavigatorPage({Key? key, required this.tabIndex}) : super(key: key);

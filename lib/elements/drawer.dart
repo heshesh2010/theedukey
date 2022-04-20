@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theedukey/screens/contact_us.dart';
-import 'package:theedukey/screens/language_screen.dart';
-import 'package:theedukey/screens/login_screen.dart';
-import '../binding.dart';
-import '../constants/route_list.dart';
+import 'package:theedukey/app/modules/auth/views/auth_view.dart';
+import 'package:theedukey/app/modules/contact_us/bindings/contact_us_binding.dart';
+import 'package:theedukey/app/modules/contact_us/views/contact_us_view.dart';
+import '../app/modules/auth/controllers/auth_controller.dart';
+import '../app/modules/language/views/language_view.dart';
+import '../app/modules/home/bindings/home_binding.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../controller/auth_controller.dart';
-import '../controller/navigator_controller.dart';
+import '../core/utils/local_storage.dart';
+import '../core/values/constants/route_list.dart';
+import '../navigator_controller.dart';
 import 'bottom_navigation_bar.dart';
 
-class DrawerSideMenu extends StatelessWidget {
-  DrawerSideMenu({Key? key}) : super(key: key);
-  final AuthController controller = Get.put(AuthController());
+class DrawerSideMenu extends GetView<AuthController> {
+  const DrawerSideMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return controller.getUser() != null
+    return LocalStorage().getUser() != null
         ? Drawer(
             backgroundColor: const Color(0xFF414755),
             child: SingleChildScrollView(
@@ -224,7 +225,7 @@ class DrawerSideMenu extends StatelessWidget {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      Get.to(() => LanguagesScreen());
+                      Get.to(() => LanguageView());
                     },
                   ),
                   const Padding(
@@ -242,7 +243,8 @@ class DrawerSideMenu extends StatelessWidget {
                       if (Get.currentRoute == RouteList.contactUs) {
                         Get.back();
                       } else {
-                        Get.to(() => ContactUs());
+                        //  Get.to(() => ContactUsView());
+                        Get.toNamed(RouteList.contactUs);
                       }
                     },
                   ),
@@ -353,7 +355,7 @@ class DrawerSideMenu extends StatelessWidget {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      Get.to(() => LanguagesScreen());
+                      Get.to(() => LanguageView());
                     },
                   ),
                   const Padding(
@@ -371,7 +373,7 @@ class DrawerSideMenu extends StatelessWidget {
                       if (Get.currentRoute == RouteList.contactUs) {
                         Get.back();
                       } else {
-                        Get.to(() => ContactUs());
+                        Get.to(() => ContactUsView());
                       }
                     },
                   ),
@@ -387,7 +389,7 @@ class DrawerSideMenu extends StatelessWidget {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      Get.to(() => const LoginScreen());
+                      Get.to(() => AuthView());
                     },
                   ),
                 ],

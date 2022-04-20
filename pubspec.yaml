@@ -59,7 +59,7 @@ dev_dependencies:
   dropdown_button2:
   wave: ^0.2.0
   custom_navigation_bar:
-
+  jwt_decode:
 
 
 
