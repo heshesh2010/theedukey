@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class PermissionDeniedWidget extends StatelessWidget {
-const PermissionDeniedWidget({Key? key}) : super(key: key);
+  const PermissionDeniedWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: AlignmentDirectional.center,
       padding: const EdgeInsets.symmetric(horizontal: 30),
-      height: 70,
+      //height: 100,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -68,25 +67,17 @@ const PermissionDeniedWidget({Key? key}) : super(key: key);
           const SizedBox(height: 15),
           Opacity(
             opacity: 0.4,
-            child: Text(
-              "you_must_signin_to_access_to_this_section".tr,
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline3
-            ),
+            child: Text("you_must_signin_to_access_to_this_section".tr,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.subtitle2),
           ),
           const SizedBox(height: 50),
           TextButton(
             onPressed: () {
               Navigator.of(context).pushNamed('Login');
             },
-            child: Text(
-              "login".tr,
-              style: Theme.of(context)
-              .textTheme
-              .headline6
-            ),
+            child:
+                Text("login".tr, style: Theme.of(context).textTheme.headline6),
           ),
           const SizedBox(height: 20),
           TextButton(

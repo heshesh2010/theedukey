@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theedukey/app/modules/auth/bindings/auth_binding.dart';
-import 'package:theedukey/app/modules/edit_profile/bindings/edit_profile_binding.dart';
 import 'package:theedukey/app/modules/language/bindings/language_binding.dart';
 import 'package:theedukey/app/modules/notifications/bindings/notifications_binding.dart';
 import 'package:theedukey/app/modules/splash/bindings/splash_binding.dart';
@@ -12,14 +11,21 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'app/modules/auth/views/auth_view.dart';
 import 'app/modules/contact_us/controllers/contact_us_controller.dart';
 import 'app/modules/contact_us/views/contact_us_view.dart';
-import 'app/modules/edit_profile/views/edit_profile_view.dart';
+import 'app/modules/auth/views/edit_profile_view.dart';
+import 'app/modules/favorite/bindings/favorite_binding.dart';
+import 'app/modules/favorite/views/favorite_view.dart';
 import 'app/modules/home/views/home_view.dart';
 import 'app/modules/language/views/language_view.dart';
 import 'app/modules/notifications/views/notifications_view.dart';
+import 'app/modules/offers/bindings/offers_binding.dart';
+import 'app/modules/offers/views/offers_view.dart';
+import 'app/modules/sons/bindings/sons_binding.dart';
+import 'app/modules/sons/views/sons_view.dart';
 import 'app/modules/splash/views/splash_view.dart';
 import 'app/modules/home/bindings/home_binding.dart';
 import 'core/langs/translations.dart';
-import 'core/values/constants/route_list.dart';
+import 'core/utils/local_storage.dart';
+import 'app/routes/route_list.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -40,11 +46,17 @@ class MyApp extends StatelessWidget {
       initialBinding: HomeBinding(),
       getPages: [
         GetPage(
-            name: '/',
+            name: RouteList.splashScreen,
             page: () => const SplashView(),
             binding: SplashBinding()),
-        GetPage(name: '/home', page: () => HomeView(), binding: HomeBinding()),
-        GetPage(name: '/auth', page: () => AuthView(), binding: AuthBinding()),
+        GetPage(
+            name: RouteList.home,
+            page: () => HomeView(),
+            binding: HomeBinding()),
+        GetPage(
+            name: RouteList.login,
+            page: () => AuthView(),
+            binding: AuthBinding()),
         GetPage(
           name: RouteList.contactUs,
           page: () => ContactUsView(),
@@ -53,22 +65,35 @@ class MyApp extends StatelessWidget {
           }),
         ),
         GetPage(
-            name: '/edit-profile',
+            name: RouteList.editProfile,
             page: () => EditProfileView(),
-            binding: EditProfileBinding()),
+            binding: AuthBinding()),
         GetPage(
-            name: '/LanguageView',
+            name: RouteList.languages,
             page: () => LanguageView(),
             binding: LanguageBinding()),
         GetPage(
-            name: '/notifications',
+            name: RouteList.notifications,
             page: () => const NotificationsView(),
-            binding: NotificationsBinding()),
+            binding: FavoriteBinding()),
+        GetPage(
+            name: RouteList.favorite,
+            page: () => const FavoriteView(),
+            binding: FavoriteBinding()),
+        GetPage(
+            name: RouteList.offers,
+            page: () => const OffersView(),
+            binding: OffersBinding()),
+        GetPage(
+            name: RouteList.sons,
+            page: () => const SonsView(),
+            binding: SonsBinding())
       ],
       title: 'The Edukey',
-      locale: Get.deviceLocale,
+      locale: Locale(LocalStorage().getlanguageSelected(), ""),
       fallbackLocale: const Locale('ar', 'SA'),
       translations: Translation(),
+      initialRoute: RouteList.splashScreen,
       theme: ThemeData(
         inputDecorationTheme: const InputDecorationTheme(
           floatingLabelStyle: TextStyle(color: Color(0xFF076996)),

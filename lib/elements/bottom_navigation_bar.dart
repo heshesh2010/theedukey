@@ -28,7 +28,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
       extendBodyBehindAppBar: true,
       body: Obx(() => IndexedStack(
             index: controller.tabIndex.value,
-            children: controller.children.value,
+            children: controller.children,
           )),
       bottomNavigationBar: Obx(() => CustomNavigationBar(
             onTap: controller.changePage,

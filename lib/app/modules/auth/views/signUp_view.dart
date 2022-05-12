@@ -18,7 +18,6 @@ class SignUpPageView extends GetView<AuthController> {
   final _passwordTextController = TextEditingController(text: "");
   final _passwordConfirmTextController = TextEditingController(text: "");
 
-  var _passwordVisible = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -43,7 +42,7 @@ class SignUpPageView extends GetView<AuthController> {
                                 style: Theme.of(context).textTheme.headline1),
                             //ar_name
                             TextFormField(
-                              enabled: !controller.signUpProcess.value,
+                              enabled: !controller.isProcessEnabled.value,
                               controller: _nameArTextController,
                               decoration:
                                   InputDecoration(labelText: "name_ar".tr),
@@ -59,7 +58,7 @@ class SignUpPageView extends GetView<AuthController> {
                             ),
                             //en_name
                             TextFormField(
-                              enabled: !controller.signUpProcess.value,
+                              enabled: !controller.isProcessEnabled.value,
                               controller: _nameEnTextController,
                               decoration:
                                   InputDecoration(labelText: "name_en".tr),
@@ -75,7 +74,7 @@ class SignUpPageView extends GetView<AuthController> {
                             ),
                             //mobile
                             TextFormField(
-                              enabled: !controller.signUpProcess.value,
+                              enabled: !controller.isProcessEnabled.value,
                               controller: _mobileTextController,
                               decoration:
                                   InputDecoration(labelText: "mobile".tr),
@@ -91,7 +90,7 @@ class SignUpPageView extends GetView<AuthController> {
                             ),
                             //email
                             TextFormField(
-                              enabled: !controller.signUpProcess.value,
+                              enabled: !controller.isProcessEnabled.value,
                               controller: _emailTextController,
                               decoration:
                                   InputDecoration(labelText: "email".tr),
@@ -132,44 +131,46 @@ class SignUpPageView extends GetView<AuthController> {
                                 )),
                             const SizedBox(height: 8),
                             TextFormField(
-                              enabled: !controller.signUpProcess.value,
+                              enabled: !controller.isProcessEnabled.value,
                               controller: _passwordTextController,
                               decoration: InputDecoration(
                                   labelText: "password".tr,
                                   suffixIcon: IconButton(
                                     icon: Icon(
-                                      _passwordVisible
+                                      controller.passwordVisible.value
                                           ? Icons.visibility_off
                                           : Icons.visibility,
                                       color: Theme.of(context).primaryColorDark,
                                     ),
                                     onPressed: () {
-                                      _passwordVisible = !_passwordVisible;
+                                      controller.passwordVisible.value =
+                                          !controller.passwordVisible.value;
                                     },
                                   )),
-                              obscureText: !_passwordVisible,
+                              obscureText: !controller.passwordVisible.value,
                               validator: (String? value) =>
                                   value!.trim().isEmpty || value.length < 8
                                       ? "Password is require".tr
                                       : null,
                             ),
                             TextFormField(
-                              enabled: !controller.signUpProcess.value,
+                              enabled: !controller.isProcessEnabled.value,
                               controller: _passwordConfirmTextController,
                               decoration: InputDecoration(
                                   labelText: "password_confirm".tr,
                                   suffixIcon: IconButton(
                                     icon: Icon(
-                                      _passwordVisible
+                                      controller.passwordVisible.value
                                           ? Icons.visibility_off
                                           : Icons.visibility,
                                       color: Theme.of(context).primaryColorDark,
                                     ),
                                     onPressed: () {
-                                      _passwordVisible = !_passwordVisible;
+                                      controller.passwordVisible.value =
+                                          !controller.passwordVisible.value;
                                     },
                                   )),
-                              obscureText: !_passwordVisible,
+                              obscureText: !controller.passwordVisible.value,
                               validator: (String? value) => value!
                                       .allMatches(
                                           _passwordTextController.value.text)
@@ -216,7 +217,7 @@ class SignUpPageView extends GetView<AuthController> {
                               child: Text('signUp'.tr,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold)),
-                              controller: controller.btnSignUpController,
+                              controller: controller.submitButtonController,
                               color: Theme.of(context).primaryColor,
                               onPressed: () async {
                                 // showLoadingDialog(context);
@@ -224,7 +225,7 @@ class SignUpPageView extends GetView<AuthController> {
                                 if (!controller.agreedToTOS.value) {
                                   Helper()
                                       .showErrorToast("you_must_agree_TOS".tr);
-                                  controller.btnSignUpController.reset();
+                                  controller.submitButtonController.reset();
                                 } else if (_formKey.currentState!.validate()) {
                                   await controller.signUp(User(
                                       email: _emailTextController.text,
@@ -238,7 +239,7 @@ class SignUpPageView extends GetView<AuthController> {
                                 } else {
                                   Helper().showErrorToast(
                                       "please_review_all_fields".tr);
-                                  controller.btnSignUpController.reset();
+                                  controller.submitButtonController.reset();
                                 }
                               },
                             ),

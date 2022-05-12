@@ -15,8 +15,8 @@ class ContactUsView extends GetView<ContactUsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: DrawerSideMenu(),
-      appBar: getTopBar(context),
+      drawer: const DrawerSideMenu(),
+      appBar: getTopBar(context, title: 'contact_us'.tr),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

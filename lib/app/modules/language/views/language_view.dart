@@ -16,8 +16,8 @@ class LanguageView extends GetView<LanguageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getTopBar(context),
-      drawer: DrawerSideMenu(),
+      appBar: getTopBar(context, title: 'language'.tr),
+      drawer: const DrawerSideMenu(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Column(
@@ -38,11 +38,11 @@ class LanguageView extends GetView<LanguageController> {
               },
               itemBuilder: (context, index) {
                 Language _language = languagesList.languages.elementAt(index);
-                LocalStorage().languageSelected.then((langCode) {
-                  if (langCode == _language.code) {
-                    _language.selected = true;
-                  }
-                });
+
+                if (LocalStorage().getlanguageSelected() == _language.code) {
+                  _language.selected = true;
+                }
+
                 return InkWell(
                   onTap: () async {
                     if (_language.code == "ar") {

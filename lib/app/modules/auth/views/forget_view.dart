@@ -35,7 +35,7 @@ class ForgetView extends GetView<AuthController> {
                                 style: Theme.of(context).textTheme.headline1),
                             const SizedBox(height: 8),
                             TextFormField(
-                              enabled: !controller.forgetProcess.value,
+                              enabled: !controller.isProcessEnabled.value,
                               controller: _emailTextController,
                               decoration: InputDecoration(
                                   labelText: "email".tr,
@@ -55,7 +55,7 @@ class ForgetView extends GetView<AuthController> {
                               child: Text('submit'.tr,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold)),
-                              controller: controller.btnForgetController,
+                              controller: controller.submitButtonController,
                               duration: const Duration(seconds: 2),
                               color: Theme.of(context).primaryColor,
                               onPressed: () async {
@@ -63,7 +63,7 @@ class ForgetView extends GetView<AuthController> {
                                   await controller.forget(
                                       User(email: _emailTextController.text));
                                 } else {
-                                  controller.btnForgetController.reset();
+                                  controller.submitButtonController.reset();
                                 }
                               },
                             ),

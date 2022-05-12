@@ -3,23 +3,18 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../helper.dart';
 import '../../../data/models/notification.dart';
-import '../../../data/repo/notification_repository.dart';
-import '../../auth/controllers/auth_controller.dart';
+import '../../../data/repositories/notification_repository.dart';
 
 class NotificationController extends GetxController {
-  final userController = Get.find<AuthController>();
-
   var notificationsList = <Notification>[].obs;
-  final PagingController<int, Notification> pagingOrdersController =
+  final PagingController<int, Notification> pagingController =
       PagingController(firstPageKey: 0);
   static const _pageNotificationSize = 15;
   List<Notification> newNotificationItems = [Notification()];
 
   @override
   void onInit() {
-    pagingOrdersController.addPageRequestListener((pageKey) {
-      //    _con.listenForOrders(pageKey);
-      //  orderRepo.fetchPosts(orderRepo.nextUrl);
+    pagingController.addPageRequestListener((pageKey) {
       _fetchNotificationPage(pageKey);
     });
     super.onInit();
@@ -32,17 +27,17 @@ class NotificationController extends GetxController {
       newNotificationItems = await getNotifications(nextUrl: nextUrl);
     }
 
-    // try {
+    try {
       final isLastPage = newNotificationItems.length < _pageNotificationSize ||
           nextUrl == null;
       if (isLastPage) {
-        pagingOrdersController.appendLastPage(newNotificationItems);
+        pagingController.appendLastPage(newNotificationItems);
       } else {
         final nextPageKey = pageKey + newNotificationItems.length;
-        pagingOrdersController.appendPage(newNotificationItems, nextPageKey);
+        pagingController.appendPage(newNotificationItems, nextPageKey);
       }
     } catch (error) {
-      pagingOrdersController.error = error;
+      pagingController.error = error;
     }
   }
 

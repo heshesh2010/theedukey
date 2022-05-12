@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theedukey/app/modules/auth/views/signUp_view.dart';
-import 'package:theedukey/core/values/constants/route_list.dart';
+import 'package:theedukey/app/routes/route_list.dart';
 import '../../../../elements/bottom_navigation_bar.dart';
 import '../../../../elements/topbar.dart';
 import '../../../data/models/user.dart';
@@ -41,7 +41,7 @@ class AuthView extends GetView<AuthController> {
                                 style: Theme.of(context).textTheme.headline1),
                             const SizedBox(height: 8),
                             TextFormField(
-                              enabled: !controller.loginProcess.value,
+                              enabled: !controller.isProcessEnabled.value,
                               controller: _emailTextController,
                               decoration: InputDecoration(
                                   labelText: "email".tr,
@@ -58,7 +58,7 @@ class AuthView extends GetView<AuthController> {
                             ),
                             const SizedBox(height: 8),
                             TextFormField(
-                              enabled: !controller.loginProcess.value,
+                              enabled: !controller.isProcessEnabled.value,
                               controller: _passwordTextController,
                               decoration: InputDecoration(
                                   labelText: "password".tr,
@@ -114,7 +114,7 @@ class AuthView extends GetView<AuthController> {
                               child: Text('enter'.tr,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold)),
-                              controller: controller.btnLoginController,
+                              controller: controller.submitButtonController,
                               duration: const Duration(seconds: 2),
                               color: Theme.of(context).primaryColor,
                               onPressed: () async {
@@ -123,7 +123,7 @@ class AuthView extends GetView<AuthController> {
                                       email: _emailTextController.text,
                                       password: _passwordTextController.text));
                                 } else {
-                                  controller.btnLoginController.reset();
+                                  controller.submitButtonController.reset();
                                 }
                               },
                             ),

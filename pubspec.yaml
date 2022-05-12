@@ -46,11 +46,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
+
+   # get 
   get:
   get_storage:
+  readmore:
   flutter_native_splash:
   infinite_scroll_pagination:
-  flutter_stripe:
   # tools
   image_picker:
   rounded_loading_button:
@@ -60,7 +62,7 @@ dev_dependencies:
   wave: ^0.2.0
   custom_navigation_bar:
   jwt_decode:
-
+  connectivity_plus:
 
 
   #image

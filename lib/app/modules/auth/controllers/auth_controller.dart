@@ -5,7 +5,7 @@ import '../../../../core/values/constants/general.dart';
 import '../../../../helper.dart';
 import '../../../data/models/city.dart';
 import '../../../data/models/user.dart';
-import '../../../data/repo/auth_repository.dart';
+import '../../../data/repositories/auth_repository.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
@@ -21,19 +21,13 @@ class AuthController extends GetxController {
     super.onInit();
   }
 
-  var loginProcess = false.obs;
-  var signUpProcess = false.obs;
-  var forgetProcess = false.obs;
+  var isProcessEnabled = false.obs;
   RxBool passwordVisible = false.obs;
   var agreedToTOS = false.obs;
 
   var citiesList = <City>[].obs;
 
-  final RoundedLoadingButtonController btnLoginController =
-      RoundedLoadingButtonController();
-  final RoundedLoadingButtonController btnSignUpController =
-      RoundedLoadingButtonController();
-  final RoundedLoadingButtonController btnForgetController =
+  final RoundedLoadingButtonController submitButtonController =
       RoundedLoadingButtonController();
 
   logout() {
@@ -44,20 +38,20 @@ class AuthController extends GetxController {
 
   Future<dynamic> login(User user) async {
     try {
-      loginProcess = true.obs;
+      isProcessEnabled = true.obs;
 // showLoadingDialog();
       dynamic response = await loginApi(user);
       if (response is User) {
         LocalStorage().saveUser(response);
-        btnLoginController.success();
+        submitButtonController.success();
         currentUser = LocalStorage().getUser().obs;
         Get.to(() => HomeView());
-        loginProcess = false.obs;
+        isProcessEnabled = false.obs;
 
         //  Get.back();
       } else {
-        loginProcess = false.obs;
-        btnLoginController.error();
+        isProcessEnabled = false.obs;
+        submitButtonController.error();
         if (response is String) {
           Helper().showErrorToast(response);
         } else {
@@ -68,41 +62,58 @@ class AuthController extends GetxController {
       Helper().showErrorToast(exception.toString());
 
       Future.delayed(const Duration(seconds: 3), () {
-        btnLoginController.reset();
+        submitButtonController.reset();
       });
     }
   }
 
   Future<dynamic> forget(User user) async {
-    forgetProcess = true.obs;
+    isProcessEnabled = true.obs;
 // showLoadingDialog();
     dynamic response = await forgetApi(user);
     if (response is User) {
-      btnLoginController.success();
+      submitButtonController.success();
       //  Get.back();
     } else {
-      loginProcess = false.obs;
-      btnForgetController.error();
+      isProcessEnabled = false.obs;
+      submitButtonController.error();
       Helper().showErrorToast(response.statusMessage.toString());
       Future.delayed(const Duration(seconds: 3), () {
-        btnForgetController.reset();
+        submitButtonController.reset();
+      });
+    }
+  }
+
+  Future<dynamic> updateProfile(User user) async {
+    isProcessEnabled = true.obs;
+    dynamic response = await updateProfileApi(user);
+    if (response is User) {
+      submitButtonController.success();
+    } else {
+      isProcessEnabled = false.obs;
+      submitButtonController.reset();
+      Helper().showErrorToast(response?.data["errors"] != null
+          ? Helper().getErrorString(response.data["errors"].values.toList())
+          : response.statusMessage.toString());
+      Future.delayed(const Duration(seconds: 3), () {
+        submitButtonController.reset();
       });
     }
   }
 
   Future<dynamic> signUp(User user) async {
-    signUpProcess = true.obs;
+    isProcessEnabled = true.obs;
     dynamic response = await signUpApi(user);
     if (response is User) {
-      btnSignUpController.success();
+      submitButtonController.success();
     } else {
-      signUpProcess = false.obs;
-      btnSignUpController.reset();
+      isProcessEnabled = false.obs;
+      submitButtonController.reset();
       Helper().showErrorToast(response?.data["errors"] != null
           ? Helper().getErrorString(response.data["errors"].values.toList())
           : response.statusMessage.toString());
       Future.delayed(const Duration(seconds: 3), () {
-        btnSignUpController.reset();
+        submitButtonController.reset();
       });
     }
   }

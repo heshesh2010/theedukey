@@ -10,7 +10,7 @@ class LocalStorage {
   }
 
   /// Read
-  Future<String?> get languageSelected async {
+  getlanguageSelected() {
     return GetStorage().read('lang');
   }
 

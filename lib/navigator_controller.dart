@@ -16,7 +16,7 @@ class NavigatorController extends GetxController {
     children = [
       const NotificationsView(),
       HomeView(),
-      const NotificationsView(),
+      HomeView(),
     ].obs;
     super.onInit();
   }

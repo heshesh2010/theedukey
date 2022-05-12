@@ -2,11 +2,11 @@ import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../data/models/stage.dart';
-import '../../../data/repo/home_repository.dart';
+import '../../../data/repositories/home_repository.dart';
 
 class HomeController extends GetxController {
   late Rx<Stage> selectedStage =
-      Stage(name: "من فضلك اختر المرحلة التعليمية").obs;
+      Stage(name: "من فضلك اختر المرحلة التعليمية".tr).obs;
   @override
   void onInit() {
     getStages();

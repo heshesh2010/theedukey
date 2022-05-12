@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import '../../../../helper.dart';
-import '../../../data/repo/contact_us_repository.dart';
+import '../../../data/repositories/contact_us_repository.dart';
 
 class ContactUsController extends GetxController {
   var contactUsUpProcess = false.obs;

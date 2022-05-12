@@ -14,6 +14,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
     loadData();
   }
 
@@ -30,11 +31,6 @@ class SplashController extends GetxController {
       );
     }
     FlutterNativeSplash.remove();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override
