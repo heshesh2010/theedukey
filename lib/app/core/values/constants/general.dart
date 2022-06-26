@@ -22,4 +22,4 @@ void printLog(dynamic data) {
   }
 }
 
-const ApiPageSize = 20;
+const apiPageSize = 20;

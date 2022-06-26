@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import '../../../../core/utils/FirstPageErrorIndicator.dart';
-import '../../../../core/utils/local_storage.dart';
-import '../../../../elements/PermissionDeniedWidget.dart';
+import '../../../../elements/empty_results.dart';
+import '../../../../elements/no_other_results.dart';
+import '../../../core/utils/first_page_error_indicator.dart';
+import '../../../core/utils/local_storage.dart';
+import '../../../../elements/permission_dcenied_widget.dart';
 import '../../../../elements/drawer.dart';
-import '../../../../elements/favorite_item.dart';
+import 'favorite_item.dart';
 import '../../../../elements/topbar.dart';
 import '../../../data/models/favorite.dart';
 import '../controllers/favorite_controller.dart';
@@ -24,42 +26,28 @@ class FavoriteView extends GetView<FavoriteController> {
         child: LocalStorage().getUser()?.token == null
             ? const PermissionDeniedWidget()
             : GetBuilder<FavoriteController>(
-                builder: (_c) => PagedListView<int, Favorite>.separated(
+                builder: (c) => PagedListView<int, FavoriteDataData>.separated(
                   scrollDirection: Axis.vertical,
-                  pagingController: controller.pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<Favorite>(
+                  pagingController: controller().pagingController,
+                  builderDelegate: PagedChildBuilderDelegate<FavoriteDataData>(
                     itemBuilder: (context, item, index) => GestureDetector(
                       child: FavoriteItem(
                         favorite: item,
                       ),
                     ),
                     //  firstPageProgressIndicatorBuilder: (_)=> ShimmerHelper(type: Type.complex),
-                    //     noItemsFoundIndicatorBuilder: (_)=> EmptyOrdersWidget(),
+                    noItemsFoundIndicatorBuilder: (_) => const EmptyResults(),
                     firstPageErrorIndicatorBuilder: (_) =>
                         FirstPageErrorIndicator(
-                      error: controller.pagingController.error,
-                      onTryAgain: () => controller.pagingController.refresh(),
+                      error: controller().pagingController.error,
+                      onTryAgain: () => controller().pagingController.refresh(),
                     ),
-                    newPageErrorIndicatorBuilder: (_) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(80),
-                        child: ElevatedButton(
-                          onPressed: null,
-                          child: Text("no_other_favorite".tr),
-                        ),
-                      ),
+                    newPageErrorIndicatorBuilder: (_) =>
+                        FirstPageErrorIndicator(
+                      error: controller().pagingController.error,
+                      onTryAgain: () => controller().pagingController.refresh(),
                     ),
-                    noMoreItemsIndicatorBuilder: (_) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(80),
-                        child: ElevatedButton(
-                          onPressed: null,
-                          child: Text("no_other_favorite".tr),
-                        ),
-                      ),
-                    ),
+                    noMoreItemsIndicatorBuilder: (_) => const NoOtherResults(),
                   ),
                   separatorBuilder: (context, index) => const SizedBox(
                     height: 20,

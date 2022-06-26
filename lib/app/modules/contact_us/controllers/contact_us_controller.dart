@@ -5,6 +5,9 @@ import '../../../../helper.dart';
 import '../../../data/repositories/contact_us_repository.dart';
 
 class ContactUsController extends GetxController {
+  final ContactUsRepository repository;
+  ContactUsController({required this.repository});
+
   var contactUsUpProcess = false.obs;
   final RoundedLoadingButtonController btnSubmitController =
       RoundedLoadingButtonController();
@@ -16,7 +19,7 @@ class ContactUsController extends GetxController {
   contactUs() async {
     contactUsUpProcess = true.obs;
 
-    dynamic response = await postContactUsApi(
+    dynamic response = await repository.postContactUsApi(
         nameArTextController.text,
         emailTextController.text,
         titleTextController.text,
@@ -30,19 +33,4 @@ class ContactUsController extends GetxController {
       Helper().showErrorToast(response);
     }
   }
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }

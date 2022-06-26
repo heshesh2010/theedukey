@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 
 /// some constants Local Key
@@ -12,8 +9,6 @@ const kLocalKey = {
   "home": "home",
   "countries": "countries",
 };
-
-
 
 /// Logging config
 const kLogTag = "[ تطبيق EduKey client]";
@@ -27,6 +22,4 @@ void printLog(dynamic data) {
   }
 }
 
-
-
-const ApiPageSize = 20;
+const apiPageSize = 10;

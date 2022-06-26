@@ -1,6 +1,6 @@
 import 'package:get_storage/get_storage.dart';
 
-import '../../app/data/models/user.dart';
+import '../../data/models/user.dart';
 import '../values/constants/general.dart';
 
 class LocalStorage {

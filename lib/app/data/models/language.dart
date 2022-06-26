@@ -5,16 +5,17 @@ class Language {
   String flag;
   bool selected;
 
-  Language(this.code, this.englishName, this.localName, this.flag, {this.selected = false});
+  Language(this.code, this.englishName, this.localName, this.flag,
+      {this.selected = false});
 }
 
 class LanguagesList {
-  List<Language> _languages=[];
+  List<Language> _languages = [];
 
   LanguagesList() {
     _languages = [
-       Language("en", "English", "الأنجليزية", "assets/img/united-states.png"),
-       Language("ar", "Arabic", "العربية", "assets/img/saudi.png"),
+      Language("en", "English", "الأنجليزية", "assets/img/united-states.png"),
+      Language("ar", "Arabic", "العربية", "assets/img/saudi.png"),
     ];
   }
 

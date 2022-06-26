@@ -2,7 +2,6 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 
-
 class AppColors {
 //  Color _mainColor = Color(0xFFFF4E6A);
   final Color _mainColor = const Color(0xFF076996);
@@ -20,11 +19,17 @@ class AppColors {
   final Color _shimmerLight = Colors.grey.shade100;
   final Color _shimmerDark = Colors.grey.shade600;
 
-   Color mainColor(double opacity) {
+  final Color _textColor = const Color(0xFF474747);
+
+  Color textColor(double opacity) {
+    return _textColor.withOpacity(opacity);
+  }
+
+  Color mainColor(double opacity) {
     return _mainColor.withOpacity(opacity);
   }
 
-   Color secondColor(double opacity) {
+  Color secondColor(double opacity) {
     return _secondColor.withOpacity(opacity);
   }
 

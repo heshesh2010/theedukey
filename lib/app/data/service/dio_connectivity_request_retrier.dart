@@ -41,13 +41,11 @@ class DioConnectivityRequestRetrier {
                 responseType: requestOptions.responseType,
               ))
           .then((response) {
-        print(response.data);
         final userController = getx.Get.find<NotificationController>();
         final homeController = getx.Get.find<HomeController>();
         if (requestOptions.path.contains("get-all-filter-data")) {
           homeController.onInit();
         } else if (requestOptions.path.contains("notifications")) {
-          print("notifications called");
           userController.pagingController.notifyListeners();
           //userController.pagingOrdersController.notifyListeners();
         }

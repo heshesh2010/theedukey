@@ -8,8 +8,8 @@ import '../../../data/models/city.dart';
 import '../../../data/models/user.dart';
 import '../controllers/auth_controller.dart';
 
-class SignUpPageView extends GetView<AuthController> {
-  SignUpPageView({Key? key}) : super(key: key);
+class SignUpView extends GetView<AuthController> {
+  SignUpView({Key? key}) : super(key: key);
 
   final _nameArTextController = TextEditingController(text: "");
   final _nameEnTextController = TextEditingController(text: "");
@@ -23,7 +23,7 @@ class SignUpPageView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getTopBar(context),
+      appBar: getTopBar(context, isback: true),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -42,7 +42,7 @@ class SignUpPageView extends GetView<AuthController> {
                                 style: Theme.of(context).textTheme.headline1),
                             //ar_name
                             TextFormField(
-                              enabled: !controller.isProcessEnabled.value,
+                              enabled: !controller().isProcessEnabled.value,
                               controller: _nameArTextController,
                               decoration:
                                   InputDecoration(labelText: "name_ar".tr),
@@ -58,7 +58,7 @@ class SignUpPageView extends GetView<AuthController> {
                             ),
                             //en_name
                             TextFormField(
-                              enabled: !controller.isProcessEnabled.value,
+                              enabled: !controller().isProcessEnabled.value,
                               controller: _nameEnTextController,
                               decoration:
                                   InputDecoration(labelText: "name_en".tr),
@@ -74,7 +74,7 @@ class SignUpPageView extends GetView<AuthController> {
                             ),
                             //mobile
                             TextFormField(
-                              enabled: !controller.isProcessEnabled.value,
+                              enabled: !controller().isProcessEnabled.value,
                               controller: _mobileTextController,
                               decoration:
                                   InputDecoration(labelText: "mobile".tr),
@@ -90,7 +90,7 @@ class SignUpPageView extends GetView<AuthController> {
                             ),
                             //email
                             TextFormField(
-                              enabled: !controller.isProcessEnabled.value,
+                              enabled: !controller().isProcessEnabled.value,
                               controller: _emailTextController,
                               decoration:
                                   InputDecoration(labelText: "email".tr),
@@ -111,66 +111,67 @@ class SignUpPageView extends GetView<AuthController> {
                                     //isDense: true,
                                     isExpanded: true,
                                     hint: Text(
-                                      controller.selectedCity.value.name!,
+                                      controller().selectedCity.value.name!,
                                     ),
                                     onChanged: (dynamic value) {
-                                      controller.setSelectedCity(value);
-                                      controller.selectedCity.value = value;
-                                      controller.update();
+                                      controller().setSelectedCity(value);
+                                      controller().selectedCity.value = value;
+                                      controller().update();
                                     },
-                                    items: controller.citiesList
+                                    items: controller()
+                                        .citiesList
                                         .map((City selectedType) {
                                       return DropdownMenuItem(
+                                        value: selectedType,
                                         child: Text(
                                           selectedType.name!,
                                         ),
-                                        value: selectedType,
                                       );
                                     }).toList(),
                                   ),
                                 )),
                             const SizedBox(height: 8),
                             TextFormField(
-                              enabled: !controller.isProcessEnabled.value,
+                              enabled: !controller().isProcessEnabled.value,
                               controller: _passwordTextController,
                               decoration: InputDecoration(
                                   labelText: "password".tr,
                                   suffixIcon: IconButton(
                                     icon: Icon(
-                                      controller.passwordVisible.value
+                                      controller().passwordVisible.value
                                           ? Icons.visibility_off
                                           : Icons.visibility,
                                       color: Theme.of(context).primaryColorDark,
                                     ),
                                     onPressed: () {
-                                      controller.passwordVisible.value =
-                                          !controller.passwordVisible.value;
+                                      controller().passwordVisible.value =
+                                          !controller().passwordVisible.value;
                                     },
                                   )),
-                              obscureText: !controller.passwordVisible.value,
+                              obscureText: !controller().passwordVisible.value,
                               validator: (String? value) =>
                                   value!.trim().isEmpty || value.length < 8
                                       ? "Password is require".tr
                                       : null,
                             ),
                             TextFormField(
-                              enabled: !controller.isProcessEnabled.value,
+                              enabled: !controller().isProcessEnabled.value,
                               controller: _passwordConfirmTextController,
                               decoration: InputDecoration(
                                   labelText: "password_confirm".tr,
                                   suffixIcon: IconButton(
                                     icon: Icon(
-                                      controller.passwordVisible.value
+                                      controller().passwordVisible.value
                                           ? Icons.visibility_off
                                           : Icons.visibility,
                                       color: Theme.of(context).primaryColorDark,
                                     ),
                                     onPressed: () {
-                                      controller.passwordVisible.value =
-                                          !controller.passwordVisible.value;
+                                      controller().passwordVisible.value =
+                                          !controller().passwordVisible.value;
                                     },
                                   )),
-                              obscureText: !controller.passwordVisible.value,
+                              obscureText: !controller().passwordVisible.value,
                               validator: (String? value) => value!
                                       .allMatches(
                                           _passwordTextController.value.text)
@@ -189,9 +190,9 @@ class SignUpPageView extends GetView<AuthController> {
                                         MaterialTapTargetSize.shrinkWrap,
                                     focusColor: Theme.of(context).focusColor,
                                     //   activeColor: Theme.of(context).colorScheme.secondary,
-                                    value: controller.agreedToTOS.value,
+                                    value: controller().agreedToTOS.value,
                                     onChanged: (value) {
-                                      controller.agreedToTOS.value = value!;
+                                      controller().agreedToTOS.value = value!;
                                       //    controller.itemChange(value, index); // ************
                                       //  controller.update();
                                       // controller.loginProcess.value.obs,
@@ -214,20 +215,17 @@ class SignUpPageView extends GetView<AuthController> {
 
                             const SizedBox(height: 20),
                             RoundedLoadingButton(
-                              child: Text('signUp'.tr,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold)),
-                              controller: controller.submitButtonController,
+                              controller: controller().submitButtonController,
                               color: Theme.of(context).primaryColor,
                               onPressed: () async {
                                 // showLoadingDialog(context);
                                 // btnSignUpController.stop();
-                                if (!controller.agreedToTOS.value) {
+                                if (!controller().agreedToTOS.value) {
                                   Helper()
                                       .showErrorToast("you_must_agree_TOS".tr);
-                                  controller.submitButtonController.reset();
+                                  controller().submitButtonController.reset();
                                 } else if (_formKey.currentState!.validate()) {
-                                  await controller.signUp(User(
+                                  await controller().signUp(User(
                                       email: _emailTextController.text,
                                       password: _passwordTextController.text,
                                       passwordConfirmation:
@@ -235,13 +233,16 @@ class SignUpPageView extends GetView<AuthController> {
                                       name: _nameArTextController.text,
                                       nameEn: _nameEnTextController.text,
                                       mobile: _mobileTextController.text,
-                                      city: controller.selectedCity.value));
+                                      city: controller().selectedCity.value));
                                 } else {
                                   Helper().showErrorToast(
                                       "please_review_all_fields".tr);
-                                  controller.submitButtonController.reset();
+                                  controller().submitButtonController.reset();
                                 }
                               },
+                              child: Text('signUp'.tr,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
                             ),
                             const SizedBox(
                               height: 20,

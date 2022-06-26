@@ -8,15 +8,15 @@ class NavigatorPage extends StatefulWidget {
   final int tabIndex;
 
   @override
-  _NavigatorPageState createState() => _NavigatorPageState();
+  NavigatorPageState createState() => NavigatorPageState();
 }
 
-class _NavigatorPageState extends State<NavigatorPage> {
+class NavigatorPageState extends State<NavigatorPage> {
   NavigatorController controller = Get.put(NavigatorController());
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.changePage(widget.tabIndex);
     });
     super.initState();

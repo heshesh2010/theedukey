@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-getTopBar(BuildContext context, {String? title}) {
+getTopBar(BuildContext context, {String? title, bool? isback}) {
   return PreferredSize(
     preferredSize: const Size(0, 200),
     child: Stack(
@@ -16,7 +17,15 @@ getTopBar(BuildContext context, {String? title}) {
         Padding(
             padding: const EdgeInsets.only(top: 50.0, right: 10),
             child: Builder(
-                builder: (context) => // Ensure Scaffold is in context
+                builder: (context) => isback != null && isback
+                    ? IconButton(
+                        onPressed: () => Get.back(),
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                      )
+                    : // Ensure Scaffold is in context
                     IconButton(
                         icon: const Icon(
                           Icons.menu,

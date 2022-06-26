@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 class Stage {
@@ -15,9 +14,9 @@ class Stage {
   String toJson() => json.encode(toMap());
 
   factory Stage.fromMap(Map<String, dynamic> json) => Stage(
-    id: json["id"],
-    name: json["name"],
-  );
+        id: json["id"],
+        name: json["name"],
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -31,7 +30,7 @@ class Stage {
   int get hashCode => id.hashCode ^ name.hashCode;
 
   Map<String, dynamic> toMap() => {
-    "id": id,
-    "name": name,
-  };
+        "id": id,
+        "name": name,
+      };
 }

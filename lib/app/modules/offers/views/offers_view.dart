@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../core/utils/local_storage.dart';
-import '../../../../elements/PermissionDeniedWidget.dart';
+import '../../../../elements/empty_results.dart';
+import '../../../../elements/no_other_results.dart';
 import '../../../../elements/drawer.dart';
-import '../../../../elements/offer_item.dart';
+import 'offer_item.dart';
 import '../../../../elements/topbar.dart';
 import '../../../data/models/offer.dart';
 import '../controllers/offers_controller.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import '../../../../core/utils/FirstPageErrorIndicator.dart';
+import '../../../core/utils/first_page_error_indicator.dart';
 
 class OffersView extends GetView<OffersController> {
   const OffersView({Key? key}) : super(key: key);
@@ -21,41 +21,29 @@ class OffersView extends GetView<OffersController> {
       body: Padding(
         padding:
             const EdgeInsets.only(left: 10, right: 10.0, top: 10, bottom: 15),
-        child: LocalStorage().getUser()?.token == null
-            ? const PermissionDeniedWidget()
-            : GetBuilder<OffersController>(
-                builder: (_c) => PagedListView<int, OfferData>.separated(
-                  scrollDirection: Axis.vertical,
-                  pagingController: controller.pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<OfferData>(
-                    itemBuilder: (context, item, index) => GestureDetector(
-                      child: OfferItem(
-                        offer: item,
-                      ),
-                    ),
-                    //  firstPageProgressIndicatorBuilder: (_)=> ShimmerHelper(type: Type.complex),
-                    //     noItemsFoundIndicatorBuilder: (_)=> EmptyOrdersWidget(),
-                    firstPageErrorIndicatorBuilder: (_) =>
-                        FirstPageErrorIndicator(
-                      error: controller.pagingController.error,
-                      onTryAgain: () => controller.pagingController.refresh(),
-                    ),
-                    noMoreItemsIndicatorBuilder: (_) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(80),
-                        child: ElevatedButton(
-                          onPressed: null,
-                          child: Text("no_other_offers".tr),
-                        ),
-                      ),
-                    ),
-                  ),
-                  separatorBuilder: (context, index) => const SizedBox(
-                    height: 20,
-                  ),
+        child: GetBuilder<OffersController>(
+          builder: (c) => PagedListView<int, OfferData>.separated(
+            scrollDirection: Axis.vertical,
+            pagingController: controller().pagingController,
+            builderDelegate: PagedChildBuilderDelegate<OfferData>(
+              itemBuilder: (context, item, index) => GestureDetector(
+                child: OfferItem(
+                  offer: item,
                 ),
               ),
+              //  firstPageProgressIndicatorBuilder: (_)=> ShimmerHelper(type: Type.complex),
+              noItemsFoundIndicatorBuilder: (_) => const EmptyResults(),
+              firstPageErrorIndicatorBuilder: (_) => FirstPageErrorIndicator(
+                error: controller().pagingController.error,
+                onTryAgain: () => controller().pagingController.refresh(),
+              ),
+              noMoreItemsIndicatorBuilder: (_) => const NoOtherResults(),
+            ),
+            separatorBuilder: (context, index) => const SizedBox(
+              height: 20,
+            ),
+          ),
+        ),
       ),
     );
   }

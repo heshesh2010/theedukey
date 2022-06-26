@@ -23,6 +23,9 @@ class RouteList {
 
 //sons
   static const String sons = '/sonsView';
+  static const String addSon = '/AddSonView';
+  static const String editSon = '/EditSonView';
+
 // offers
   static const String offers = '/offersView';
   // Search

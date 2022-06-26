@@ -35,7 +35,7 @@ class ForgetView extends GetView<AuthController> {
                                 style: Theme.of(context).textTheme.headline1),
                             const SizedBox(height: 8),
                             TextFormField(
-                              enabled: !controller.isProcessEnabled.value,
+                              enabled: !controller().isProcessEnabled.value,
                               controller: _emailTextController,
                               decoration: InputDecoration(
                                   labelText: "email".tr,
@@ -52,20 +52,20 @@ class ForgetView extends GetView<AuthController> {
                             ),
                             const SizedBox(height: 100),
                             RoundedLoadingButton(
-                              child: Text('submit'.tr,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold)),
-                              controller: controller.submitButtonController,
+                              controller: controller().submitButtonController,
                               duration: const Duration(seconds: 2),
                               color: Theme.of(context).primaryColor,
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  await controller.forget(
+                                  await controller().forget(
                                       User(email: _emailTextController.text));
                                 } else {
-                                  controller.submitButtonController.reset();
+                                  controller().submitButtonController.reset();
                                 }
                               },
+                              child: Text('submit'.tr,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
                             ),
                             const SizedBox(
                               height: 20,

@@ -5,6 +5,9 @@ import '../../../data/models/stage.dart';
 import '../../../data/repositories/home_repository.dart';
 
 class HomeController extends GetxController {
+  final HomeRepository repository;
+  HomeController({required this.repository});
+
   late Rx<Stage> selectedStage =
       Stage(name: "من فضلك اختر المرحلة التعليمية".tr).obs;
   @override
@@ -22,7 +25,7 @@ class HomeController extends GetxController {
       RoundedLoadingButtonController();
 
   Future<dynamic> getStages() async {
-    dynamic response = await getStagesApi();
+    dynamic response = await repository.getStagesApi();
     if (response is List<Stage>) {
       stagesList.addAll(response);
     } else {

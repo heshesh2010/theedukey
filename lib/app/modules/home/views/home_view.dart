@@ -8,7 +8,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import '../../../data/models/stage.dart';
 
 class HomeView extends GetView<HomeController> {
-  HomeView({Key? key}) : super(key: key);
+  const HomeView({Key? key}) : super(key: key);
 
 //  final HomeController controller = Get.put(HomeController());
 
@@ -59,7 +59,7 @@ class HomeView extends GetView<HomeController> {
                                       color: Colors.white,
                                     ),
                                     Text(
-                                      controller.selectedStage.value.name!,
+                                      controller().selectedStage.value.name!,
                                       style: Theme.of(context)
                                           .textTheme
                                           .subtitle1
@@ -70,13 +70,15 @@ class HomeView extends GetView<HomeController> {
                               ),
                             ),
                             onChanged: (dynamic value) {
-                              controller.setSelectedStage(value);
-                              controller.selectedStage.value = value;
+                              controller().setSelectedStage(value);
+                              controller().selectedStage.value = value;
                             },
                             //  value: controller.selectedStage.value!=null?controller.stagesList[0]:null,
-                            items: controller.stagesList
+                            items: controller()
+                                .stagesList
                                 .map((Stage selectedStage) {
                               return DropdownMenuItem(
+                                value: selectedStage,
                                 child: Padding(
                                   padding: const EdgeInsets.only(
                                       right: 50.0, left: 50),
@@ -95,7 +97,6 @@ class HomeView extends GetView<HomeController> {
                                     ],
                                   ),
                                 ),
-                                value: selectedStage,
                               );
                             }).toList(),
                           ),

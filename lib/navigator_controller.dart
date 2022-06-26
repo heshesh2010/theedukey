@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:theedukey/app/modules/home/views/home_view.dart';
 
 import 'app/modules/notifications/views/notifications_view.dart';
+import 'app/modules/orders/views/orders_view.dart';
 
 class NavigatorController extends GetxController {
   var tabIndex = 0.obs;
@@ -14,15 +15,14 @@ class NavigatorController extends GetxController {
   void onInit() {
     currentIndex = 0;
     children = [
+      const OrdersView(),
+      const HomeView(),
       const NotificationsView(),
-      HomeView(),
-      HomeView(),
     ].obs;
     super.onInit();
   }
 
   changePage(int index) {
     tabIndex(index);
-    print('Index: $tabIndex');
   }
 }

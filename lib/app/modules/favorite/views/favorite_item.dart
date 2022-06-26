@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 class FavoriteItem extends StatelessWidget {
   const FavoriteItem({Key? key, required this.favorite}) : super(key: key);
-  final Favorite favorite;
+  final FavoriteDataData favorite;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,15 +43,15 @@ class FavoriteItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.star,
                     color: Color.fromRGBO(255, 191, 14, 1),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
-                  Text('4.5'),
+                  Text(favorite.rate ?? "0"),
                 ],
               ),
               Text(
@@ -69,6 +69,13 @@ class FavoriteItem extends StatelessWidget {
                   ),
                   const SizedBox(
                     width: 10,
+                  ),
+                  Text(
+                    '${favorite.address}',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall
+                        ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

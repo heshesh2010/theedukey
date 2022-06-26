@@ -32,8 +32,8 @@ class ContactUsView extends GetView<ContactUsController> {
                           children: [
                             //ar_name
                             TextFormField(
-                              enabled: !controller.contactUsUpProcess.value,
-                              controller: controller.nameArTextController,
+                              enabled: !controller().contactUsUpProcess.value,
+                              controller: controller().nameArTextController,
                               decoration:
                                   InputDecoration(labelText: "name_ar".tr),
                               autovalidateMode:
@@ -49,8 +49,8 @@ class ContactUsView extends GetView<ContactUsController> {
 
                             //email
                             TextFormField(
-                              enabled: !controller.contactUsUpProcess.value,
-                              controller: controller.emailTextController,
+                              enabled: !controller().contactUsUpProcess.value,
+                              controller: controller().emailTextController,
                               decoration:
                                   InputDecoration(labelText: "email".tr),
                               autovalidateMode:
@@ -66,8 +66,8 @@ class ContactUsView extends GetView<ContactUsController> {
 
                             //title
                             TextFormField(
-                              enabled: !controller.contactUsUpProcess.value,
-                              controller: controller.titleTextController,
+                              enabled: !controller().contactUsUpProcess.value,
+                              controller: controller().titleTextController,
                               decoration:
                                   InputDecoration(labelText: "title".tr),
                               autovalidateMode:
@@ -85,8 +85,8 @@ class ContactUsView extends GetView<ContactUsController> {
                             TextFormField(
                               minLines: 3,
                               maxLines: 20,
-                              enabled: !controller.contactUsUpProcess.value,
-                              controller: controller.bodyTextController,
+                              enabled: !controller().contactUsUpProcess.value,
+                              controller: controller().bodyTextController,
                               decoration: InputDecoration(labelText: "body".tr),
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
@@ -103,20 +103,20 @@ class ContactUsView extends GetView<ContactUsController> {
                             ),
 
                             RoundedLoadingButton(
-                              child: Text('submit'.tr,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold)),
-                              controller: controller.btnSubmitController,
+                              controller: controller().btnSubmitController,
                               color: Theme.of(context).primaryColor,
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  await controller.contactUs();
+                                  await controller().contactUs();
                                 } else {
                                   Helper().showErrorToast(
                                       "please_review_all_fields".tr);
-                                  controller.btnSubmitController.reset();
+                                  controller().btnSubmitController.reset();
                                 }
                               },
+                              child: Text('submit'.tr,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ]));
                 })),

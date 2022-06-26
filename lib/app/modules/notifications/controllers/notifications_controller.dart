@@ -1,16 +1,18 @@
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
+import '../../../../constants/general.dart';
 import '../../../../helper.dart';
 import '../../../data/models/notification.dart';
 import '../../../data/repositories/notification_repository.dart';
 
 class NotificationController extends GetxController {
-  var notificationsList = <Notification>[].obs;
-  final PagingController<int, Notification> pagingController =
+  final NotificationRepository repository;
+  NotificationController({required this.repository});
+
+  final PagingController<int, NotificationData> pagingController =
       PagingController(firstPageKey: 0);
-  static const _pageNotificationSize = 15;
-  List<Notification> newNotificationItems = [Notification()];
+  List<NotificationData> newNotificationItems = [NotificationData()];
 
   @override
   void onInit() {
@@ -21,15 +23,10 @@ class NotificationController extends GetxController {
   }
 
   Future<void> _fetchNotificationPage(pageKey) async {
-    if (pageKey == 0) {
-      newNotificationItems = await getNotifications();
-    } else {
-      newNotificationItems = await getNotifications(nextUrl: nextUrl);
-    }
+    newNotificationItems = await getNotifications();
 
     try {
-      final isLastPage = newNotificationItems.length < _pageNotificationSize ||
-          nextUrl == null;
+      final isLastPage = newNotificationItems.length < apiPageSize;
       if (isLastPage) {
         pagingController.appendLastPage(newNotificationItems);
       } else {
@@ -42,10 +39,9 @@ class NotificationController extends GetxController {
   }
 
   Future<dynamic> getNotifications({nextUrl}) async {
-    dynamic response = await getNotificationsApi(nextUrl: nextUrl);
-    if (response is List<Notification>) {
-      notificationsList.addAll(response);
-      return notificationsList;
+    dynamic response = await repository.getNotificationsApi();
+    if (response is List<NotificationData>) {
+      return (response);
     } else {
       Helper().showErrorToast("حدث خطأ بالاتصال حاول لاحقاً");
     }

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theedukey/app/modules/auth/views/auth_view.dart';
-import 'package:theedukey/app/modules/contact_us/views/contact_us_view.dart';
 import '../app/modules/auth/controllers/auth_controller.dart';
-import '../app/modules/language/views/language_view.dart';
 import '../app/modules/home/bindings/home_binding.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../core/utils/local_storage.dart';
+import '../app/core/utils/local_storage.dart';
 import '../app/routes/route_list.dart';
 import '../navigator_controller.dart';
 import 'bottom_navigation_bar.dart';
@@ -32,9 +29,12 @@ class DrawerSideMenu extends GetView<AuthController> {
                         Container(
                           height: 80.0,
                           width: 100.0,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.green),
                           child: CachedNetworkImage(
                             maxHeightDiskCache: 10,
-                            imageUrl: controller.currentUser.value?.image ?? "",
+                            imageUrl:
+                                controller().currentUser.value?.image ?? "",
                             placeholder: (context, url) =>
                                 const CircularProgressIndicator(),
                             errorWidget: (context, url, error) =>
@@ -42,13 +42,11 @@ class DrawerSideMenu extends GetView<AuthController> {
                             fadeOutDuration: const Duration(seconds: 1),
                             fadeInDuration: const Duration(seconds: 3),
                           ),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.green),
                         ),
                         Column(
                           children: [
                             Text(
-                              controller.currentUser.value?.name ?? "",
+                              controller().currentUser.value?.name ?? "",
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
@@ -56,7 +54,7 @@ class DrawerSideMenu extends GetView<AuthController> {
                                   ?.copyWith(color: Colors.white),
                             ),
                             Text(
-                              controller.currentUser.value?.nameEn ?? " ",
+                              controller().currentUser.value?.nameEn ?? " ",
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
@@ -165,10 +163,10 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.home) {
+                      if (Get.currentRoute == RouteList.orders) {
                         Get.back();
                       } else {
-                        Get.toNamed(RouteList.home);
+                        Get.toNamed(RouteList.orders);
                       }
                     },
                   ),
@@ -246,7 +244,6 @@ class DrawerSideMenu extends GetView<AuthController> {
                       if (Get.currentRoute == RouteList.contactUs) {
                         Get.back();
                       } else {
-                        //  Get.to(() => ContactUsView());
                         Get.toNamed(RouteList.contactUs);
                       }
                     },
@@ -263,7 +260,7 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      controller.logout();
+                      controller().logout();
                       Get.back();
                     },
                   ),
@@ -283,21 +280,9 @@ class DrawerSideMenu extends GetView<AuthController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                          height: 80.0,
-                          width: 100.0,
-                          child: CachedNetworkImage(
-                            maxHeightDiskCache: 10,
-                            imageUrl: controller.currentUser.value?.image ?? "",
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                            fadeOutDuration: const Duration(seconds: 1),
-                            fadeInDuration: const Duration(seconds: 3),
-                          ),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.green),
+                        const SizedBox(
+                          width: 80,
+                          height: 100,
                         ),
                         Text(
                           "guest".tr,
@@ -396,7 +381,7 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      Get.to(() => AuthView());
+                      Get.toNamed(RouteList.login);
                     },
                   ),
                 ],

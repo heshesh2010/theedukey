@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:theedukey/app/modules/home/views/home_view.dart';
-import '../../../../core/utils/local_storage.dart';
-import '../../../../core/values/constants/general.dart';
+import '../../../core/utils/local_storage.dart';
+import '../../../core/values/constants/general.dart';
 import '../../../../helper.dart';
 import '../../../data/models/city.dart';
 import '../../../data/models/user.dart';
@@ -10,6 +10,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class AuthController extends GetxController {
+  final AuthRepository repository;
+  AuthController({required this.repository});
+
   late Rx<City> selectedCity = City(name: "اختر المدينة".tr).obs;
 
   late Rx<User?> currentUser = User().obs;
@@ -40,18 +43,21 @@ class AuthController extends GetxController {
     try {
       isProcessEnabled = true.obs;
 // showLoadingDialog();
-      dynamic response = await loginApi(user);
+      dynamic response = await repository.loginApi(user);
       if (response is User) {
         LocalStorage().saveUser(response);
         submitButtonController.success();
         currentUser = LocalStorage().getUser().obs;
-        Get.to(() => HomeView());
+        Get.to(() => const HomeView());
         isProcessEnabled = false.obs;
 
         //  Get.back();
       } else {
         isProcessEnabled = false.obs;
         submitButtonController.error();
+        Future.delayed(const Duration(seconds: 3), () {
+          submitButtonController.reset();
+        });
         if (response is String) {
           Helper().showErrorToast(response);
         } else {
@@ -70,7 +76,7 @@ class AuthController extends GetxController {
   Future<dynamic> forget(User user) async {
     isProcessEnabled = true.obs;
 // showLoadingDialog();
-    dynamic response = await forgetApi(user);
+    dynamic response = await repository.forgetApi(user);
     if (response is User) {
       submitButtonController.success();
       //  Get.back();
@@ -86,7 +92,7 @@ class AuthController extends GetxController {
 
   Future<dynamic> updateProfile(User user) async {
     isProcessEnabled = true.obs;
-    dynamic response = await updateProfileApi(user);
+    dynamic response = await repository.updateProfileApi(user);
     if (response is User) {
       submitButtonController.success();
     } else {
@@ -103,7 +109,7 @@ class AuthController extends GetxController {
 
   Future<dynamic> signUp(User user) async {
     isProcessEnabled = true.obs;
-    dynamic response = await signUpApi(user);
+    dynamic response = await repository.signUpApi(user);
     if (response is User) {
       submitButtonController.success();
     } else {
@@ -119,7 +125,7 @@ class AuthController extends GetxController {
   }
 
   Future<dynamic> getCities() async {
-    dynamic response = await getCitiesApi();
+    dynamic response = await repository.getCitiesApi();
     if (response is List<City>) {
       citiesList.addAll(response);
     } else {

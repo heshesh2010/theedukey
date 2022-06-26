@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../../core/utils/local_storage.dart';
+import '../../../core/utils/local_storage.dart';
 import '../../../../elements/drawer.dart';
 import '../../../../elements/topbar.dart';
 import '../../../data/models/language.dart';
@@ -37,23 +37,23 @@ class LanguageView extends GetView<LanguageController> {
                 );
               },
               itemBuilder: (context, index) {
-                Language _language = languagesList.languages.elementAt(index);
+                Language language = languagesList.languages.elementAt(index);
 
-                if (LocalStorage().getlanguageSelected() == _language.code) {
-                  _language.selected = true;
+                if (LocalStorage().getlanguageSelected() == language.code) {
+                  language.selected = true;
                 }
 
                 return InkWell(
                   onTap: () async {
-                    if (_language.code == "ar") {
-                      controller.changeLanguage("ar");
+                    if (language.code == "ar") {
+                      controller().changeLanguage("ar");
                     } else {
-                      controller.changeLanguage("en");
+                      controller().changeLanguage("en");
                     }
-                    for (var _l in languagesList.languages) {
-                      _l.selected = false;
+                    for (var l in languagesList.languages) {
+                      l.selected = false;
                     }
-                    _language.selected = !_language.selected;
+                    language.selected = !language.selected;
                   },
                   child: Container(
                     padding:
@@ -62,22 +62,22 @@ class LanguageView extends GetView<LanguageController> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          height: _language.selected ? 30 : 30,
-                          width: _language.selected ? 30 : 30,
+                          height: language.selected ? 30 : 30,
+                          width: language.selected ? 30 : 30,
                           decoration: BoxDecoration(
                             border:
                                 Border.all(color: Theme.of(context).focusColor),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(40)),
                             color: Colors.white
-                                .withOpacity(_language.selected ? 0.85 : 0.85),
+                                .withOpacity(language.selected ? 0.85 : 0.85),
                           ),
                           child: Icon(
                             Icons.circle,
-                            size: _language.selected ? 20 : 20,
+                            size: language.selected ? 20 : 20,
                             color: Theme.of(context)
                                 .focusColor
-                                .withOpacity(_language.selected ? 0.85 : 0),
+                                .withOpacity(language.selected ? 0.85 : 0),
                           ),
                         ),
                         const SizedBox(width: 15),
@@ -86,13 +86,13 @@ class LanguageView extends GetView<LanguageController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                _language.englishName,
+                                language.englishName,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: Theme.of(context).textTheme.subtitle1,
                               ),
                               Text(
-                                _language.localName,
+                                language.localName,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: Theme.of(context).textTheme.caption,
@@ -107,7 +107,7 @@ class LanguageView extends GetView<LanguageController> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(40)),
                             image: DecorationImage(
-                                image: AssetImage(_language.flag),
+                                image: AssetImage(language.flag),
                                 fit: BoxFit.cover),
                           ),
                         ),

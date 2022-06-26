@@ -1,5 +1,43 @@
 class Offer {
+  bool? success;
+  Data? data;
+
   Offer({
+    this.success,
+    this.data,
+  });
+
+  Offer.fromJson(Map<String, dynamic> json) {
+    success = json['success'] as bool?;
+    data = (json['data'] as Map<String, dynamic>?) != null
+        ? Data.fromJson(json['data'] as Map<String, dynamic>)
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> json = <String, dynamic>{};
+    json['success'] = success;
+    json['data'] = data?.toJson();
+    return json;
+  }
+}
+
+class Data {
+  int? currentPage;
+  List<OfferData>? data;
+  String? firstPageUrl;
+  int? from;
+  int? lastPage;
+  String? lastPageUrl;
+  List<Links>? links;
+  dynamic nextPageUrl;
+  String? path;
+  int? perPage;
+  dynamic prevPageUrl;
+  int? to;
+  int? total;
+
+  Data({
     this.currentPage,
     this.data,
     this.firstPageUrl,
@@ -15,56 +53,58 @@ class Offer {
     this.total,
   });
 
-  late final int? currentPage;
-  late final List<OfferData>? data;
-  late final String? firstPageUrl;
-  late final int? from;
-  late final int? lastPage;
-  late final String? lastPageUrl;
-  late final List<Links>? links;
-  late final String? nextPageUrl;
-  late final String? path;
-  late final int? perPage;
-  late final String? prevPageUrl;
-  late final int? to;
-  late final int? total;
-
-  Offer.fromJson(Map<String, dynamic> json) {
-    currentPage = json['current_page'];
-    data = List.from(json['data']).map((e) => OfferData.fromJson(e)).toList();
-    firstPageUrl = json['first_page_url'];
-    from = json['from'];
-    lastPage = json['last_page'];
-    lastPageUrl = json['last_page_url'];
-    links = List.from(json['links']).map((e) => Links.fromJson(e)).toList();
+  Data.fromJson(Map<String, dynamic> json) {
+    currentPage = json['current_page'] as int?;
+    data = (json['data'] as List?)
+        ?.map((dynamic e) => OfferData.fromJson(e as Map<String, dynamic>))
+        .toList();
+    firstPageUrl = json['first_page_url'] as String?;
+    from = json['from'] as int?;
+    lastPage = json['last_page'] as int?;
+    lastPageUrl = json['last_page_url'] as String?;
+    links = (json['links'] as List?)
+        ?.map((dynamic e) => Links.fromJson(e as Map<String, dynamic>))
+        .toList();
     nextPageUrl = json['next_page_url'];
-    path = json['path'];
-    perPage = json['per_page'];
+    path = json['path'] as String?;
+    perPage = json['per_page'] as int?;
     prevPageUrl = json['prev_page_url'];
-    to = json['to'];
-    total = json['total'];
+    to = json['to'] as int?;
+    total = json['total'] as int?;
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['current_page'] = currentPage;
-    _data['data'] = data?.map((e) => e.toJson()).toList();
-    _data['first_page_url'] = firstPageUrl;
-    _data['from'] = from;
-    _data['last_page'] = lastPage;
-    _data['last_page_url'] = lastPageUrl;
-    _data['links'] = links?.map((e) => e.toJson()).toList();
-    _data['next_page_url'] = nextPageUrl;
-    _data['path'] = path;
-    _data['per_page'] = perPage;
-    _data['prev_page_url'] = prevPageUrl;
-    _data['to'] = to;
-    _data['total'] = total;
-    return _data;
+    final Map<String, dynamic> json = <String, dynamic>{};
+    json['current_page'] = currentPage;
+    json['data'] = data?.map((e) => e.toJson()).toList();
+    json['first_page_url'] = firstPageUrl;
+    json['from'] = from;
+    json['last_page'] = lastPage;
+    json['last_page_url'] = lastPageUrl;
+    json['links'] = links?.map((e) => e.toJson()).toList();
+    json['next_page_url'] = nextPageUrl;
+    json['path'] = path;
+    json['per_page'] = perPage;
+    json['prev_page_url'] = prevPageUrl;
+    json['to'] = to;
+    json['total'] = total;
+    return json;
   }
 }
 
 class OfferData {
+  int? id;
+  String? title;
+  String? image;
+  String? text;
+  String? price;
+  String? priceAfterDiscount;
+  String? startDate;
+  String? endDate;
+  int? subscribersAllowedNumber;
+  String? createdAt;
+  String? updatedAt;
+
   OfferData({
     this.id,
     this.title,
@@ -78,70 +118,60 @@ class OfferData {
     this.createdAt,
     this.updatedAt,
   });
-  late final int? id;
-  late final String? title;
-  late final String? image;
-  late final String? text;
-  late final String? price;
-  late final String? priceAfterDiscount;
-  late final String? startDate;
-  late final String? endDate;
-  late final int? subscribersAllowedNumber;
-  late final String? createdAt;
-  late final String? updatedAt;
 
   OfferData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    image = json['image'];
-    text = json['text'];
-    price = json['price'];
-    priceAfterDiscount = json['price_after_discount'];
-    startDate = json['start_date'];
-    endDate = json['end_date'];
-    subscribersAllowedNumber = json['subscribers_allowed_number'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    id = json['id'] as int?;
+    title = json['title'] as String?;
+    image = json['image'] as String?;
+    text = json['text'] as String?;
+    price = json['price'] as String?;
+    priceAfterDiscount = json['price_after_discount'] as String?;
+    startDate = json['start_date'] as String?;
+    endDate = json['end_date'] as String?;
+    subscribersAllowedNumber = json['subscribers_allowed_number'] as int?;
+    createdAt = json['created_at'] as String?;
+    updatedAt = json['updated_at'] as String?;
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['title'] = title;
-    _data['image'] = image;
-    _data['text'] = text;
-    _data['price'] = price;
-    _data['price_after_discount'] = priceAfterDiscount;
-    _data['start_date'] = startDate;
-    _data['end_date'] = endDate;
-    _data['subscribers_allowed_number'] = subscribersAllowedNumber;
-    _data['created_at'] = createdAt;
-    _data['updated_at'] = updatedAt;
-    return _data;
+    final Map<String, dynamic> json = <String, dynamic>{};
+    json['id'] = id;
+    json['title'] = title;
+    json['image'] = image;
+    json['text'] = text;
+    json['price'] = price;
+    json['price_after_discount'] = priceAfterDiscount;
+    json['start_date'] = startDate;
+    json['end_date'] = endDate;
+    json['subscribers_allowed_number'] = subscribersAllowedNumber;
+    json['created_at'] = createdAt;
+    json['updated_at'] = updatedAt;
+    return json;
   }
 }
 
 class Links {
+  dynamic url;
+  String? label;
+  bool? active;
+
   Links({
     this.url,
-    required this.label,
-    required this.active,
+    this.label,
+    this.active,
   });
-  late final String? url;
-  late final String label;
-  late final bool active;
 
   Links.fromJson(Map<String, dynamic> json) {
-    url = null;
-    label = json['label'];
-    active = json['active'];
+    url = json['url'];
+    label = json['label'] as String?;
+    active = json['active'] as bool?;
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['url'] = url;
-    _data['label'] = label;
-    _data['active'] = active;
-    return _data;
+    final Map<String, dynamic> json = <String, dynamic>{};
+    json['url'] = url;
+    json['label'] = label;
+    json['active'] = active;
+    return json;
   }
 }

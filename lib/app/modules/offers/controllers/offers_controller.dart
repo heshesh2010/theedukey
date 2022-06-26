@@ -1,15 +1,18 @@
 import 'package:get/get.dart';
 
+import '../../../../constants/general.dart';
 import '../../../../helper.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../../data/models/offer.dart';
 import '../../../data/repositories/offers_repository.dart';
 
 class OffersController extends GetxController {
+  final OffersRepository repository;
+  OffersController({required this.repository});
+
   var offersList = <OfferData>[].obs;
   final PagingController<int, OfferData> pagingController =
       PagingController(firstPageKey: 0);
-  static const _pageOffersSize = 15;
   List<OfferData> newOffersItems = [OfferData()];
 
   @override
@@ -25,11 +28,11 @@ class OffersController extends GetxController {
       if (pageKey == 0) {
         newOffersItems = await getOffers();
       } else {
-        newOffersItems = await getOffers(nextUrl: nextUrl);
+        newOffersItems = await getOffers(nextUrl: repository.nextUrl);
       }
 
       final isLastPage =
-          newOffersItems.length < _pageOffersSize || nextUrl == null;
+          newOffersItems.length < apiPageSize || repository.nextUrl == null;
       if (isLastPage) {
         pagingController.appendLastPage(newOffersItems);
       } else {
@@ -42,7 +45,8 @@ class OffersController extends GetxController {
   }
 
   Future<dynamic> getOffers({nextUrl}) async {
-    dynamic response = await getOffersApi(nextUrl: nextUrl);
+    dynamic response =
+        await repository.getOffersApi(nextUrl: repository.nextUrl);
     if (response is List<OfferData>) {
       offersList.addAll(response);
       return offersList;

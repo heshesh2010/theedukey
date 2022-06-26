@@ -1,16 +1,19 @@
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
+import '../../../../constants/general.dart';
 import '../../../../helper.dart';
 import '../../../data/models/favorite.dart';
 import '../../../data/repositories/favorite_repository.dart';
 
 class FavoriteController extends GetxController {
-  var favoritesList = <Favorite>[].obs;
-  final PagingController<int, Favorite> pagingController =
+  final FavoriteRepository repository;
+  FavoriteController({required this.repository});
+
+  var favoritesList = <FavoriteDataData>[].obs;
+  final PagingController<int, FavoriteDataData> pagingController =
       PagingController(firstPageKey: 0);
-  static const _pageFavoriteSize = 15;
-  List<Favorite> newFavoritItems = [Favorite()];
+  List<FavoriteDataData> newFavoritItems = [FavoriteDataData()];
 
   @override
   void onInit() {
@@ -22,14 +25,9 @@ class FavoriteController extends GetxController {
 
   Future<void> _fetchFavoritePage(pageKey) async {
     try {
-      if (pageKey == 0) {
-        newFavoritItems = await getFavorites();
-      } else {
-        newFavoritItems = await getFavorites(nextUrl: nextUrl);
-      }
+      newFavoritItems = await getFavorites();
 
-      final isLastPage =
-          newFavoritItems.length < _pageFavoriteSize || nextUrl == null;
+      final isLastPage = newFavoritItems.length < apiPageSize;
       if (isLastPage) {
         pagingController.appendLastPage(newFavoritItems);
       } else {
@@ -41,11 +39,10 @@ class FavoriteController extends GetxController {
     }
   }
 
-  Future<dynamic> getFavorites({nextUrl}) async {
-    dynamic response = await getFavoritesApi(nextUrl: nextUrl);
-    if (response is List<Favorite>) {
-      favoritesList.addAll(response);
-      return favoritesList;
+  Future<dynamic> getFavorites() async {
+    dynamic response = await repository.getFavoritesApi();
+    if (response is List<FavoriteDataData>) {
+      return response;
     } else {
       Helper().showErrorToast("حدث خطأ بالاتصال حاول لاحقاً");
     }

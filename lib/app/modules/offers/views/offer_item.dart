@@ -33,7 +33,9 @@ class OfferItem extends StatelessWidget {
               imageUrl: offer.image ?? " ",
               fit: BoxFit.fitHeight,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  CircularProgressIndicator(value: downloadProgress.progress),
+                  Center(
+                      child: CircularProgressIndicator(
+                          value: downloadProgress.progress)),
               errorWidget: (context, url, error) =>
                   const Center(child: Icon(Icons.error)),
             ),
@@ -60,7 +62,7 @@ class OfferItem extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text("from".tr + ": " + "${offer.startDate}"),
+                        Text("${"from".tr}: ${offer.startDate}"),
                       ],
                     ),
                     const SizedBox(
@@ -75,7 +77,7 @@ class OfferItem extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text("to".tr + ": " + "${offer.endDate}"),
+                        Text("${"to".tr}: ${offer.endDate}"),
                       ],
                     ),
                   ],
@@ -83,7 +85,7 @@ class OfferItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "before_discount".tr + ": " + "${offer.price}",
+                      "${"before_discount".tr}: ${offer.price}",
                       style: const TextStyle(
                         color: Colors.grey,
                         decorationColor: Colors.grey,
@@ -95,9 +97,7 @@ class OfferItem extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      "after_discount".tr +
-                          ": " +
-                          "${offer.priceAfterDiscount}",
+                      "${"after_discount".tr}: ${offer.priceAfterDiscount}",
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ],

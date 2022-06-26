@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "509465135160",
+    "project_id": "nearest-doctor-a736f",
+    "storage_bucket": "nearest-doctor-a736f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509465135160:android:e6a0f817ee2b3c9d4fbecd",
+        "android_client_info": {
+          "package_name": "com.nearest.doctors"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "509465135160-aq7ijee3v8qb0soprq3knqmelb4sprna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLZkeJiFK3DnuxlZFckI7aYQNNtu0J-I0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "509465135160-aq7ijee3v8qb0soprq3knqmelb4sprna.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "509465135160-8vf2j80v5b37n4jqgg1vm7epg1fth5p1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nearest.doctors"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

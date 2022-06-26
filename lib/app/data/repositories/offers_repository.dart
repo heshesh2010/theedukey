@@ -1,18 +1,30 @@
+import '../../core/utils/local_storage.dart';
 import '../models/offer.dart';
-import 'api_helper.dart';
-import 'package:dio/dio.dart' as Dio;
+import '../provider/api_helper.dart';
+import 'package:dio/dio.dart' as dio;
 
-var nextUrl;
-var loadCompleted = false;
-Future<dynamic> getOffersApi({nextUrl}) async {
-  Dio.Response? response = await ApiHelper().getAsync(nextUrl ?? 'offers');
-  if (response?.statusCode == 200) {
-    Offer _offer = Offer.fromJson(response?.data);
-    if (_offer.nextPageUrl != null) {
-      nextUrl = _offer.nextPageUrl;
+class OffersRepository {
+  final ApiClient apiClient;
+
+  OffersRepository({required this.apiClient});
+  String? nextUrl;
+  var loadCompleted = false;
+  Future<dynamic> getOffersApi({nextUrl}) async {
+    dio.Response? response = await apiClient.getAsync(nextUrl ??
+        'offers?lang=${LocalStorage().getlanguageSelected() ?? "ar"}');
+    if (response?.statusCode == 200) {
+      Offer offer = Offer.fromJson(response?.data);
+      if (offer.data?.nextPageUrl != null) {
+        nextUrl = offer.data?.nextPageUrl +
+            "&lang=${LocalStorage().getlanguageSelected() ?? "ar"}";
+      }
+      if (offer.data?.data != null) {
+        return offer.data?.data;
+      } else {
+        return [];
+      }
+    } else {
+      return response;
     }
-    return _offer.data;
-  } else {
-    return response;
   }
 }

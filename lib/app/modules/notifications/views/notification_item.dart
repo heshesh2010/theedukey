@@ -4,7 +4,7 @@ import 'package:theedukey/app/data/models/notification.dart' as model;
 class NotificationItem extends StatelessWidget {
   const NotificationItem({Key? key, required this.notification})
       : super(key: key);
-  final model.Notification notification;
+  final model.NotificationData notification;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +50,8 @@ class NotificationItem extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                Text('${notification.createdAt}'),
+                Text('${notification.createdAt}',
+                    style: Theme.of(context).textTheme.caption),
               ],
             )
           ],
