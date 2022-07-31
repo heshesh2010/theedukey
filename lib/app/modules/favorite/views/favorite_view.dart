@@ -12,49 +12,58 @@ import '../../../../elements/topbar.dart';
 import '../../../data/models/favorite.dart';
 import '../controllers/favorite_controller.dart';
 
-class FavoriteView extends GetView<FavoriteController> {
+class FavoriteView extends GetWidget<FavoriteController> {
   const FavoriteView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getTopBar(context, title: 'favorite'.tr),
-      drawer: const DrawerSideMenu(),
+      drawer: DrawerSideMenu(),
       body: Padding(
-        padding:
-            const EdgeInsets.only(left: 10, right: 10.0, top: 10, bottom: 15),
-        child: LocalStorage().getUser()?.token == null
-            ? const PermissionDeniedWidget()
-            : GetBuilder<FavoriteController>(
-                builder: (c) => PagedListView<int, FavoriteDataData>.separated(
-                  scrollDirection: Axis.vertical,
-                  pagingController: controller().pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<FavoriteDataData>(
-                    itemBuilder: (context, item, index) => GestureDetector(
-                      child: FavoriteItem(
-                        favorite: item,
+          padding:
+              const EdgeInsets.only(left: 20, right: 20.0, top: 10, bottom: 15),
+          child: LocalStorage().getUser()?.token == null
+              ? const PermissionDeniedWidget()
+              : GetBuilder<FavoriteController>(
+                  builder: (c) => RefreshIndicator(
+                    onRefresh: () => Future.sync(
+                      () => controller.pagingController.refresh(),
+                    ),
+                    child: PagedListView<int, FavoriteDataData>.separated(
+                      scrollDirection: Axis.vertical,
+                      pagingController: controller.pagingController,
+                      builderDelegate:
+                          PagedChildBuilderDelegate<FavoriteDataData>(
+                        itemBuilder: (context, item, index) => GestureDetector(
+                          child: FavoriteItem(
+                            favorite: item,
+                          ),
+                        ),
+                        //  firstPageProgressIndicatorBuilder: (_)=> ShimmerHelper(type: Type.complex),
+                        noItemsFoundIndicatorBuilder: (_) =>
+                            const EmptyResults(),
+                        firstPageErrorIndicatorBuilder: (_) =>
+                            FirstPageErrorIndicator(
+                          error: controller.pagingController.error,
+                          onTryAgain: () =>
+                              controller.pagingController.refresh(),
+                        ),
+                        newPageErrorIndicatorBuilder: (_) =>
+                            FirstPageErrorIndicator(
+                          error: controller.pagingController.error,
+                          onTryAgain: () =>
+                              controller.pagingController.refresh(),
+                        ),
+                        noMoreItemsIndicatorBuilder: (_) =>
+                            const NoOtherResults(),
+                      ),
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 20,
                       ),
                     ),
-                    //  firstPageProgressIndicatorBuilder: (_)=> ShimmerHelper(type: Type.complex),
-                    noItemsFoundIndicatorBuilder: (_) => const EmptyResults(),
-                    firstPageErrorIndicatorBuilder: (_) =>
-                        FirstPageErrorIndicator(
-                      error: controller().pagingController.error,
-                      onTryAgain: () => controller().pagingController.refresh(),
-                    ),
-                    newPageErrorIndicatorBuilder: (_) =>
-                        FirstPageErrorIndicator(
-                      error: controller().pagingController.error,
-                      onTryAgain: () => controller().pagingController.refresh(),
-                    ),
-                    noMoreItemsIndicatorBuilder: (_) => const NoOtherResults(),
                   ),
-                  separatorBuilder: (context, index) => const SizedBox(
-                    height: 20,
-                  ),
-                ),
-              ),
-      ),
+                )),
     );
   }
 }

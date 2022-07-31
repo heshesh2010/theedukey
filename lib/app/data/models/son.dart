@@ -108,6 +108,37 @@ class SonDataData {
       "image": await MultipartFile.fromFile(image!),
     });
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is SonDataData &&
+        other.id == id &&
+        other.studentId == studentId &&
+        other.name == name &&
+        other.gender == gender &&
+        other.idNumber == idNumber &&
+        other.birthDate == birthDate &&
+        other.image == image &&
+        other.idImage == idImage &&
+        other.certificateImage == certificateImage &&
+        other.nameEn == nameEn;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        studentId.hashCode ^
+        name.hashCode ^
+        gender.hashCode ^
+        idNumber.hashCode ^
+        birthDate.hashCode ^
+        image.hashCode ^
+        idImage.hashCode ^
+        certificateImage.hashCode ^
+        nameEn.hashCode;
+  }
 }
 
 class SonData {

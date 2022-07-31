@@ -14,13 +14,13 @@ import '../../../data/models/order.dart';
 import '../controllers/orders_controller.dart';
 import 'order_item.dart';
 
-class OrdersView extends GetView<OrdersController> {
+class OrdersView extends GetWidget<OrdersController> {
   const OrdersView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getTopBar(context, title: "my_orders".tr),
-      drawer: const DrawerSideMenu(),
+      drawer: DrawerSideMenu(),
       body: Padding(
         padding:
             const EdgeInsets.only(left: 10, right: 10.0, top: 10, bottom: 15),
@@ -29,7 +29,7 @@ class OrdersView extends GetView<OrdersController> {
             : GetBuilder<OrdersController>(
                 builder: (c) => PagedListView<int, OrderDataData>.separated(
                   scrollDirection: Axis.vertical,
-                  pagingController: controller().pagingController,
+                  pagingController: controller.pagingController,
                   builderDelegate: PagedChildBuilderDelegate<OrderDataData>(
                     itemBuilder: (context, item, index) => GestureDetector(
                       child: OrderItem(
@@ -40,8 +40,8 @@ class OrdersView extends GetView<OrdersController> {
                     noItemsFoundIndicatorBuilder: (_) => const EmptyResults(),
                     firstPageErrorIndicatorBuilder: (_) =>
                         FirstPageErrorIndicator(
-                      error: controller().pagingController.error,
-                      onTryAgain: () => controller().pagingController.refresh(),
+                      error: controller.pagingController.error,
+                      onTryAgain: () => controller.pagingController.refresh(),
                     ),
                     noMoreItemsIndicatorBuilder: (_) => const NoOtherResults(),
                   ),

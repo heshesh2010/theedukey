@@ -20,21 +20,22 @@ class SonsController extends GetxController {
   final RoundedLoadingButtonController submitButtonController =
       RoundedLoadingButtonController();
 
-  final List<String> gender = ["male".tr, "female".tr];
+  List<String> gender = ["male".tr, "female".tr];
 
   String? selectedGender = "male".tr;
   String? selectedImage;
   String? selectedIdImage;
   String? selectedPersonalImage;
   String? selectedCertificateImage;
-  String? selectedGenderApi = "male";
-
   String? selectedFamilyIdImage;
+
+  String? selectedGenderApi = "male";
 
   @override
   void onInit() {
     pagingController.addPageRequestListener((pageKey) {
       newSonsItems.clear();
+      sonsList.clear();
       _fetchSonsPage(pageKey);
     });
     super.onInit();
@@ -87,7 +88,7 @@ class SonsController extends GetxController {
   }
 
   void onSelectGender(value) {
-    if (value.contains("male".tr)) {
+    if (value == ("male".tr)) {
       selectedGender = "male".tr;
       selectedGenderApi = "male";
     } else {
@@ -103,6 +104,7 @@ class SonsController extends GetxController {
     if (response is SonDataData) {
       submitButtonController.success();
       Helper().showSuccessToast("add_son_success".tr);
+      sonsList.clear();
 
       Future.delayed(const Duration(seconds: 3), () {
         Get.back();
@@ -125,7 +127,7 @@ class SonsController extends GetxController {
   void deleteSon([SonDataData? sonDataData]) async {
     dynamic response = await repository.deleteSonApi(sonDataData);
     if (response) {
-      sonsList.remove(sonDataData);
+      sonsList.clear();
       submitButtonController.success();
       Helper().showSuccessToast("delete_son_success".tr);
 
@@ -172,6 +174,7 @@ class SonsController extends GetxController {
   }
 
   void clearAllVars() {
+    gender = ["male".tr, "female".tr];
     selectedImage = null;
     selectedGender = "male".tr;
     selectedIdImage = null;

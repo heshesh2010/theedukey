@@ -12,6 +12,7 @@ const Map<String, String> en = {
   'name_ar': 'Arabic full name',
   'name_en': 'English full name',
   'mobile': 'Mobile',
+  'phone': 'Phone',
   'city': 'City',
   'choose_city': 'Choose city',
   'password_confirm': 'Password confirmation',
@@ -19,6 +20,7 @@ const Map<String, String> en = {
   'Name is not valid': 'Name is not valid',
   'Email is not valid': 'Email is not valid',
   'Mobile is not valid': 'Mobile is not valid',
+  'Phone is not valid': 'Phone is not valid',
   'Password is require': 'Password must be more than 8 chars',
   'terms approve': 'Terms approve',
   "don't_have_an_account": 'Don\'t have an account ? ',
@@ -33,6 +35,10 @@ const Map<String, String> en = {
 
   // home screen
   'search_about': 'Search about',
+  'Please_select_the_educational_stage': 'Please select the educational stage',
+  'school_name': 'School name',
+  'search': 'Search',
+  'about_us': 'About us',
 
   // contactUs screen
   'title': 'Title',
@@ -52,6 +58,10 @@ const Map<String, String> en = {
   'logout': 'Logout',
   "guest": "Guest",
 
+// favorite
+
+  'delete_favorite_success': 'Delete favorite success',
+
 // son
   'id_number': 'ID number',
   'birth_date': 'Birth date',
@@ -59,16 +69,23 @@ const Map<String, String> en = {
   'manage_son_description':
       'Through the children management, you can add your children to participate in the services that give the platform',
   'certificate_image': 'Last academic certificate',
+  'edit_certificate_image': 'Edit certificate image',
+  'certificate_image is not valid': 'Certificate image is not valid',
+
   'id_image': 'ID image',
+  'edit_id_image': 'Edit id image',
+  'id_image is not valid': 'Id image is not valid',
+  'family_id_image': 'Family id image',
+  'edit_family_id_image': 'Edit family id image',
+
   'add_son': 'Add son',
-  'male': 'Male',
-  'female': "Female",
+  'male': 'male',
+  'female': "female",
   'gender': 'Gender',
   'son_id': 'Son id',
   'personal_image': 'personal image',
+  'edit_personal_image': 'Edit personal image',
   'birth_date is not valid': 'birth date is not valid',
-  'id_image is not valid': 'Id image is not valid',
-  'certificate_image is not valid': 'Certificate image is not valid',
   'personal_image is not valid': 'Personal image is not valid',
   'id is not valid': 'id is not valid',
   'add': 'Add',
@@ -90,6 +107,12 @@ const Map<String, String> en = {
   'subscriptionTypr': 'Subscription Type',
   'priceAfterDiscount': 'Price After Discount',
 
+// search screen
+  'search_results': 'Search results',
+  'show_results_on_map': 'Show on map',
+  'search_results_for': 'Search results for :',
+  'payment_method': 'Payment method',
+  'rateings': ' Rateings',
   // other
   'submit': 'Submit',
   'cancel': 'Cancel',
@@ -102,7 +125,7 @@ const Map<String, String> en = {
 
   'empty_results': 'Empty results',
 
-  "please_review_all_fields": "Please review all fبields",
+  "please_review_all_fields": "Please review all fields",
 
   "FirstPageException_title": "Something went wrong",
   "FirstPageException_message":

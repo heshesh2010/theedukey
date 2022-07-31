@@ -4,18 +4,24 @@ import 'package:theedukey/app/modules/home/controllers/home_controller.dart';
 import '../../../../elements/drawer.dart';
 import '../../../../elements/topbar.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
+import '../../../core/utils/image_tools.dart';
+import '../../../data/models/route_argument.dart';
+import '../../../data/models/school.dart';
 import '../../../data/models/stage.dart';
+import '../../../data/service/locator.dart';
+import '../../../data/service/search_model.dart';
+import '../../../routes/app_pages.dart';
+import 'about_us.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeView extends GetWidget<HomeController> {
   const HomeView({Key? key}) : super(key: key);
-
-//  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const DrawerSideMenu(),
+      drawer: DrawerSideMenu(),
       appBar: getTopBar(context),
       body: SingleChildScrollView(
         child: Column(
@@ -48,7 +54,7 @@ class HomeView extends GetView<HomeController> {
                             iconEnabledColor: Colors.white,
                             hint: Padding(
                               padding:
-                                  const EdgeInsets.only(right: 50.0, left: 50),
+                                  const EdgeInsets.only(right: 30.0, left: 30),
                               child: Center(
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,7 +65,7 @@ class HomeView extends GetView<HomeController> {
                                       color: Colors.white,
                                     ),
                                     Text(
-                                      controller().selectedStage.value.name!,
+                                      controller.selectedStage.value.name!,
                                       style: Theme.of(context)
                                           .textTheme
                                           .subtitle1
@@ -70,12 +76,10 @@ class HomeView extends GetView<HomeController> {
                               ),
                             ),
                             onChanged: (dynamic value) {
-                              controller().setSelectedStage(value);
-                              controller().selectedStage.value = value;
+                              controller.setSelectedStage(value);
+                              controller.selectedStage.value = value;
                             },
-                            //  value: controller.selectedStage.value!=null?controller.stagesList[0]:null,
-                            items: controller()
-                                .stagesList
+                            items: controller.stagesList
                                 .map((Stage selectedStage) {
                               return DropdownMenuItem(
                                 value: selectedStage,
@@ -101,10 +105,70 @@ class HomeView extends GetView<HomeController> {
                             }).toList(),
                           ),
                         ),
-                      ))
+                      )),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  TypeAheadField(
+                    textFieldConfiguration: TextFieldConfiguration(
+                        autofocus: false,
+                        style: DefaultTextStyle.of(context)
+                            .style
+                            .copyWith(fontStyle: FontStyle.italic),
+                        decoration: InputDecoration(
+                            hintText: "school_name".tr,
+                            border: const OutlineInputBorder())),
+                    suggestionsCallback: (pattern) async {
+                      controller.pattern = pattern;
+                      return await controller.getSuggestions(pattern);
+                    },
+                    itemBuilder: (context, SchoolData suggestion) {
+                      return ListTile(
+                        leading: ImageTools.image(
+                            url: suggestion.logo, height: 50, width: 50),
+                        title: Text(suggestion.name!),
+                        subtitle: Text(suggestion.cityName!),
+                      );
+                    },
+                    onSuggestionSelected: (SchoolData suggestion) {
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //   builder: (context) => ProductPage(product: suggestion)
+                      // ));
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  SizedBox(
+                    height: 55,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        //  shape: const CircleBorder(),
+                        shadowColor: Colors.transparent,
+                        // padding: const EdgeInsets.all(10),
+                        primary: Theme.of(context).primaryColor,
+                        onPrimary: Colors.white,
+                      ),
+                      child: Text(
+                        "search".tr,
+                      ),
+                      onPressed: () {
+                        getIt<SearchModel>().search(RouteArgument(stagesList: [
+                          controller.selectedStage.value.id ?? 0
+                        ], keyword: controller.pattern));
+
+                        Get.toNamed(
+                          Routes.search,
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
+            const AboutUs()
           ],
         ),
       ),

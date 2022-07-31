@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 class AuthBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => AuthController(
+    Get.put(() => AuthController(
         repository: AuthRepository(apiClient: ApiClient(dio: Dio()))));
   }
 }

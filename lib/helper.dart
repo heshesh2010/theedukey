@@ -18,11 +18,12 @@ class Helper {
         isDismissible: true);
   }
 
-  String getErrorString(list) {
+  String getErrorStringFromMap(response) {
     late String errorStr = "";
+    Iterable<RegExpMatch> matches = RegExp('\\[.*?\\]').allMatches(response);
 
-    for (List i in list) {
-      errorStr += "$i\n";
+    for (final m in matches) {
+      errorStr += "${m[0]}\n";
     }
     return errorStr;
   }

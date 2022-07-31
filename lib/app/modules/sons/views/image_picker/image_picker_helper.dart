@@ -5,12 +5,16 @@ import 'package:get/get.dart';
 
 class ImagePickerHelper extends StatelessWidget {
   const ImagePickerHelper(
-      {Key? key, this.imageUrl, required this.onGet, required this.buttonTitle})
+      {Key? key,
+      this.imageUrl,
+      required this.onGet,
+      required this.buttonTitle,
+      required this.editButtonTitle})
       : super(key: key);
   final String? imageUrl;
   final ValueChanged<String?> onGet;
   final String? buttonTitle;
-
+  final String? editButtonTitle;
   @override
   Widget build(BuildContext context) {
     return imageUrl != null && imageUrl != ""
@@ -18,7 +22,7 @@ class ImagePickerHelper extends StatelessWidget {
             children: <Widget>[
               const SizedBox(height: 10),
               Center(
-                child: Text("edit_picture".tr),
+                child: Text(editButtonTitle ?? " "),
               ),
               const SizedBox(height: 10),
               Card(

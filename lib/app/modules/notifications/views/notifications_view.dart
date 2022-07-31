@@ -12,14 +12,14 @@ import '../../../../elements/permission_dcenied_widget.dart';
 import '../../../../elements/drawer.dart';
 import '../controllers/notifications_controller.dart';
 
-class NotificationsView extends GetView<NotificationController> {
+class NotificationsView extends GetWidget<NotificationController> {
   const NotificationsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getTopBar(context, title: "notifications".tr),
-      drawer: const DrawerSideMenu(),
+      drawer: DrawerSideMenu(),
       body: Padding(
         padding:
             const EdgeInsets.only(left: 10, right: 10.0, top: 10, bottom: 15),
@@ -29,7 +29,7 @@ class NotificationsView extends GetView<NotificationController> {
                 builder: (c) =>
                     PagedListView<int, model.NotificationData>.separated(
                   scrollDirection: Axis.vertical,
-                  pagingController: controller().pagingController,
+                  pagingController: controller.pagingController,
                   builderDelegate:
                       PagedChildBuilderDelegate<model.NotificationData>(
                     itemBuilder: (context, item, index) => GestureDetector(
@@ -41,8 +41,8 @@ class NotificationsView extends GetView<NotificationController> {
                     noItemsFoundIndicatorBuilder: (_) => const EmptyResults(),
                     firstPageErrorIndicatorBuilder: (_) =>
                         FirstPageErrorIndicator(
-                      error: controller().pagingController.error,
-                      onTryAgain: () => controller().pagingController.refresh(),
+                      error: controller.pagingController.error,
+                      onTryAgain: () => controller.pagingController.refresh(),
                     ),
                     noMoreItemsIndicatorBuilder: (_) => const NoOtherResults(),
                   ),

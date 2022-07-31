@@ -13,13 +13,15 @@ class AuthController extends GetxController {
   final AuthRepository repository;
   AuthController({required this.repository});
 
-  late Rx<City> selectedCity = City(name: "اختر المدينة".tr).obs;
-
   late Rx<User?> currentUser = User().obs;
+  String? selectedImage;
+  String? selectedIdImage;
+  String? selectedPersonalImage;
+  String? selectedCertificateImage;
+  String? selectedFamilyIdImage;
 
   @override
   void onInit() {
-    getCities();
     currentUser = LocalStorage().getUser().obs;
     super.onInit();
   }
@@ -48,7 +50,7 @@ class AuthController extends GetxController {
         LocalStorage().saveUser(response);
         submitButtonController.success();
         currentUser = LocalStorage().getUser().obs;
-        Get.to(() => const HomeView());
+        Get.to(() => HomeView());
         isProcessEnabled = false.obs;
 
         //  Get.back();
@@ -95,12 +97,11 @@ class AuthController extends GetxController {
     dynamic response = await repository.updateProfileApi(user);
     if (response is User) {
       submitButtonController.success();
+      isProcessEnabled = false.obs;
     } else {
       isProcessEnabled = false.obs;
       submitButtonController.reset();
-      Helper().showErrorToast(response?.data["errors"] != null
-          ? Helper().getErrorString(response.data["errors"].values.toList())
-          : response.statusMessage.toString());
+      Helper().showErrorToast(Helper().getErrorStringFromMap(response));
       Future.delayed(const Duration(seconds: 3), () {
         submitButtonController.reset();
       });
@@ -115,9 +116,8 @@ class AuthController extends GetxController {
     } else {
       isProcessEnabled = false.obs;
       submitButtonController.reset();
-      Helper().showErrorToast(response?.data["errors"] != null
-          ? Helper().getErrorString(response.data["errors"].values.toList())
-          : response.statusMessage.toString());
+      Helper().showErrorToast(Helper().getErrorStringFromMap(response));
+
       Future.delayed(const Duration(seconds: 3), () {
         submitButtonController.reset();
       });
@@ -133,7 +133,24 @@ class AuthController extends GetxController {
     }
   }
 
-  void setSelectedCity(value) {
-    selectedCity.value = value!;
+  void onSelectIdImage(value) {
+    selectedIdImage = value;
+    update();
+  }
+
+  void onSelectPersonalImage(value) {
+    selectedPersonalImage = value;
+    update();
+  }
+
+  void onSelectCertificateImage(value) {
+    selectedCertificateImage = value;
+    update();
+  }
+
+  void onSelectFamilyIdImage(value) {
+    selectedFamilyIdImage = value;
+    // updateApi if image != null
+    update();
   }
 }

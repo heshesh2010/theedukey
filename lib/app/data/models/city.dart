@@ -1,10 +1,7 @@
 import 'dart:convert';
 
 class City {
-  City({
-    this.id,
-    this.name,
-  });
+  City({this.id, this.name});
 
   final int? id;
   final String? name;
@@ -25,7 +22,6 @@ class City {
           runtimeType == other.runtimeType &&
           id == other.id &&
           name == other.name;
-
   @override
   int get hashCode => id.hashCode ^ name.hashCode;
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theedukey/app/routes/route_list.dart';
 import '../../../../elements/bottom_navigation_bar.dart';
 import '../../../../elements/topbar.dart';
 import '../../../data/models/user.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/auth_controller.dart';
 import 'forget_view.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-class AuthView extends GetView<AuthController> {
+class AuthView extends GetWidget<AuthController> {
   AuthView({Key? key}) : super(key: key);
 
   final _emailTextController = TextEditingController(text: "");
@@ -40,7 +40,7 @@ class AuthView extends GetView<AuthController> {
                                 style: Theme.of(context).textTheme.headline1),
                             const SizedBox(height: 8),
                             TextFormField(
-                              enabled: !controller().isProcessEnabled.value,
+                              enabled: !controller.isProcessEnabled.value,
                               controller: _emailTextController,
                               decoration: InputDecoration(
                                   labelText: "email".tr,
@@ -57,23 +57,23 @@ class AuthView extends GetView<AuthController> {
                             ),
                             const SizedBox(height: 8),
                             TextFormField(
-                              enabled: !controller().isProcessEnabled.value,
+                              enabled: !controller.isProcessEnabled.value,
                               controller: _passwordTextController,
                               decoration: InputDecoration(
                                   labelText: "password".tr,
                                   suffixIcon: IconButton(
                                     icon: Icon(
-                                      controller().passwordVisible.value
+                                      controller.passwordVisible.value
                                           ? Icons.visibility_off
                                           : Icons.visibility,
                                       color: Theme.of(context).primaryColorDark,
                                     ),
                                     onPressed: () {
-                                      controller().passwordVisible.value =
-                                          !controller().passwordVisible.value;
+                                      controller.passwordVisible.value =
+                                          !controller.passwordVisible.value;
                                     },
                                   )),
-                              obscureText: !controller().passwordVisible.value,
+                              obscureText: !controller.passwordVisible.value,
                               validator: (String? value) =>
                                   value!.trim().isEmpty
                                       ? "Password is require".tr
@@ -95,10 +95,10 @@ class AuthView extends GetView<AuthController> {
                               child: TextButton(
                                 onPressed: () {
                                   if (Get.previousRoute !=
-                                          RouteList.splashScreen &&
-                                      Get.previousRoute != RouteList.forget &&
+                                          Routes.splashScreen &&
+                                      Get.previousRoute != Routes.forget &&
                                       Get.previousRoute !=
-                                          RouteList.splashScreen) {
+                                          Routes.splashScreen) {
                                     Get.back();
                                   } else {
                                     Get.to(
@@ -110,16 +110,16 @@ class AuthView extends GetView<AuthController> {
                             ),
                             const SizedBox(height: 20),
                             RoundedLoadingButton(
-                              controller: controller().submitButtonController,
+                              controller: controller.submitButtonController,
                               duration: const Duration(seconds: 2),
                               color: Theme.of(context).primaryColor,
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  await controller().login(User(
+                                  await controller.login(User(
                                       email: _emailTextController.text,
                                       password: _passwordTextController.text));
                                 } else {
-                                  controller().submitButtonController.reset();
+                                  controller.submitButtonController.reset();
                                 }
                               },
                               child: Text('enter'.tr,
@@ -132,7 +132,7 @@ class AuthView extends GetView<AuthController> {
                             Center(
                               child: TextButton(
                                 onPressed: () {
-                                  Get.toNamed(RouteList.sginUp);
+                                  Get.toNamed(Routes.sginUp);
                                 },
                                 child: Text.rich(
                                   TextSpan(

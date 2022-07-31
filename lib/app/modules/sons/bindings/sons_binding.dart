@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 class SonsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<SonsController>(
+    Get.create<SonsController>(
       () => SonsController(
           repository: SonsRepository(apiClient: ApiClient(dio: Dio()))),
     );

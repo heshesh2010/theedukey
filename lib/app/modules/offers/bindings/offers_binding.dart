@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 class OffersBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<OffersController>(
+    Get.create<OffersController>(
       () => OffersController(
           repository: OffersRepository(apiClient: ApiClient(dio: Dio()))),
     );

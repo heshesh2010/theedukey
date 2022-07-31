@@ -147,8 +147,9 @@ class ApiClient {
       printLog(
           "[EduKey Client_api][${DateTime.now().toString().split(' ').last}] postAsync START [endPoint:$endPoint] url:${dio.options.baseUrl}");
       Response response = await dio.post(
-        "$endPoint?token=${LocalStorage().getToken()}",
+        endPoint,
         data: data,
+        options: Options(headers: {"requiresToken": isTokenRequired}),
       );
       return response;
     } on DioError catch (_) {

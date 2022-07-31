@@ -6,7 +6,7 @@ class DioExceptions implements Exception {
   String _handleError(int statusCode, dynamic error) {
     switch (statusCode) {
       case 400:
-        return 'Bad request';
+        return error["errors"].toString();
       case 404:
         return error["message"];
       case 500:

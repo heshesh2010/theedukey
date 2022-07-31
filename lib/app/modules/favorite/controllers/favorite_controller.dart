@@ -10,7 +10,6 @@ class FavoriteController extends GetxController {
   final FavoriteRepository repository;
   FavoriteController({required this.repository});
 
-  var favoritesList = <FavoriteDataData>[].obs;
   final PagingController<int, FavoriteDataData> pagingController =
       PagingController(firstPageKey: 0);
   List<FavoriteDataData> newFavoritItems = [FavoriteDataData()];
@@ -18,6 +17,7 @@ class FavoriteController extends GetxController {
   @override
   void onInit() {
     pagingController.addPageRequestListener((pageKey) {
+      newFavoritItems.clear();
       _fetchFavoritePage(pageKey);
     });
     super.onInit();
@@ -36,6 +36,22 @@ class FavoriteController extends GetxController {
       }
     } catch (error) {
       pagingController.error = error;
+    }
+  }
+
+  void deleteFav([FavoriteDataData? sonDataData]) async {
+    dynamic response = await repository.deleteFavoriteApi(sonDataData);
+    if (response) {
+      Helper().showSuccessToast("delete_favorite_success".tr);
+      newFavoritItems.clear();
+      pagingController.refresh();
+      update();
+    } else {
+      if (response is String) {
+        Helper().showErrorToast(response);
+      } else {
+        Helper().showErrorToast(response.statusMessage.toString());
+      }
     }
   }
 

@@ -4,12 +4,14 @@ import '../app/modules/auth/controllers/auth_controller.dart';
 import '../app/modules/home/bindings/home_binding.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../app/core/utils/local_storage.dart';
-import '../app/routes/route_list.dart';
+import '../app/routes/app_pages.dart';
 import '../navigator_controller.dart';
 import 'bottom_navigation_bar.dart';
 
-class DrawerSideMenu extends GetView<AuthController> {
-  const DrawerSideMenu({Key? key}) : super(key: key);
+class DrawerSideMenu extends StatelessWidget {
+  DrawerSideMenu({Key? key}) : super(key: key);
+
+  final AuthController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +35,7 @@ class DrawerSideMenu extends GetView<AuthController> {
                               shape: BoxShape.circle, color: Colors.green),
                           child: CachedNetworkImage(
                             maxHeightDiskCache: 10,
-                            imageUrl:
-                                controller().currentUser.value?.image ?? "",
+                            imageUrl: controller.currentUser.value?.image ?? "",
                             placeholder: (context, url) =>
                                 const CircularProgressIndicator(),
                             errorWidget: (context, url, error) =>
@@ -46,7 +47,7 @@ class DrawerSideMenu extends GetView<AuthController> {
                         Column(
                           children: [
                             Text(
-                              controller().currentUser.value?.name ?? "",
+                              controller.currentUser.value?.name ?? "",
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
@@ -54,7 +55,7 @@ class DrawerSideMenu extends GetView<AuthController> {
                                   ?.copyWith(color: Colors.white),
                             ),
                             Text(
-                              controller().currentUser.value?.nameEn ?? " ",
+                              controller.currentUser.value?.nameEn ?? " ",
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
@@ -78,11 +79,12 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.navigator) {
+                      if (Get.currentRoute == Routes.navigator ||
+                          Get.currentRoute == Routes.home) {
+                        Get.back();
                         final navigatorController =
                             Get.find<NavigatorController>();
                         navigatorController.changePage(1);
-                        Get.back();
                       } else {
                         Get.to(() => const NavigatorPage(tabIndex: 1),
                             binding: HomeBinding());
@@ -102,13 +104,14 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.navigator) {
+                      if (Get.currentRoute == Routes.notifications ||
+                          Get.currentRoute == Routes.navigator) {
                         final navigatorController =
                             Get.find<NavigatorController>();
-                        navigatorController.changePage(0);
+                        navigatorController.changePage(2);
                         Get.back();
                       } else {
-                        Get.to(() => const NavigatorPage(tabIndex: 0),
+                        Get.to(() => const NavigatorPage(tabIndex: 2),
                             binding: HomeBinding());
                       }
                     },
@@ -125,10 +128,10 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.editProfile) {
+                      if (Get.currentRoute == Routes.editProfile) {
                         Get.back();
                       } else {
-                        Get.toNamed(RouteList.editProfile);
+                        Get.toNamed(Routes.editProfile);
                       }
                     },
                   ),
@@ -144,10 +147,10 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.favorite) {
+                      if (Get.currentRoute == Routes.favorite) {
                         Get.back();
                       } else {
-                        Get.toNamed(RouteList.favorite);
+                        Get.toNamed(Routes.favorite);
                       }
                     },
                   ),
@@ -163,10 +166,15 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.orders) {
+                      if (Get.currentRoute == Routes.orders ||
+                          Get.currentRoute == Routes.navigator) {
+                        final navigatorController =
+                            Get.find<NavigatorController>();
+                        navigatorController.changePage(0);
                         Get.back();
                       } else {
-                        Get.toNamed(RouteList.orders);
+                        Get.to(() => const NavigatorPage(tabIndex: 0),
+                            binding: HomeBinding());
                       }
                     },
                   ),
@@ -183,10 +191,10 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.offers) {
+                      if (Get.currentRoute == Routes.offers) {
                         Get.back();
                       } else {
-                        Get.toNamed(RouteList.offers);
+                        Get.toNamed(Routes.offers);
                       }
                     },
                   ),
@@ -203,10 +211,10 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.sons) {
+                      if (Get.currentRoute == Routes.sons) {
                         Get.back();
                       } else {
-                        Get.toNamed(RouteList.sons);
+                        Get.toNamed(Routes.sons);
                       }
                     },
                   ),
@@ -222,10 +230,10 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.languages) {
+                      if (Get.currentRoute == Routes.languages) {
                         Get.back();
                       } else {
-                        Get.toNamed(RouteList.languages);
+                        Get.offAndToNamed(Routes.languages);
                       }
                     },
                   ),
@@ -241,10 +249,10 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.contactUs) {
+                      if (Get.currentRoute == Routes.contactUs) {
                         Get.back();
                       } else {
-                        Get.toNamed(RouteList.contactUs);
+                        Get.toNamed(Routes.contactUs);
                       }
                     },
                   ),
@@ -260,7 +268,7 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      controller().logout();
+                      controller.logout();
                       Get.back();
                     },
                   ),
@@ -303,10 +311,14 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.home) {
+                      if (Get.currentRoute == Routes.navigator ||
+                          Get.currentRoute == Routes.home) {
                         Get.back();
+                        final navigatorController =
+                            Get.find<NavigatorController>();
+                        navigatorController.changePage(1);
                       } else {
-                        Get.to(() => const NavigatorPage(tabIndex: 0),
+                        Get.to(() => const NavigatorPage(tabIndex: 1),
                             binding: HomeBinding());
                       }
                     },
@@ -324,10 +336,10 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.offers) {
+                      if (Get.currentRoute == Routes.offers) {
                         Get.back();
                       } else {
-                        Get.toNamed(RouteList.offers);
+                        Get.toNamed(Routes.offers);
                       }
                     },
                   ),
@@ -343,10 +355,10 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.languages) {
+                      if (Get.currentRoute == Routes.languages) {
                         Get.back();
                       } else {
-                        Get.toNamed(RouteList.languages);
+                        Get.toNamed(Routes.languages);
                       }
                     },
                   ),
@@ -362,10 +374,10 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      if (Get.currentRoute == RouteList.contactUs) {
+                      if (Get.currentRoute == Routes.contactUs) {
                         Get.back();
                       } else {
-                        Get.toNamed(RouteList.contactUs);
+                        Get.toNamed(Routes.contactUs);
                       }
                     },
                   ),
@@ -381,7 +393,7 @@ class DrawerSideMenu extends GetView<AuthController> {
                             .subtitle1
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
-                      Get.toNamed(RouteList.login);
+                      Get.toNamed(Routes.login);
                     },
                   ),
                 ],

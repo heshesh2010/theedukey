@@ -1,23 +1,33 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:sizer/sizer.dart';
 
 import 'package:theedukey/app/modules/home/bindings/home_binding.dart';
 
 import 'app/core/langs/translations.dart';
 import 'app/core/theme/app_theme.dart';
 import 'app/core/utils/local_storage.dart';
+import 'app/data/service/locator.dart';
 import 'app/modules/splash/views/splash_view.dart';
 import 'app/routes/app_pages.dart';
-import 'app/routes/route_list.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  setupLocator();
 
   await GetStorage.init();
-  runApp(const MyApp());
+  runApp(Sizer(
+    builder: (context, orientation, deviceType) {
+      return DevicePreview(
+        enabled: false,
+        builder: (context) => const MyApp(), // Wrap your app
+      );
+    },
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -36,7 +46,7 @@ class MyApp extends StatelessWidget {
       locale: Locale(LocalStorage().getlanguageSelected() ?? "ar", ""),
       fallbackLocale: const Locale('ar', 'SA'),
       translations: Translation(),
-      initialRoute: RouteList.splashScreen,
+      initialRoute: Routes.splashScreen,
       theme: Get.isDarkMode ? ThemeData.dark() : appThemeDataLight,
       home: const SplashView(),
     );

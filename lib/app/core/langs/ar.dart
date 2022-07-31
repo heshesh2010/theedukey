@@ -12,6 +12,7 @@ const Map<String, String> ar = {
   'name_ar': 'الإسم الثلاثي',
   'name_en': 'الإسم الثلاثي باللغة الإنجليزية',
   'mobile': 'رقم اتصال جوال',
+  'phone': 'رقم الهاتف',
   'city': 'المدينة',
   'choose_city': 'اختر المدينة',
   'password_confirm': 'تأكيد كلمة المرور',
@@ -20,6 +21,7 @@ const Map<String, String> ar = {
   'terms approve': 'الموافقة على الشروط والأحكام',
   'Email is not valid': 'البريد الإلكتروني غير صالح',
   'Mobile is not valid': 'رقم الجوال غير صالح',
+  'Phone is not valid': 'رقم الجوال غير صالح',
   'Password is require': 'كلمة المرور يجب ان تكون اكثر من 8 خانات',
   "don't_have_an_account": ' ليس لديك حساب ؟',
   'have_an_account': 'لديك حساب ؟ ',
@@ -31,9 +33,13 @@ const Map<String, String> ar = {
 
 // edit profile
   'old_password': 'كلمة المرور القديمة',
+
   // home
   'search_about': 'ابحث عن ',
-
+  'Please_select_the_educational_stage': 'من فضلك اختر المرحلة التعليمية',
+  'school_name': 'اسم المدرسة',
+  'search': 'بحث',
+  'about_us': 'من نحن',
   // menu
   'home': 'الرئيسية',
   'notifications': 'الاشعارات',
@@ -52,29 +58,39 @@ const Map<String, String> ar = {
   'body': 'محتوى الرسالة',
   'text_length': 'يجب ان يكون طول النص اكثر من 10 احرف',
 
+// favorite
+
+  'delete_favorite_success': 'تم الحذف من المفضلة',
   // son
-  'id': 'رقم الهوية',
+  'id_number': 'رقم الهوية',
   'birth_date': 'تاريخ الميلاد',
   'name': 'الإسم',
   'manage_son_description':
-      'من خلال إدارة الابناء يمكنك اضافة اطفالك للاشتراك في الخدمات التي تمنح المنصة',
+      'من خلال إدارة الابناء يمكنك اضافة اطفالك للاشتراك في الخدمات التي تقدمها المنصة',
   'certificate_image': 'صورة اخر شهادة علمية',
+  'edit_certificate_image': 'تعديل صورة آخر شهادة علمية',
+  'certificate_image is not valid': 'يجب ادخال صورة الشهادة',
+
   'id_image': 'صورة الهوية',
+  'edit_id_image': 'تعديل صورة الهوية',
+  'id_image is not valid': 'يجب ادخال صورة الهوية',
+  'family_id_image': 'صورة بطاقة العائلة',
+  'edit_family_id_image': 'تعديل صورة بطاقة العائلة',
+
   'add_son': 'اضافة ابن',
   'male': 'ذكر',
   'female': 'انثى',
   'gender': 'نوع الطالب',
   'son_id': 'رقم هوية الطالب',
   'personal_image': 'الصوره الشخصية',
+  'edit_personal_image': 'تعديل الصوره الشخصية ',
+  'personal_image is not valid': 'يجب ادخال صورة الشخصية ',
+
   'birth_date is not valid': 'يجب ادخال تاريخ الميلاد',
-  'id_image is not valid': 'يجب ادخال صورة الهوية',
-  'certificate_image is not valid': 'يجب ادخال صورة الشهادة',
-  'personal_image is not valid': 'يجب ادخال صورة الشخصية',
   'id is not valid': 'رقم الهوية غير صالح',
   'add_son_success': 'تم اضافة الطالب بنجاح',
   'edit_son_success': 'تم تعديل الطالب بنجاح',
   'delete_son_success': 'تم حذف الطالب بنجاح',
-
   'add': 'اضافة',
   'edit_picture': 'تعديل الصورة',
   'edit_son': 'تعديل الطالب',
@@ -90,6 +106,12 @@ const Map<String, String> ar = {
   'subscriptionTypr': 'نوع الاشتراك',
   'priceAfterDiscount': 'السعر بعد الخصم',
 
+// search screen
+  'search_results': 'نتائج البحث',
+  'show_results_on_map': 'عرض على الخريطة',
+  'search_results_for': ' نتائج البحث عن :',
+  'payment_method': 'طريقة الدفع',
+  'rateings': 'التقييمات',
   // other
   'cancel': 'الغاء',
   'submit': 'ارسال',

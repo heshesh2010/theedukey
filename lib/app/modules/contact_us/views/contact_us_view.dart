@@ -8,14 +8,14 @@ import '../../../../helper.dart';
 import '../controllers/contact_us_controller.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-class ContactUsView extends GetView<ContactUsController> {
+class ContactUsView extends GetWidget<ContactUsController> {
   ContactUsView({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const DrawerSideMenu(),
+      drawer: DrawerSideMenu(),
       appBar: getTopBar(context, title: 'contact_us'.tr),
       body: SingleChildScrollView(
         child: Column(
@@ -32,8 +32,8 @@ class ContactUsView extends GetView<ContactUsController> {
                           children: [
                             //ar_name
                             TextFormField(
-                              enabled: !controller().contactUsUpProcess.value,
-                              controller: controller().nameArTextController,
+                              enabled: !controller.contactUsUpProcess.value,
+                              controller: controller.nameArTextController,
                               decoration:
                                   InputDecoration(labelText: "name_ar".tr),
                               autovalidateMode:
@@ -49,8 +49,8 @@ class ContactUsView extends GetView<ContactUsController> {
 
                             //email
                             TextFormField(
-                              enabled: !controller().contactUsUpProcess.value,
-                              controller: controller().emailTextController,
+                              enabled: !controller.contactUsUpProcess.value,
+                              controller: controller.emailTextController,
                               decoration:
                                   InputDecoration(labelText: "email".tr),
                               autovalidateMode:
@@ -66,8 +66,8 @@ class ContactUsView extends GetView<ContactUsController> {
 
                             //title
                             TextFormField(
-                              enabled: !controller().contactUsUpProcess.value,
-                              controller: controller().titleTextController,
+                              enabled: !controller.contactUsUpProcess.value,
+                              controller: controller.titleTextController,
                               decoration:
                                   InputDecoration(labelText: "title".tr),
                               autovalidateMode:
@@ -85,8 +85,8 @@ class ContactUsView extends GetView<ContactUsController> {
                             TextFormField(
                               minLines: 3,
                               maxLines: 20,
-                              enabled: !controller().contactUsUpProcess.value,
-                              controller: controller().bodyTextController,
+                              enabled: !controller.contactUsUpProcess.value,
+                              controller: controller.bodyTextController,
                               decoration: InputDecoration(labelText: "body".tr),
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
@@ -103,15 +103,15 @@ class ContactUsView extends GetView<ContactUsController> {
                             ),
 
                             RoundedLoadingButton(
-                              controller: controller().btnSubmitController,
+                              controller: controller.btnSubmitController,
                               color: Theme.of(context).primaryColor,
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  await controller().contactUs();
+                                  await controller.contactUs();
                                 } else {
                                   Helper().showErrorToast(
                                       "please_review_all_fields".tr);
-                                  controller().btnSubmitController.reset();
+                                  controller.btnSubmitController.reset();
                                 }
                               },
                               child: Text('submit'.tr,

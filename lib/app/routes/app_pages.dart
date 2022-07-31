@@ -1,84 +1,102 @@
 import 'package:get/get.dart';
-import '../modules/orders/bindings/orders_binding.dart';
-import '../modules/orders/views/orders_view.dart';
-import '../modules/sons/views/add_son_view.dart';
-import '../modules/auth/views/sign_up_view.dart';
-import '../modules/contact_us/bindings/contact_us_binding.dart';
-import '../modules/sons/views/edit_son_view.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/splash/views/splash_view.dart';
-import 'route_list.dart';
+
+import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
+import '../modules/contact_us/bindings/contact_us_binding.dart';
 import '../modules/contact_us/views/contact_us_view.dart';
-import '../modules/auth/views/edit_profile_view.dart';
+import '../modules/edit_profile/bindings/edit_profile_binding.dart';
+import '../modules/edit_profile/views/edit_profile_view.dart';
 import '../modules/favorite/bindings/favorite_binding.dart';
 import '../modules/favorite/views/favorite_view.dart';
+import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/language/bindings/language_binding.dart';
 import '../modules/language/views/language_view.dart';
+import '../modules/map/bindings/map_binding.dart';
+import '../modules/map/views/map_view.dart';
+import '../modules/notifications/bindings/notifications_binding.dart';
 import '../modules/notifications/views/notifications_view.dart';
 import '../modules/offers/bindings/offers_binding.dart';
 import '../modules/offers/views/offers_view.dart';
+import '../modules/orders/bindings/orders_binding.dart';
+import '../modules/orders/views/orders_view.dart';
+import '../modules/school_details/bindings/school_details_binding.dart';
+import '../modules/school_details/views/school_details_view.dart';
+import '../modules/search/bindings/search_binding.dart';
+import '../modules/search/views/search_view.dart';
+import '../modules/sign_up/bindings/signup_binding.dart';
+import '../modules/sign_up/views/sign_up_view.dart';
 import '../modules/sons/bindings/sons_binding.dart';
+import '../modules/sons/views/add_son_view.dart';
+import '../modules/sons/views/edit_son_view.dart';
 import '../modules/sons/views/sons_view.dart';
-import '../modules/auth/bindings/auth_binding.dart';
-import '../modules/language/bindings/language_binding.dart';
 import '../modules/splash/bindings/splash_binding.dart';
+import '../modules/splash/views/splash_view.dart';
+
+part 'app_routes.dart';
 
 class AppPages {
+  AppPages._();
   static final routes = [
     GetPage(
-        name: RouteList.splashScreen,
+        name: _Paths.splashScreen,
         page: () => const SplashView(),
         binding: SplashBinding()),
     GetPage(
-        name: RouteList.sginUp,
+        name: _Paths.sginUp,
         page: () => SignUpView(),
-        binding: AuthBinding()),
+        binding: SignUpBinding()),
     GetPage(
-        name: RouteList.home,
+        name: _Paths.home,
         page: () => const HomeView(),
         binding: HomeBinding()),
+    GetPage(name: _Paths.login, page: () => AuthView(), binding: AuthBinding()),
     GetPage(
-        name: RouteList.login, page: () => AuthView(), binding: AuthBinding()),
-    GetPage(
-        name: RouteList.contactUs,
+        name: _Paths.contactUs,
         page: () => ContactUsView(),
         binding: ContactUsBinding()),
     GetPage(
-        name: RouteList.editProfile,
+        name: _Paths.editProfile,
         page: () => EditProfileView(),
-        binding: AuthBinding()),
+        binding: EditProfileBinding()),
     GetPage(
-        name: RouteList.languages,
+        name: _Paths.languages,
         page: () => LanguageView(),
         binding: LanguageBinding()),
     GetPage(
-        name: RouteList.notifications,
+        name: _Paths.notifications,
         page: () => const NotificationsView(),
-        binding: FavoriteBinding()),
+        binding: NotificationsBinding()),
     GetPage(
-        name: RouteList.favorite,
+        name: _Paths.favorite,
         page: () => const FavoriteView(),
         binding: FavoriteBinding()),
     GetPage(
-        name: RouteList.orders,
+        name: _Paths.orders,
         page: () => const OrdersView(),
         binding: OrdersBinding()),
     GetPage(
-        name: RouteList.offers,
+        name: _Paths.offers,
         page: () => const OffersView(),
         binding: OffersBinding()),
     GetPage(
-        name: RouteList.sons,
+        name: _Paths.sons,
         page: () => const SonsView(),
         binding: SonsBinding()),
     GetPage(
-        name: RouteList.addSon,
-        page: () => AddSonView(),
+        name: _Paths.addSon, page: () => AddSonView(), binding: SonsBinding()),
+    GetPage(
+        name: _Paths.editSon,
+        page: () => EditSonView(),
         binding: SonsBinding()),
     GetPage(
-        name: RouteList.editSon,
-        page: () => EditSonView(),
-        binding: SonsBinding())
+        name: _Paths.search,
+        page: () => const SearchView(),
+        binding: SearchBinding()),
+    GetPage(name: _Paths.map, page: () => MapView(), binding: MapBinding()),
+    GetPage(
+        name: _Paths.schoolDetails,
+        page: () => const SchoolDetailsView(),
+        binding: SchoolDetailsBinding())
   ];
 }

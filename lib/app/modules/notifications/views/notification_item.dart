@@ -22,7 +22,7 @@ class NotificationItem extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.only(right: 20.0, top: 15),
+        padding: const EdgeInsets.only(right: 20.0, top: 15, left: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

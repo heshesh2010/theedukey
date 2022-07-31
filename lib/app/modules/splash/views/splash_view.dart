@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../controllers/splash_controller.dart';
 
-class SplashView extends GetView<SplashController> {
+class SplashView extends GetWidget<SplashController> {
   const SplashView({Key? key}) : super(key: key);
 
   @override

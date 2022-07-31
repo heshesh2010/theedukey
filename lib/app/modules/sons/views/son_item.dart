@@ -6,7 +6,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:theedukey/app/data/models/son.dart';
 import 'package:theedukey/app/modules/sons/controllers/sons_controller.dart';
 
-import '../../../routes/route_list.dart';
+import '../../../routes/app_pages.dart';
 
 class SonItem extends StatelessWidget {
   const SonItem({Key? key, required this.son}) : super(key: key);
@@ -85,14 +85,14 @@ class SonItem extends StatelessWidget {
                       ),
                       DataColumn(
                         label: Text(
-                          son.name!,
+                          son.name ?? " ",
                         ),
                       ),
                     ],
                     rows: <DataRow>[
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('id'.tr)),
+                          DataCell(Text('id_number'.tr)),
                           DataCell(Text(son.id.toString())),
                         ],
                       ),
@@ -194,7 +194,7 @@ class SonItem extends StatelessWidget {
                       "edit".tr,
                     ),
                     onPressed: () {
-                      Get.toNamed(RouteList.editSon, arguments: son);
+                      Get.toNamed(Routes.editSon, arguments: son);
                     },
                   ),
                 ),

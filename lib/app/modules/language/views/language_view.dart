@@ -8,7 +8,7 @@ import '../../../../elements/topbar.dart';
 import '../../../data/models/language.dart';
 import '../controllers/language_controller.dart';
 
-class LanguageView extends GetView<LanguageController> {
+class LanguageView extends GetWidget<LanguageController> {
   LanguageView({Key? key}) : super(key: key);
 
   final LanguagesList languagesList = LanguagesList();
@@ -17,7 +17,7 @@ class LanguageView extends GetView<LanguageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getTopBar(context, title: 'language'.tr),
-      drawer: const DrawerSideMenu(),
+      drawer: DrawerSideMenu(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Column(
@@ -46,9 +46,9 @@ class LanguageView extends GetView<LanguageController> {
                 return InkWell(
                   onTap: () async {
                     if (language.code == "ar") {
-                      controller().changeLanguage("ar");
+                      controller.changeLanguage("ar");
                     } else {
-                      controller().changeLanguage("en");
+                      controller.changeLanguage("en");
                     }
                     for (var l in languagesList.languages) {
                       l.selected = false;

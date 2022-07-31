@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 import '../../core/utils/local_storage.dart';
 import '../models/favorite.dart';
 import '../provider/api_helper.dart';
@@ -25,6 +27,21 @@ class FavoriteRepository {
         return favorite.data?.data;
       } else {
         return [];
+      }
+    } else {
+      return response;
+    }
+  }
+
+  Future<dynamic> deleteFavoriteApi(FavoriteDataData? favoriteDataData) async {
+    dynamic response = await apiClient.postAsyncNormal(
+        'student-auth/remove-from-favorite', favoriteDataData?.toJson(),
+        isTokenRequired: true);
+    if (response is Response) {
+      if (response.statusCode == 200) {
+        return response.data['status'];
+      } else {
+        return response;
       }
     } else {
       return response;

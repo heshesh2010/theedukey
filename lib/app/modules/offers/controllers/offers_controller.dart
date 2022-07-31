@@ -10,14 +10,16 @@ class OffersController extends GetxController {
   final OffersRepository repository;
   OffersController({required this.repository});
 
-  var offersList = <OfferData>[].obs;
-  final PagingController<int, OfferData> pagingController =
+  var offersList = <OfferData?>[].obs;
+  final PagingController<int, OfferData?> pagingController =
       PagingController(firstPageKey: 0);
-  List<OfferData> newOffersItems = [OfferData()];
+  List<OfferData?> newOffersItems = [OfferData()];
 
   @override
   void onInit() {
     pagingController.addPageRequestListener((pageKey) {
+      newOffersItems.clear();
+      offersList.clear();
       _fetchFavoritePage(pageKey);
     });
     super.onInit();
@@ -47,7 +49,7 @@ class OffersController extends GetxController {
   Future<dynamic> getOffers({nextUrl}) async {
     dynamic response =
         await repository.getOffersApi(nextUrl: repository.nextUrl);
-    if (response is List<OfferData>) {
+    if (response is List<OfferData?>) {
       offersList.addAll(response);
       return offersList;
     } else {

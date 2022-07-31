@@ -6,7 +6,7 @@ import 'package:readmore/readmore.dart';
 
 class OfferItem extends StatelessWidget {
   const OfferItem({Key? key, required this.offer}) : super(key: key);
-  final OfferData offer;
+  final OfferData? offer;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +30,7 @@ class OfferItem extends StatelessWidget {
             child: CachedNetworkImage(
               height: 200,
               // width: 300,
-              imageUrl: offer.image ?? " ",
+              imageUrl: offer?.image ?? " ",
               fit: BoxFit.fitHeight,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
                   Center(
@@ -45,7 +45,7 @@ class OfferItem extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  '${offer.title}',
+                  '${offer?.title}',
                   style: Theme.of(context)
                       .textTheme
                       .titleSmall
@@ -62,7 +62,7 @@ class OfferItem extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text("${"from".tr}: ${offer.startDate}"),
+                        Text("${"from".tr}: ${offer?.startDate}"),
                       ],
                     ),
                     const SizedBox(
@@ -77,7 +77,7 @@ class OfferItem extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text("${"to".tr}: ${offer.endDate}"),
+                        Text("${"to".tr}: ${offer?.endDate}"),
                       ],
                     ),
                   ],
@@ -85,7 +85,7 @@ class OfferItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "${"before_discount".tr}: ${offer.price}",
+                      "${"before_discount".tr}: ${offer?.price}",
                       style: const TextStyle(
                         color: Colors.grey,
                         decorationColor: Colors.grey,
@@ -97,13 +97,13 @@ class OfferItem extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      "${"after_discount".tr}: ${offer.priceAfterDiscount}",
+                      "${"after_discount".tr}: ${offer?.priceAfterDiscount}",
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ],
                 ),
                 ReadMoreText(
-                  "${offer.text}",
+                  "${offer?.text}",
                   trimLines: 5,
                   colorClickableText: Colors.pink,
                   trimMode: TrimMode.Line,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../app/routes/route_list.dart';
+import '../app/routes/app_pages.dart';
 
 class PermissionDeniedWidget extends StatelessWidget {
   const PermissionDeniedWidget({Key? key}) : super(key: key);
@@ -76,7 +76,7 @@ class PermissionDeniedWidget extends StatelessWidget {
           const SizedBox(height: 50),
           TextButton(
             onPressed: () {
-              Get.toNamed(RouteList.login);
+              Get.toNamed(Routes.login);
             },
             child:
                 Text("login".tr, style: Theme.of(context).textTheme.headline6),
@@ -84,7 +84,7 @@ class PermissionDeniedWidget extends StatelessWidget {
           const SizedBox(height: 20),
           TextButton(
             onPressed: () {
-              Get.toNamed(RouteList.sginUp);
+              Get.toNamed(Routes.sginUp);
             },
             child: Text(
               "don't_have_an_account".tr,

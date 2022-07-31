@@ -1,0 +1,182 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
+
+import '../../../data/models/payment_method.dart';
+import '../../../data/models/stage.dart';
+import '../controllers/search_controller.dart';
+
+class SearchFilters extends GetWidget<SearchController> {
+  const SearchFilters({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => Row(
+        children: [
+          Expanded(
+            //    flex: 2,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                border: Border.all(
+                  width: 0.1,
+                  color: Colors.grey,
+                  style: BorderStyle.solid,
+                ),
+              ),
+
+              //  child:
+// MultiSelectDialogField(
+//                 items: controller.filterData.value.stages!.map((e) => MultiSelectItem(e, e.name??" ")).toList(),
+//                 listType: MultiSelectListType.CHIP,
+//                 onConfirm: (values) {
+//                   controller.selectedStagesList.value.addAll(values)  ;
+//                 },
+//               ),
+
+              child: DropdownButton(
+                isExpanded: true,
+                underline: Container(),
+                // isDense: true,
+                borderRadius: BorderRadius.circular(10),
+                hint: Center(
+                  child: Text(
+                    controller.selectedStage.value.name ?? "stage".tr,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 8.sp),
+                    maxLines: 1,
+                  ),
+                ),
+                onChanged: (dynamic value) {},
+                items: controller.filterData.value.stages
+                    ?.map((Stage selectedType) {
+                  return DropdownMenuItem(
+                    value: selectedType,
+                    child: Row(
+                      children: <Widget>[
+                        Obx(() => Checkbox(
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            focusColor: Theme.of(context).focusColor,
+                            onChanged: (bool? value) {
+                              controller.stagesCheckBoxes[controller
+                                  .filterData.value.stages!
+                                  .indexOf(selectedType)] = {
+                                selectedType: !value!
+                              };
+                              controller.setSelectedStageCheckBox(
+                                  index: controller.filterData.value.stages!
+                                      .indexOf(selectedType),
+                                  value: value,
+                                  stage: selectedType);
+                            },
+                            value: controller.stagesCheckBoxes[controller
+                                .filterData.value.stages!
+                                .indexOf(selectedType)][selectedType])),
+                        Text(selectedType.name ?? " "),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            //     flex: 1,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                border: Border.all(
+                  width: 0.1,
+                  color: Colors.grey,
+                  style: BorderStyle.solid,
+                ),
+              ),
+              child: DropdownButton(
+                isExpanded: true,
+                underline: Container(),
+                //     isDense: true,
+                borderRadius: BorderRadius.circular(10),
+                hint: Center(
+                  child: Text(
+                    controller.selectedPaymentMethod.value.name ??
+                        "payment_method".tr,
+                    // maxLines: 2,
+                    // softWrap: false,
+                    // overflow: TextOverflow.fade,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 8.sp),
+                  ),
+                ),
+                onChanged: (dynamic value) {
+                  controller.setSelectedPaymentMethod(value);
+                  controller.selectedPaymentMethod.value = value;
+                  controller.update();
+                },
+                items: controller.filterData.value.paymentMethods
+                    ?.map((PaymentMethod selectedType) {
+                  return DropdownMenuItem(
+                    value: selectedType,
+                    child: Text(
+                      selectedType.name!,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            // flex: 1,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                border: Border.all(
+                  width: 0.1,
+                  color: Colors.grey,
+                  style: BorderStyle.solid,
+                ),
+              ),
+              child: DropdownButton(
+                isExpanded: true,
+                underline: Container(),
+                //     isDense: true,
+                //isExpanded: true,
+                borderRadius: BorderRadius.circular(10),
+                hint: Center(
+                  child: Text(
+                    'rateings'.tr,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 8.sp),
+                  ),
+                ),
+                onChanged: (dynamic value) {},
+                items: controller.filterData.value.stages
+                    ?.map((Stage selectedType) {
+                  return DropdownMenuItem(
+                    value: selectedType,
+                    child: Text(
+                      selectedType.name!,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

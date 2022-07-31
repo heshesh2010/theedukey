@@ -24,10 +24,10 @@ class OrderItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 20),
         child: Row(
-          //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 40),
+              padding: const EdgeInsets.only(right: 30, left: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -82,64 +82,71 @@ class OrderItem extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 60),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${order.orderNum}',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('${order.serviceProvider}',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('${order.orderStatus}',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('${order.serviceName}',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('${order.stage}',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('${order.theClass}',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('${order.subscriptionTypr}',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('${order.priceAfterDiscount}${'currency'.tr}',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('${order.from}',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('${order.to}',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${order.orderNum}',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text('${order.serviceProvider}',
+                        style: Theme.of(context).textTheme.bodyText2),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text('${order.orderStatus}',
+                        style: Theme.of(context).textTheme.bodyText2),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text('${order.serviceName}',
+                        maxLines: 1,
+                        //   softWrap: false,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyText2),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text('${order.stage}',
+                        maxLines: 2,
+                        style: Theme.of(context).textTheme.bodyText2),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text('${order.theClass}',
+                        maxLines: 2,
+                        style: Theme.of(context).textTheme.bodyText2),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text('${order.subscriptionTypr}',
+                        style: Theme.of(context).textTheme.bodyText2),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text('${order.priceAfterDiscount}${'currency'.tr}',
+                        style: Theme.of(context).textTheme.bodyText2),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text('${order.from}',
+                        style: Theme.of(context).textTheme.bodyText2),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text('${order.to}',
+                        style: Theme.of(context).textTheme.bodyText2),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

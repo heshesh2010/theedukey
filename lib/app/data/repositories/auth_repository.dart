@@ -1,3 +1,4 @@
+import '../../core/utils/local_storage.dart';
 import '../models/city.dart';
 import '../models/user.dart';
 import '../provider/api_helper.dart';
@@ -29,22 +30,51 @@ class AuthRepository {
   }
 
   Future<dynamic> signUpApi(User user) async {
-    Response? response = await apiClient.postAsyncNormal(
+    dynamic response = await apiClient.postAsyncNormal(
         "student-auth/register", user.toJson(),
         isTokenRequired: false);
-    if (response?.statusCode == 200) {
-      return User.fromMap(response?.data["user"]);
+    if (response is Response) {
+      if (response.statusCode == 200) {
+        return User.fromMap(response.data["user"]);
+      } else {
+        return response;
+      }
     } else {
       return response;
     }
   }
 
-  Future<dynamic> updateProfileApi(User user) async {
-    Response? response = await apiClient.postAsyncNormal(
-        "student-auth/update-profile", user.toJson(),
+  Future<dynamic> updateProfileApi(User? user) async {
+    var data = FormData.fromMap({
+      "email": user?.email,
+      "name": user?.name,
+      "name_en": user?.nameEn,
+      "mobile": user?.mobile,
+      "old_password": user?.oldPassword,
+      "password": user?.password,
+      "password_confirmation": user?.passwordConfirmation,
+      "city": user?.city?.id,
+      "id_image": user?.idImage != null && user?.idImage != ""
+          ? await MultipartFile.fromFile(user?.idImage ?? "")
+          : null,
+      "certificate_image":
+          user?.certificateImage != null && user?.certificateImage != ""
+              ? await MultipartFile.fromFile(user?.certificateImage ?? "")
+              : null,
+      "image": user?.image != null && user?.image != ""
+          ? await MultipartFile.fromFile(user?.image ?? "")
+          : null,
+    });
+
+    dynamic response = await apiClient.postAsyncNormal(
+        "student-auth/update-profile", data,
         isTokenRequired: true);
-    if (response?.statusCode == 200) {
-      return User.fromMap(response?.data["user"]);
+    if (response is Response) {
+      if (response.statusCode == 200) {
+        return User.fromMap(response.data["user"]);
+      } else {
+        return response;
+      }
     } else {
       return response;
     }
@@ -62,8 +92,9 @@ class AuthRepository {
   }
 
   Future<dynamic> getCitiesApi() async {
-    Response? response =
-        await apiClient.getAsync("all-cities", isTokenRequired: false);
+    Response? response = await apiClient.getAsync(
+        "all-cities?lang=${LocalStorage().getlanguageSelected() ?? "ar"}",
+        isTokenRequired: false);
     if (response?.statusCode == 200) {
       return (response?.data["data"] as List)
           .map((p) => City.fromMap(p))

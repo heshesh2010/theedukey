@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 class NotificationsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => NotificationController(
+    Get.create(() => NotificationController(
         repository: NotificationRepository(apiClient: ApiClient(dio: Dio()))));
   }
 }

@@ -7,7 +7,7 @@ import '../../../data/models/son.dart';
 import '../controllers/sons_controller.dart';
 import 'image_picker/image_picker_helper.dart';
 
-class AddSonView extends GetView<SonsController> {
+class AddSonView extends GetWidget<SonsController> {
   AddSonView({Key? key}) : super(key: key);
 
   final _nameArTextController = TextEditingController(text: "");
@@ -18,7 +18,8 @@ class AddSonView extends GetView<SonsController> {
 
   @override
   Widget build(BuildContext context) {
-    controller().clearAllVars();
+    controller.clearAllVars();
+
     return Scaffold(
         appBar: getTopBar(context, isback: true),
         body: SingleChildScrollView(
@@ -38,7 +39,7 @@ class AddSonView extends GetView<SonsController> {
                             style: Theme.of(context).textTheme.headline1),
                         //ar_name
                         TextFormField(
-                          enabled: !controller().isProcessEnabled.value,
+                          enabled: !controller.isProcessEnabled.value,
                           controller: _nameArTextController,
                           decoration: InputDecoration(
                             labelText: "name_ar".tr,
@@ -59,7 +60,7 @@ class AddSonView extends GetView<SonsController> {
 
                         //en_name
                         TextFormField(
-                          enabled: !controller().isProcessEnabled.value,
+                          enabled: !controller.isProcessEnabled.value,
                           controller: _nameEnTextController,
                           decoration: InputDecoration(
                             labelText: "name_en".tr,
@@ -80,7 +81,7 @@ class AddSonView extends GetView<SonsController> {
 
                         //birth_date
                         TextFormField(
-                          enabled: !controller().isProcessEnabled.value,
+                          enabled: !controller.isProcessEnabled.value,
                           controller: _birthDateTextController,
                           onTap: () => showDatePicker(
                             context: context,
@@ -108,7 +109,7 @@ class AddSonView extends GetView<SonsController> {
                         ),
 
                         TextFormField(
-                          enabled: !controller().isProcessEnabled.value,
+                          enabled: !controller.isProcessEnabled.value,
                           controller: _idNumberTextController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -142,81 +143,92 @@ class AddSonView extends GetView<SonsController> {
                                     ))
                               ]),
                         ),
-                        Row(
-                          children: [
-                            addRadioButton(0, "male".tr),
-                            addRadioButton(1, "female".tr),
-                          ],
-                        ),
                         GetBuilder<SonsController>(
                             initState: (_) {},
-                            builder: (_) {
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 20, left: 20, top: 20),
-                                child: Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: [
-                                    ImagePickerHelper(
-                                      buttonTitle: "personal_image".tr,
-                                      imageUrl:
-                                          controller().selectedPersonalImage,
-                                      onGet: (value) {
-                                        controller()
-                                            .onSelectPersonalImage(value);
-                                      },
+                            builder: (controller) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      addRadioButton(0, "male".tr, controller),
+                                      addRadioButton(
+                                          1, "female".tr, controller),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 20, left: 20, top: 20),
+                                    child: Wrap(
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      children: [
+                                        ImagePickerHelper(
+                                          editButtonTitle:
+                                              "edit_personal_image".tr,
+                                          buttonTitle: "personal_image".tr,
+                                          imageUrl:
+                                              controller.selectedPersonalImage,
+                                          onGet: (value) {
+                                            controller
+                                                .onSelectPersonalImage(value);
+                                          },
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        ImagePickerHelper(
+                                          editButtonTitle: "edit_id_image".tr,
+                                          buttonTitle: "id_image".tr,
+                                          imageUrl: controller.selectedIdImage,
+                                          onGet: (value) {
+                                            controller.onSelectIdImage(value);
+                                          },
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        ImagePickerHelper(
+                                          editButtonTitle:
+                                              "edit_certificate_image".tr,
+                                          buttonTitle: "certificate_image".tr,
+                                          imageUrl: controller
+                                              .selectedCertificateImage,
+                                          onGet: (value) {
+                                            controller.onSelectCertificateImage(
+                                                value);
+                                          },
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    ImagePickerHelper(
-                                      buttonTitle: "id_image".tr,
-                                      imageUrl: controller().selectedIdImage,
-                                      onGet: (value) {
-                                        controller().onSelectIdImage(value);
-                                      },
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    ImagePickerHelper(
-                                      buttonTitle: "certificate_image".tr,
-                                      imageUrl:
-                                          controller().selectedCertificateImage,
-                                      onGet: (value) {
-                                        controller()
-                                            .onSelectCertificateImage(value);
-                                      },
-                                    ),
-                                  ],
-                                ),
+                                  )
+                                ],
                               );
                             }),
                         const SizedBox(height: 20),
                         RoundedLoadingButton(
-                          controller: controller().submitButtonController,
+                          controller: controller.submitButtonController,
                           color: Theme.of(context).primaryColor,
                           onPressed: () async {
                             // showLoadingDialog(context);
                             // btnSignUpController.stop();
                             if (_formKey.currentState!.validate() &&
-                                controller().selectedPersonalImage != null &&
-                                controller().selectedGenderApi != null) {
-                              await controller().addSon(SonDataData(
+                                controller.selectedPersonalImage != null &&
+                                controller.selectedGenderApi != null) {
+                              await controller.addSon(SonDataData(
                                 name: _nameArTextController.text,
                                 nameEn: _nameEnTextController.text,
                                 idNumber: _idNumberTextController.text,
                                 birthDate: _birthDateTextController.text,
-                                gender: controller().selectedGenderApi,
-                                idImage: controller().selectedIdImage,
-                                image: controller().selectedPersonalImage,
+                                gender: controller.selectedGenderApi,
+                                idImage: controller.selectedIdImage,
+                                image: controller.selectedPersonalImage,
                                 certificateImage:
-                                    controller().selectedCertificateImage,
+                                    controller.selectedCertificateImage,
                               ));
                             } else {
                               Helper().showErrorToast(
                                   "please_review_all_fields".tr);
-                              controller().submitButtonController.reset();
+                              controller.submitButtonController.reset();
                             }
                           },
                           child: Text('add'.tr,
@@ -234,15 +246,15 @@ class AddSonView extends GetView<SonsController> {
         )));
   }
 
-  Row addRadioButton(int btnIndex, String title) {
+  Row addRadioButton(int btnIndex, String title, SonsController controller) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         GetBuilder<SonsController>(
           builder: (_) => Radio(
-              value: controller().gender[btnIndex],
-              groupValue: controller().selectedGender,
-              onChanged: (value) => controller().onSelectGender(value)),
+              value: controller.gender[btnIndex],
+              groupValue: controller.selectedGender,
+              onChanged: (value) => controller.onSelectGender(value)),
         ),
         Text(title)
       ],

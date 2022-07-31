@@ -1,9 +1,9 @@
-import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
 import '../../../config/app_config.dart';
 

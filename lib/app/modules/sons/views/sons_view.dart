@@ -6,7 +6,7 @@ import '../../../core/utils/first_page_error_indicator.dart';
 import '../../../core/utils/local_storage.dart';
 import '../../../../elements/permission_dcenied_widget.dart';
 import '../../../../elements/drawer.dart';
-import '../../../routes/route_list.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/sons_controller.dart';
 import 'image_picker/image_picker_helper.dart';
 import 'son_item.dart';
@@ -14,25 +14,26 @@ import '../../../../elements/topbar.dart';
 import '../../../data/models/son.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class SonsView extends GetView<SonsController> {
+class SonsView extends GetWidget<SonsController> {
   const SonsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: getTopBar(context, title: "sons".tr),
-        drawer: const DrawerSideMenu(),
+        drawer: DrawerSideMenu(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            controller().isFamilyIdExits()
-                ? Get.toNamed(RouteList.addSon)
+            controller.isFamilyIdExits()
+                ? Get.toNamed(Routes.addSon)
                 : Get.defaultDialog(
                     title: "certificate_image".tr,
                     content: ImagePickerHelper(
+                      editButtonTitle: "edit_family_id_image".tr,
                       buttonTitle: "family_id_image".tr,
-                      imageUrl: controller().selectedFamilyIdImage,
+                      imageUrl: controller.selectedFamilyIdImage,
                       onGet: (value) {
-                        controller().onSelectFamilyIdImage(value);
+                        controller.onSelectFamilyIdImage(value);
                       },
                     ),
                   );
@@ -47,11 +48,11 @@ class SonsView extends GetView<SonsController> {
               : GetBuilder<SonsController>(
                   builder: (c) => RefreshIndicator(
                     onRefresh: () => Future.sync(
-                      () => controller().pagingController.refresh(),
+                      () => controller.pagingController.refresh(),
                     ),
                     child: PagedListView<int, SonDataData>.separated(
                       scrollDirection: Axis.vertical,
-                      pagingController: controller().pagingController,
+                      pagingController: controller.pagingController,
                       builderDelegate: PagedChildBuilderDelegate<SonDataData>(
                         itemBuilder: (context, item, index) => GestureDetector(
                           child: Padding(
@@ -67,9 +68,9 @@ class SonsView extends GetView<SonsController> {
                             const EmptyResults(),
                         firstPageErrorIndicatorBuilder: (_) =>
                             FirstPageErrorIndicator(
-                          error: controller().pagingController.error,
+                          error: controller.pagingController.error,
                           onTryAgain: () =>
-                              controller().pagingController.refresh(),
+                              controller.pagingController.refresh(),
                         ),
                         noMoreItemsIndicatorBuilder: (_) =>
                             const NoOtherResults(),
