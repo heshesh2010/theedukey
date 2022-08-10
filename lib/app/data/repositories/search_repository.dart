@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart' as dio;
+import 'package:flutter/foundation.dart';
 
 import '../../core/utils/local_storage.dart';
 import '../models/filter_data.dart';
@@ -41,18 +42,28 @@ class SearchRepository {
   Future<dynamic> getSearchResultsApi() async {
     RouteArgument? routeArgument = getIt<SearchModel>().routeArgument;
 
-    // print("stage=${routeArgument?.stage?.id ?? ""}");
-    print("paymentMethod=${routeArgument?.paymentMethod?.id ?? ""}");
-
-    print("keyword=${routeArgument?.keyword ?? ""}");
-    print(routeArgument?.stagesList
+    var stagesIds = (routeArgument?.stagesList ?? "")
         .toString()
         .replaceAll('[', '')
         .replaceAll(']', '')
-        .replaceAll(' ', ''));
+        .replaceAll(' ', '');
+    var paymentMethodsIds = (routeArgument?.paymentMethodList ?? "")
+        .toString()
+        .replaceAll('[', '')
+        .replaceAll(']', '')
+        .replaceAll(' ', '');
 
+    var rateingsIds = (routeArgument?.ratingsList ?? "")
+        .toString()
+        .replaceAll('[', '')
+        .replaceAll(']', '')
+        .replaceAll(' ', '');
+
+    if (kDebugMode) {
+      print("$stagesIds//$paymentMethodsIds//$rateingsIds");
+    }
     dio.Response? response = await apiClient.getAsync(
-        "search?keyword=${routeArgument?.keyword}&stage=${(routeArgument?.stagesList.toString().replaceAll('[', '').replaceAll(']', '').replaceAll(' ', ''))}&payment_method=${routeArgument?.paymentMethod?.id ?? ""}&rate=${routeArgument?.rate ?? ""}&lang=${LocalStorage().getlanguageSelected() ?? "ar"}");
+        "search?keyword=${routeArgument?.keyword}&stage=$stagesIds&payment_method=$paymentMethodsIds&rate=$rateingsIds&lang=${LocalStorage().getlanguageSelected() ?? "ar"}");
     if (response?.statusCode == 200) {
       return School.fromJson(response?.data).data?.results ?? response;
     } else {

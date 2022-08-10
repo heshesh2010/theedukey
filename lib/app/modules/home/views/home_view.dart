@@ -159,7 +159,7 @@ class HomeView extends GetWidget<HomeController> {
                         ], keyword: controller.pattern));
 
                         Get.toNamed(
-                          Routes.search,
+                          Routes.schoolDetails,
                         );
                       },
                     ),

@@ -34,6 +34,9 @@ abstract class Routes {
   // Search
   static const String search = _Paths.search;
 
+// school deteils
+  static const String schoolDetails = _Paths.schoolDetails;
+
 // splash
   static const String splashScreen = _Paths.splashScreen;
 

@@ -15,8 +15,12 @@ class SearchModel {
     routeArgument?.stagesList = value;
   }
 
-  void setPaymentMethod(value) {
-    routeArgument?.paymentMethod = value;
+  void setPaymentMethodList(value) {
+    routeArgument?.paymentMethodList = value;
+  }
+
+  void setRatingList(value) {
+    routeArgument?.ratingsList = value;
   }
 
   void clear() {

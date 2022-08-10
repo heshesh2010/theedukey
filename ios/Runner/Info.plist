@@ -14,10 +14,6 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	 <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Application needs to access your current location</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Application needs to access your current location</string>
 	<key>CFBundleName</key>
 	<string>med_sense</string>
 	<key>CFBundlePackageType</key>
@@ -34,6 +30,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>السماح للتطبيق باستخدام الكاميرا من اجل رفع الصورة الشخصية</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Application needs to access your current location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Application needs to access your current location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>السماح للتطبيق باستخدام مجلد الصور من اجل اختيار الصورة الشخصية</string>
 	<key>UILaunchStoryboardName</key>

@@ -21,7 +21,14 @@ class SearchController extends GetxController {
   var schoolList = <SchoolData>[].obs;
 
   RxList<Map<Stage, bool>> stagesCheckBoxes = <Map<Stage, bool>>[].obs;
+  RxList<Map<PaymentMethod, bool>> paymentMethodsCheckBoxes =
+      <Map<PaymentMethod, bool>>[].obs;
+
+  RxList<Map<int, bool>> ratingsCheckBoxes = <Map<int, bool>>[].obs;
+
   List<int> listOfSelcetedStagesId = [];
+  List<int> listOfSelcetedPaymentMethodsId = [];
+  List<int> listOfSelcetedRatingsId = [];
 
   @override
   void onInit() {
@@ -59,18 +66,66 @@ class SearchController extends GetxController {
     getSearchResults();
   }
 
-  void setSelectedPaymentMethod(value) {
-    selectedPaymentMethod.value = value!;
-    updatePaymentMethodDependency(value);
+  void setSelectedPaymentMethod(
+      {required int index,
+      required PaymentMethod paymentMethod,
+      required bool value}) {
+    paymentMethodsCheckBoxes[index].update(
+      paymentMethod,
+      // You can ignore the incoming parameter if you want to always update the value even if it is already in the map
+      (existingValue) => value,
+      ifAbsent: () => value,
+    );
+    listOfSelcetedPaymentMethodsId.clear();
+
+    for (int i = 0; i < paymentMethodsCheckBoxes.length; i++) {
+      for (var entry in paymentMethodsCheckBoxes[i].entries) {
+        if (entry.value) {
+          listOfSelcetedPaymentMethodsId.add(entry.key.id ?? 0);
+        } // remove dublicated
+        // listOfSelcetedStagesId.removeWhere((item) => item == stage.id);
+
+      }
+    }
+    updatePaymentMethodDependency(listOfSelcetedPaymentMethodsId);
+    getSearchResults();
+  }
+
+  setSelectedRatingCheckBox(
+      {required int index, required int rateing, required bool value}) {
+    ratingsCheckBoxes[index].update(
+      rateing,
+      // You can ignore the incoming parameter if you want to always update the value even if it is already in the map
+      (existingValue) => value,
+      ifAbsent: () => value,
+    );
+    listOfSelcetedRatingsId.clear();
+
+    for (int i = 0; i < ratingsCheckBoxes.length; i++) {
+      for (var entry in ratingsCheckBoxes[i].entries) {
+        if (entry.value) {
+          listOfSelcetedRatingsId.add(entry.key);
+        } // remove dublicated
+        // listOfSelcetedStagesId.removeWhere((item) => item == stage.id);
+
+      }
+    }
+
+    updateRatingDependency(listOfSelcetedRatingsId);
+
     getSearchResults();
   }
 
   updatePaymentMethodDependency(value) {
-    getIt<SearchModel>().setPaymentMethod(value);
+    getIt<SearchModel>().setPaymentMethodList(value);
   }
 
   updateStageDependency(value) {
     getIt<SearchModel>().setStageList(value);
+  }
+
+  updateRatingDependency(value) {
+    getIt<SearchModel>().setRatingList(value);
   }
 
   getSearchResults() async {
@@ -90,6 +145,15 @@ class SearchController extends GetxController {
       filterData.value = response;
       for (int i = 0; i < filterData.value.stages!.length; i++) {
         stagesCheckBoxes.add({filterData.value.stages![i]: false});
+      }
+
+      for (int i = 0; i < filterData.value.paymentMethods!.length; i++) {
+        paymentMethodsCheckBoxes
+            .add({filterData.value.paymentMethods![i]: false});
+      }
+
+      for (int i = 0; i < filterData.value.ratings!.length; i++) {
+        ratingsCheckBoxes.add({filterData.value.ratings![i]: false});
       }
     } else {
       Helper().showErrorToast("حدث خطأ ما يرجى المحاولة مرة اخرى");

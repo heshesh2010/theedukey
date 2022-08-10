@@ -112,6 +112,11 @@ const Map<String, String> ar = {
   'search_results_for': ' نتائج البحث عن :',
   'payment_method': 'طريقة الدفع',
   'rateings': 'التقييمات',
+  // school details
+  'school_details': 'تفاصيل المدرسة',
+  'school_gallery': 'معرض الصور',
+  'note': 'ملاحظات',
+  'subscribe_now': 'اشترك الآن',
   // other
   'cancel': 'الغاء',
   'submit': 'ارسال',

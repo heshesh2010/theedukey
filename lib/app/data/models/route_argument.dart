@@ -1,19 +1,19 @@
 import 'package:theedukey/app/data/models/school.dart';
 
-import 'payment_method.dart';
-
 class RouteArgument {
   List<int>? stagesList;
+  List<int>? ratingsList;
   String? keyword;
   dynamic param;
   School? school;
   String? rate;
-  PaymentMethod? paymentMethod;
+  List<int>? paymentMethodList;
   RouteArgument(
       {this.stagesList,
       this.keyword,
       this.param,
       this.school,
       this.rate,
-      this.paymentMethod});
+      this.paymentMethodList,
+      this.ratingsList});
 }

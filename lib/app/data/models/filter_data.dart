@@ -33,11 +33,9 @@ class FilterData {
 class FilterDataData {
   final List<Stage>? stages;
   final List<PaymentMethod>? paymentMethods;
+  List<int>? ratings = [1, 2, 3, 4, 5];
 
-  FilterDataData({
-    this.stages,
-    this.paymentMethods,
-  });
+  FilterDataData({this.stages, this.paymentMethods, this.ratings});
 
   FilterDataData.fromJson(Map<String, dynamic> json)
       : stages = (json['stages'] as List?)
@@ -47,10 +45,11 @@ class FilterDataData {
             ?.map(
                 (dynamic e) => PaymentMethod.fromMap(e as Map<String, dynamic>))
             .toList();
-
+  //   ratings = (json['ratings'] as List<int>?);
   Map<String, dynamic> toJson() => {
         'stages': stages?.map((e) => e.toJson()).toList(),
-        'payment_methods': paymentMethods?.map((e) => e.toJson()).toList()
+        'payment_methods': paymentMethods?.map((e) => e.toJson()).toList(),
+        'ratings': ratings,
       };
 
   @override
@@ -59,9 +58,11 @@ class FilterDataData {
 
     return other is FilterDataData &&
         listEquals(other.stages, stages) &&
-        listEquals(other.paymentMethods, paymentMethods);
+        listEquals(other.paymentMethods, paymentMethods) &&
+        listEquals(other.ratings, ratings);
   }
 
   @override
-  int get hashCode => stages.hashCode ^ paymentMethods.hashCode;
+  int get hashCode =>
+      stages.hashCode ^ paymentMethods.hashCode ^ ratings.hashCode;
 }

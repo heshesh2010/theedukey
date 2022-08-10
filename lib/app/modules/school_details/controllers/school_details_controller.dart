@@ -1,23 +1,30 @@
 import 'package:get/get.dart';
 
-class SchoolDetailsController extends GetxController {
-  //TODO: Implement SchoolDetailsController
+import '../../../../helper.dart';
+import '../../../data/models/facility.dart';
+import '../../../data/repositories/school_repository.dart';
 
-  final count = 0.obs;
+class SchoolDetailsController extends GetxController {
+  final SchoolRepository repository;
+  SchoolDetailsController({required this.repository});
+  RxBool isLoading = true.obs;
+  RxInt selectedPage = 0.obs;
+
+  late Rx<Facility> facility = Facility().obs;
   @override
   void onInit() {
     super.onInit();
+
+    getFacility();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void getFacility() async {
+    dynamic response = await repository.getFacilityApi();
+    if (response is Facility) {
+      facility.value = response;
+      isLoading.value = false;
+    } else {
+      Helper().showErrorToast("حدث خطأ ما يرجى المحاولة مرة اخرى");
+    }
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

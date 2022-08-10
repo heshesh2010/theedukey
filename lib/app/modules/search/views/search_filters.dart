@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -116,17 +117,35 @@ class SearchFilters extends GetWidget<SearchController> {
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 8.sp),
                   ),
                 ),
-                onChanged: (dynamic value) {
-                  controller.setSelectedPaymentMethod(value);
-                  controller.selectedPaymentMethod.value = value;
-                  controller.update();
-                },
+                onChanged: (dynamic value) {},
                 items: controller.filterData.value.paymentMethods
                     ?.map((PaymentMethod selectedType) {
                   return DropdownMenuItem(
                     value: selectedType,
-                    child: Text(
-                      selectedType.name!,
+                    child: Row(
+                      children: <Widget>[
+                        Obx(() => Checkbox(
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            focusColor: Theme.of(context).focusColor,
+                            onChanged: (bool? value) {
+                              controller.paymentMethodsCheckBoxes[controller
+                                  .filterData.value.paymentMethods!
+                                  .indexOf(selectedType)] = {
+                                selectedType: !value!
+                              };
+                              controller.setSelectedPaymentMethod(
+                                  index: controller
+                                      .filterData.value.paymentMethods!
+                                      .indexOf(selectedType),
+                                  value: value,
+                                  paymentMethod: selectedType);
+                            },
+                            value: controller.paymentMethodsCheckBoxes[
+                                controller.filterData.value.paymentMethods!
+                                    .indexOf(selectedType)][selectedType])),
+                        Text(selectedType.name ?? " "),
+                      ],
                     ),
                   );
                 }).toList(),
@@ -163,12 +182,50 @@ class SearchFilters extends GetWidget<SearchController> {
                   ),
                 ),
                 onChanged: (dynamic value) {},
-                items: controller.filterData.value.stages
-                    ?.map((Stage selectedType) {
+                items: controller.filterData.value.ratings
+                    ?.map((int selectedType) {
                   return DropdownMenuItem(
                     value: selectedType,
-                    child: Text(
-                      selectedType.name!,
+                    child: Row(
+                      children: <Widget>[
+                        Obx(() => Checkbox(
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            focusColor: Theme.of(context).focusColor,
+                            onChanged: (bool? value) {
+                              controller.ratingsCheckBoxes[controller
+                                  .filterData.value.ratings!
+                                  .indexOf(selectedType)] = {
+                                selectedType: !value!
+                              };
+                              controller.setSelectedRatingCheckBox(
+                                  index: controller.filterData.value.ratings!
+                                      .indexOf(selectedType),
+                                  value: value,
+                                  rateing: selectedType);
+                            },
+                            value: controller.ratingsCheckBoxes[controller
+                                .filterData.value.ratings!
+                                .indexOf(selectedType)][selectedType])),
+                        RatingBar.builder(
+                          ignoreGestures: true,
+                          initialRating: selectedType.toDouble(),
+                          minRating: 1,
+                          itemSize: 15,
+                          //   textDirection: TextDirection.ltr,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 1,
+                          ),
+                          onRatingUpdate: (rating) {
+                            print(rating);
+                          },
+                        ),
+                      ],
                     ),
                   );
                 }).toList(),

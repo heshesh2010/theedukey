@@ -38,7 +38,7 @@ class SignUpController extends GetxController {
       submitButtonController.success();
     } else {
       isProcessEnabled = false.obs;
-      submitButtonController.reset();
+      submitButtonController.error();
       Helper().showErrorToast(Helper().getErrorStringFromMap(response));
 
       Future.delayed(const Duration(seconds: 3), () {

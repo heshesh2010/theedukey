@@ -113,6 +113,11 @@ const Map<String, String> en = {
   'search_results_for': 'Search results for :',
   'payment_method': 'Payment method',
   'rateings': ' Rateings',
+  // school details
+  'school_details': 'School details',
+  'school_gallery': 'School gallery',
+  'note': 'note',
+  'subscribe_now': 'Subscribe now',
   // other
   'submit': 'Submit',
   'cancel': 'Cancel',
