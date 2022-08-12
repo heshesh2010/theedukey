@@ -117,6 +117,8 @@ const Map<String, String> ar = {
   'school_gallery': 'معرض الصور',
   'note': 'ملاحظات',
   'subscribe_now': 'اشترك الآن',
+  "related_schools": 'منشآت ذات صلة',
+  'Please_select_the_child': 'يرجى اختيار الطفل',
   // other
   'cancel': 'الغاء',
   'submit': 'ارسال',

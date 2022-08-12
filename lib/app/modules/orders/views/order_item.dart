@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../elements/webView.dart';
 import '../../../data/models/order.dart';
 
 class OrderItem extends StatelessWidget {
@@ -8,7 +9,7 @@ class OrderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 320,
+      height: 350,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: Colors.white,
@@ -23,130 +24,159 @@ class OrderItem extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 30, left: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('orderNum'.tr,
-                      style: Theme.of(context).textTheme.titleSmall),
-                  const SizedBox(
-                    height: 10,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 30, left: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('orderNum'.tr,
+                          style: Theme.of(context).textTheme.titleSmall),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text('serviceProvider'.tr,
+                          style: Theme.of(context).textTheme.bodyText2),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text('orderStatus'.tr,
+                          style: Theme.of(context).textTheme.bodyText2),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text('serviceName'.tr,
+                          style: Theme.of(context).textTheme.bodyText2),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text('stage'.tr,
+                          style: Theme.of(context).textTheme.bodyText2),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text('theClass'.tr,
+                          style: Theme.of(context).textTheme.bodyText2),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text('subscriptionTypr'.tr,
+                          style: Theme.of(context).textTheme.bodyText2),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text('priceAfterDiscount'.tr,
+                          style: Theme.of(context).textTheme.bodyText2),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text('from'.tr,
+                          style: Theme.of(context).textTheme.bodyText2),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text('to'.tr,
+                          style: Theme.of(context).textTheme.bodyText2),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
                   ),
-                  Text('serviceProvider'.tr,
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('orderStatus'.tr,
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('serviceName'.tr,
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('stage'.tr,
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('theClass'.tr,
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('subscriptionTypr'.tr,
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('priceAfterDiscount'.tr,
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('from'.tr, style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('to'.tr, style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${order.orderNum}',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text('${order.serviceProvider}',
-                        style: Theme.of(context).textTheme.bodyText2),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text('${order.orderStatus}',
-                        style: Theme.of(context).textTheme.bodyText2),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text('${order.serviceName}',
-                        maxLines: 1,
-                        //   softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyText2),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text('${order.stage}',
-                        maxLines: 2,
-                        style: Theme.of(context).textTheme.bodyText2),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text('${order.theClass}',
-                        maxLines: 2,
-                        style: Theme.of(context).textTheme.bodyText2),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text('${order.subscriptionTypr}',
-                        style: Theme.of(context).textTheme.bodyText2),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text('${order.priceAfterDiscount}${'currency'.tr}',
-                        style: Theme.of(context).textTheme.bodyText2),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text('${order.from}',
-                        style: Theme.of(context).textTheme.bodyText2),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text('${order.to}',
-                        style: Theme.of(context).textTheme.bodyText2),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ],
                 ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 30),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${order.orderNum}',
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text('${order.serviceProvider}',
+                            style: Theme.of(context).textTheme.bodyText2),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text('${order.orderStatus}',
+                            style: Theme.of(context).textTheme.bodyText2),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text('${order.serviceName}',
+                            maxLines: 1,
+                            //   softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.bodyText2),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text('${order.stage}',
+                            maxLines: 2,
+                            style: Theme.of(context).textTheme.bodyText2),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text('${order.theClass}',
+                            maxLines: 2,
+                            style: Theme.of(context).textTheme.bodyText2),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text('${order.subscriptionTypr}',
+                            style: Theme.of(context).textTheme.bodyText2),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text('${order.priceAfterDiscount}${'currency'.tr}',
+                            style: Theme.of(context).textTheme.bodyText2),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text('${order.from}',
+                            style: Theme.of(context).textTheme.bodyText2),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text('${order.to}',
+                            style: Theme.of(context).textTheme.bodyText2),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  //TODO: check if status accepted and payment is not null
+                ),
+              ],
+            ),
+            SizedBox(
+              width: Get.width / 1.5,
+              height: 60,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.pin_drop),
+                label: Text('pay'.tr),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WebView(
+                            "https://checkout.payments.tap.company?mode=page&token=62f68be543c54209cc9db938",
+                            "دفع الكتروني", onGet: (value) {
+                          if (value) {
+                            print(value);
+                          }
+                        }),
+                      ));
+                },
               ),
             ),
           ],

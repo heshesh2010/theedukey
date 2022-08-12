@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/addOrder/bindings/add_order_binding.dart';
+import '../modules/addOrder/views/add_order_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/contact_us/bindings/contact_us_binding.dart';
@@ -97,6 +99,16 @@ class AppPages {
     GetPage(
         name: _Paths.schoolDetails,
         page: () => const SchoolDetailsView(),
-        binding: SchoolDetailsBinding())
+        binding: SchoolDetailsBinding()),
+
+    //       GetPage(
+    //   name: _Paths.webView,
+    //   page: () =>  WebView(),
+    //  )
+    GetPage(
+      name: _Paths.ADD_ORDER,
+      page: () => const AddOrderView(),
+      binding: AddOrderBinding(),
+    ),
   ];
 }

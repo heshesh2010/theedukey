@@ -118,6 +118,8 @@ const Map<String, String> en = {
   'school_gallery': 'School gallery',
   'note': 'note',
   'subscribe_now': 'Subscribe now',
+  "related_schools": 'Related schools',
+  'Please_select_the_child': 'Please select the child',
   // other
   'submit': 'Submit',
   'cancel': 'Cancel',

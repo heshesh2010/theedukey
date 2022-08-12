@@ -9,6 +9,7 @@ class SchoolDetailsController extends GetxController {
   SchoolDetailsController({required this.repository});
   RxBool isLoading = true.obs;
   RxInt selectedPage = 0.obs;
+  RxInt current = 0.obs;
 
   late Rx<Facility> facility = Facility().obs;
   @override

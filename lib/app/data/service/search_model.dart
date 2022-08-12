@@ -23,6 +23,10 @@ class SearchModel {
     routeArgument?.ratingsList = value;
   }
 
+  void setSonList(value) {
+    routeArgument?.sonList = value;
+  }
+
   void clear() {
     routeArgument = null;
   }

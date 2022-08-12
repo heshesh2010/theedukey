@@ -1,13 +1,14 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../config/app_config.dart';
 import '../controllers/school_details_controller.dart';
 import 'priceItem.dart';
-import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 
 class SchoolPrices extends GetWidget<SchoolDetailsController> {
-  const SchoolPrices({Key? key}) : super(key: key);
+  SchoolPrices({Key? key}) : super(key: key);
+  final CarouselController _controller = CarouselController();
 
   @override
   Widget build(BuildContext context) {
@@ -15,32 +16,55 @@ class SchoolPrices extends GetWidget<SchoolDetailsController> {
         height: 550,
         width: double.infinity,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: PageView.builder(
-                itemCount: controller.facility.value.prices?.length ?? 0,
-                physics: const BouncingScrollPhysics(),
-                //  controller: _pageController,
-                onPageChanged: (page) {
-                  controller.selectedPage.value = page;
-                },
-                itemBuilder: (BuildContext context, int index) {
-                  return PriceItem(
-                      price: controller
-                          .facility.value.prices![index]); // you forgot this
-                },
-              ),
-            ),
+                child: CarouselSlider(
+              carouselController: _controller,
+              options: CarouselOptions(
+                  height: 550.0,
+                  autoPlay: true,
+                  viewportFraction: 1,
+                  //aspectRatio: 0.5,
+                  enlargeCenterPage: true,
+                  onPageChanged: (index, reason) {
+                    controller.current.value = index;
+                  }),
+              items: controller.facility.value.prices!.map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return PriceItem(price: i);
+                  },
+                );
+              }).toList(),
+            )),
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
-            PageViewDotIndicator(
-              currentItem: controller.selectedPage.value,
-              count: controller.facility.value.prices?.length ?? 0,
-              unselectedColor: Colors.black26,
-              size: const Size(8, 8),
-              selectedColor: AppColors().accentColor(1),
-              duration: const Duration(milliseconds: 200),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: controller.facility.value.prices!
+                  .asMap()
+                  .entries
+                  .map((entry) {
+                return GestureDetector(
+                  onTap: () => _controller.animateToPage(entry.key),
+                  child: Container(
+                    width: 12.0,
+                    height: 12.0,
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 4.0),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: (Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white
+                                : AppColors().accentColor(1))
+                            .withOpacity(controller.current.value == entry.key
+                                ? 0.9
+                                : 0.4)),
+                  ),
+                );
+              }).toList(),
             ),
           ],
         )));

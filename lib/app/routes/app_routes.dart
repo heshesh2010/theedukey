@@ -43,8 +43,12 @@ abstract class Routes {
   //contactUs
   static const String contactUs = _Paths.contactUs;
 
+// webiew
+  static const String webView = _Paths.webView;
+
   static const String map = _Paths.map;
   static const GUEST_LOGIN = _Paths.GUEST_LOGIN;
+  static const ADD_ORDER = _Paths.ADD_ORDER;
 }
 
 abstract class _Paths {
@@ -52,6 +56,8 @@ abstract class _Paths {
   static const String home = '/HomeScreenView';
   static const String notifications = '/NotificationsView';
   static const String navigator = '/NavigatorPage';
+
+  static const String webView = '/webView';
 
   // User
   static const String editProfile = '/editProfileView';
@@ -88,4 +94,5 @@ abstract class _Paths {
   static const String map = '/MapView';
   static const String schoolDetails = '/SchoolDetailsView';
   static const GUEST_LOGIN = '/guest-login';
+  static const ADD_ORDER = '/add-order';
 }

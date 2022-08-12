@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../elements/drawer.dart';
 import '../../../../elements/topbar.dart';
 import '../../../routes/app_pages.dart';
+import 'related_schools_view.dart';
 import '../controllers/school_details_controller.dart';
 import 'school_gallery.dart';
 import 'school_info.dart';
@@ -46,12 +47,15 @@ class SchoolDetailsView extends GetWidget<SchoolDetailsController> {
                       const SizedBox(
                         height: 40,
                       ),
-                      const SchoolPrices(),
+                      SchoolPrices(),
                       const SizedBox(
-                        height: 100,
+                        height: 40,
                       ),
-// RecommendedShools(),
-// RateSchool(),
+                      RelatedSchoolsView(),
+                      const SizedBox(
+                        height: 80,
+                      ),
+                      //RateSchool(),
                     ],
                   ),
                 ),

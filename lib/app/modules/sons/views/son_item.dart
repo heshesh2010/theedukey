@@ -74,7 +74,7 @@ class SonItem extends StatelessWidget {
                   width: Get.width,
                   child: DataTable(
                     //horizontalMargin: 80.0,
-                    //  columnSpacing: 110,
+                    //  colu mnSpacing: 110,
                     border: TableBorder.all(
                         color: const Color.fromRGBO(238, 238, 238, 1)),
                     columns: <DataColumn>[

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:theedukey/app/data/models/facility.dart';
 
 import '../../../../config/app_config.dart';
+import '../../../routes/app_pages.dart';
 
 class PriceItem extends StatelessWidget {
   PriceItem({Key? key, required this.price}) : super(key: key);
@@ -11,7 +12,7 @@ class PriceItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          const EdgeInsets.only(right: 8.0, left: 8.0, top: 8.0, bottom: 10),
+          const EdgeInsets.only(right: 8.0, left: 8.0, top: 8.0, bottom: 5),
       child: Container(
         //height: 100,
         decoration: BoxDecoration(
@@ -75,14 +76,17 @@ class PriceItem extends StatelessWidget {
               ],
             ),
             SizedBox(
-              width: Get.width / 1.5,
+              width: Get.width / 1.9,
               height: 60,
               child: ElevatedButton(
                 child: Text(
                   "subscribe_now".tr,
                 ),
                 onPressed: () {
-                  //     Get.toNamed(Routes.editSon, arguments: son);
+                  //TODO: updatePrictTO dependency injector
+                  Get.toNamed(
+                    Routes.ADD_ORDER,
+                  );
                 },
               ),
             ),

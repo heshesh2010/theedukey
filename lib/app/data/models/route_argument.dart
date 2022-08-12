@@ -3,6 +3,9 @@ import 'package:theedukey/app/data/models/school.dart';
 class RouteArgument {
   List<int>? stagesList;
   List<int>? ratingsList;
+
+  List<int>? sonList;
+
   String? keyword;
   dynamic param;
   School? school;
@@ -15,5 +18,6 @@ class RouteArgument {
       this.school,
       this.rate,
       this.paymentMethodList,
-      this.ratingsList});
+      this.ratingsList,
+      this.sonList});
 }
