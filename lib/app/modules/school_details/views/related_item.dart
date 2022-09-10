@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:theedukey/app/data/models/facility.dart';
 
 import '../../../core/utils/image_tools.dart';
+import '../../../data/models/school.dart';
 
 class RelatedSchoolItem extends StatelessWidget {
   RelatedSchoolItem({Key? key, required this.relatedItem}) : super(key: key);
 
-  Prices relatedItem;
+  SchoolData relatedItem;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +36,8 @@ class RelatedSchoolItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: ImageTools.image(
-                  fit: BoxFit.cover,
-                  url:
-                      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png",
+                  fit: BoxFit.contain,
+                  url: relatedItem.logo,
                   height: 200,
                   width: 350,
                 ),
@@ -46,7 +45,7 @@ class RelatedSchoolItem extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Text(relatedItem.className ?? "0"),
+              Text(relatedItem.name ?? "0"),
               Row(
                 children: [
                   Icon(
@@ -57,7 +56,7 @@ class RelatedSchoolItem extends StatelessWidget {
                     width: 10,
                   ),
                   Text(
-                    relatedItem.className ?? " ",
+                    relatedItem.address ?? " ",
                     style: Theme.of(context)
                         .textTheme
                         .titleSmall
@@ -74,7 +73,7 @@ class RelatedSchoolItem extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(relatedItem.className ?? "0"),
+                  Text(relatedItem.rate ?? "0"),
                 ],
               ),
             ],

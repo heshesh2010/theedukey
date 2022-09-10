@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:theedukey/app/data/models/payment_method.dart';
+import 'package:theedukey/app/data/models/rate.dart';
 import 'package:theedukey/app/data/models/stage.dart';
 
 class FilterData {
@@ -33,7 +35,14 @@ class FilterData {
 class FilterDataData {
   final List<Stage>? stages;
   final List<PaymentMethod>? paymentMethods;
-  List<int>? ratings = [1, 2, 3, 4, 5];
+  List<Rate>? ratings = [
+    Rate(-1, "all".tr),
+    Rate(1, "1"),
+    Rate(2, "2"),
+    Rate(3, "3"),
+    Rate(4, "4"),
+    Rate(5, "5")
+  ];
 
   FilterDataData({this.stages, this.paymentMethods, this.ratings});
 

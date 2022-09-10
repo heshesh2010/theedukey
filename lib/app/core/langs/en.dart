@@ -106,13 +106,15 @@ const Map<String, String> en = {
   'theClass': 'Class ',
   'subscriptionTypr': 'Subscription Type',
   'priceAfterDiscount': 'Price After Discount',
-
+  'pay': 'pay',
 // search screen
   'search_results': 'Search results',
   'show_results_on_map': 'Show on map',
   'search_results_for': 'Search results for :',
   'payment_method': 'Payment method',
   'rateings': ' Rateings',
+  'all': 'All',
+  'press_to_view_details': 'Press to view details',
   // school details
   'school_details': 'School details',
   'school_gallery': 'School gallery',
@@ -120,6 +122,14 @@ const Map<String, String> en = {
   'subscribe_now': 'Subscribe now',
   "related_schools": 'Related schools',
   'Please_select_the_child': 'Please select the child',
+  'continue_and_add_sons': '  Continue and add sons',
+  'also_you_can': 'Also you can',
+  'continue_with_main_account': ' Continue with main account',
+  'subscriber_info': 'Subscriber info',
+  'subscription_package': 'Subscription package',
+  'Order_added_successfully': 'Order added successfully',
+  'added_to_favorite': 'Added to favorite',
+  'removed_from_favorite': 'Removed from favorite',
   // other
   'submit': 'Submit',
   'cancel': 'Cancel',
@@ -129,6 +139,7 @@ const Map<String, String> en = {
   'add_photo': 'Add photo',
   'camera': 'Camera',
   'currency': 'SAR',
+  'OK': 'حسنا',
 
   'empty_results': 'Empty results',
 
@@ -146,8 +157,8 @@ const Map<String, String> en = {
       'You must signin to access to this section',
   "after_discount": 'After discount',
   "before_discount": 'Before discount',
-  "show_more": 'Show more',
-  "show_less": 'Show less',
+  "show_more": '  Show more   ',
+  "show_less": '  Show less   ',
 
   "no_other_results": "No other results",
 };

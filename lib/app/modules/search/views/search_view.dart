@@ -6,6 +6,7 @@ import 'package:theedukey/app/modules/search/views/search_filters.dart';
 
 import '../../../../elements/drawer.dart';
 import '../../../../elements/topbar.dart';
+import '../../../data/models/route_argument.dart';
 import '../../../data/service/locator.dart';
 import '../../../data/service/search_model.dart';
 import '../../../routes/app_pages.dart';
@@ -75,8 +76,14 @@ class SearchView extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 8.0),
-                              child: SchoolItem(
-                                school: _.schoolList[index],
+                              child: InkWell(
+                                onTap: () => Get.toNamed(Routes.schoolDetails,
+                                    arguments: RouteArgument(
+                                        schoolId:
+                                            _.schoolList[index].school?.id)),
+                                child: SchoolItem(
+                                  school: _.schoolList[index].school,
+                                ),
                               ),
                             );
                           },

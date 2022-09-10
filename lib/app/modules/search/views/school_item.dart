@@ -6,7 +6,7 @@ import '../../../data/models/school.dart';
 
 class SchoolItem extends StatelessWidget {
   const SchoolItem({Key? key, required this.school}) : super(key: key);
-  final SchoolData school;
+  final SchoolData? school;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,14 +30,12 @@ class SchoolItem extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30.0),
-                    child: ImageTools.image(
-                      fit: BoxFit.fitHeight,
-                      url: school.logo ?? "",
-                      height: 100,
-                      width: 100,
-                    )),
+                child: ImageTools.image(
+                  fit: BoxFit.contain,
+                  url: school?.logo ?? "",
+                  height: 100,
+                  width: 100,
+                ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -52,11 +50,11 @@ class SchoolItem extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      Text(school.rate ?? " "),
+                      Text(school?.rate ?? "0"),
                     ],
                   ),
                   Text(
-                    '${school.name}',
+                    '${school?.name}',
                     maxLines: 2,
                     style: Theme.of(context)
                         .textTheme
@@ -75,7 +73,7 @@ class SchoolItem extends StatelessWidget {
                       SizedBox(
                         width: 40.w,
                         child: Text(
-                          '${school.address}',
+                          '${school?.address}',
                           maxLines: 2,
                           style: Theme.of(context)
                               .textTheme

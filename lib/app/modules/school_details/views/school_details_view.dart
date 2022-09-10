@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 
 import '../../../../elements/drawer.dart';
 import '../../../../elements/topbar.dart';
+import '../../../core/utils/local_storage.dart';
+import '../../../data/service/locator.dart';
+import '../../../data/service/search_model.dart';
 import '../../../routes/app_pages.dart';
 import 'related_schools_view.dart';
 import '../controllers/school_details_controller.dart';
@@ -18,18 +21,32 @@ class SchoolDetailsView extends GetWidget<SchoolDetailsController> {
     return Scaffold(
         appBar: getTopBar(context, title: "school_details".tr, isback: true),
         drawer: DrawerSideMenu(),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: LocalStorage().getUser() != null
+            ? Obx(() => FloatingActionButton(
+                  onPressed: () {
+                    controller.favoriteSchool();
+                  },
+                  child: controller.isFavorite.value
+                      ? const Icon(Icons.favorite)
+                      : const Icon(Icons.favorite_border),
+                ))
+            : Container(),
         body: Obx(() => controller.isLoading.value
             ? const Center(child: CircularProgressIndicator())
             : Padding(
                 padding: const EdgeInsets.only(top: 20.0, right: 10, left: 10),
                 child: SingleChildScrollView(
+                  controller: controller.scrollController,
                   child: Column(
                     children: [
                       const SchoolInfo(),
                       const SizedBox(
                         height: 40,
                       ),
-                      const SchoolGallery(),
+                      controller.facility.value.gallery!.isNotEmpty
+                          ? const SchoolGallery()
+                          : Container(),
                       const SizedBox(
                         height: 40,
                       ),
@@ -40,6 +57,9 @@ class SchoolDetailsView extends GetWidget<SchoolDetailsController> {
                           icon: const Icon(Icons.pin_drop),
                           label: Text('show_results_on_map'.tr),
                           onPressed: () {
+                            getIt<SearchModel>().setSchoolsList(
+                                [controller.facility.value].obs);
+
                             Get.toNamed(Routes.map);
                           },
                         ),

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import '../../../data/models/school.dart';
+import '../../../data/models/facility.dart';
 import '../../../data/models/stage.dart';
 import '../../../data/repositories/home_repository.dart';
 import '../../../data/service/locator.dart';
@@ -49,9 +49,9 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<List<SchoolData>> getSuggestions(pattern) async {
+  Future<List<Facility>> getSuggestions(pattern) async {
     dynamic response = await repository.getSuggestionsApi(pattern);
-    if (response is List<SchoolData>) {
+    if (response is List<Facility>) {
       return response;
     } else {
       //   Helper().showErrorToast("لا يمكن التسجيل حالياً يرجى المٌراجعة لاحقاً");
@@ -61,7 +61,7 @@ class HomeController extends GetxController {
 
   void setSelectedStage(value) {
     selectedStage.value = value!;
-    getIt<SearchModel>().setStageList([value]);
+    getIt<SearchModel>().setStageList([selectedStage.value.id ?? 0]);
   }
 
   Stage getSelectedStage() {

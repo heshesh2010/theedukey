@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:theedukey/app/modules/home/views/home_view.dart';
+import '../../../../elements/bottom_navigation_bar.dart';
 import '../../../core/utils/local_storage.dart';
 import '../../../core/values/constants/general.dart';
 import '../../../../helper.dart';
@@ -50,7 +50,9 @@ class AuthController extends GetxController {
         LocalStorage().saveUser(response);
         submitButtonController.success();
         currentUser = LocalStorage().getUser().obs;
-        Get.to(() => HomeView());
+        Get.to(
+          () => const NavigatorPage(tabIndex: 1),
+        );
         isProcessEnabled = false.obs;
 
         //  Get.back();

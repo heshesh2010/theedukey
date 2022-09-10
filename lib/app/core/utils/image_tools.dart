@@ -60,13 +60,11 @@ class ImageTools {
         future: Future.delayed(const Duration(seconds: 10), () => false),
         initialData: true,
         builder: (context, snapshot) {
-          return AnimatedSwitcher(
-            duration: const Duration(milliseconds: 500),
-            child: SizedBox(
-              width: width,
-              height: height ?? width! * ratioImage,
-              child: const Icon(Icons.error_outline),
-            ),
+          return Image.asset(
+            'assets/img/place_holder.png',
+            width: width,
+            height: height,
+            fit: fit,
           );
         },
       );

@@ -105,6 +105,7 @@ const Map<String, String> ar = {
   'theClass': 'الصف الدراسي ',
   'subscriptionTypr': 'نوع الاشتراك',
   'priceAfterDiscount': 'السعر بعد الخصم',
+  'pay': 'الدفع',
 
 // search screen
   'search_results': 'نتائج البحث',
@@ -112,6 +113,8 @@ const Map<String, String> ar = {
   'search_results_for': ' نتائج البحث عن :',
   'payment_method': 'طريقة الدفع',
   'rateings': 'التقييمات',
+  'all': 'الكل',
+  'press_to_view_details': 'اضغط لمشاهدة التفاصيل',
   // school details
   'school_details': 'تفاصيل المدرسة',
   'school_gallery': 'معرض الصور',
@@ -119,6 +122,14 @@ const Map<String, String> ar = {
   'subscribe_now': 'اشترك الآن',
   "related_schools": 'منشآت ذات صلة',
   'Please_select_the_child': 'يرجى اختيار الطفل',
+  'continue_and_add_sons': 'متابعة واضافة ابناء',
+  'also_you_can': 'او يمكنك ايضا',
+  'added_to_favorite': 'تم اضافة المنشأة الى المفضلة',
+  'removed_from_favorite': 'تم حذف المنشأة من المفضلة',
+  "continue_with_main_account": 'متابعة بالحساب الرئيسي',
+  'subscriber_info': 'بيانات المشترك',
+  "subscription_package": 'باقة الاشتراك',
+  'Order_added_successfully': 'تم اضافة الطلب بنجاح',
   // other
   'cancel': 'الغاء',
   'submit': 'ارسال',
@@ -130,7 +141,7 @@ const Map<String, String> ar = {
   'empty_results': 'لا يوجد نتائج',
   "please_review_all_fields": "يرجى مراجعة البيانات المٌدخلة",
   'currency': ' ريال سعودي ',
-
+  'OK': 'حسنا',
   "FirstPageException_title": "حدث خطأ ما",
   "FirstPageException_message": 'واجه التطبيق خطأ غير معروف\n'
       'فضلا حاول لاحقاً',
@@ -143,8 +154,8 @@ const Map<String, String> ar = {
 
   "after_discount": "بعد الخصم",
   "before_discount": "قبل الخصم",
-  "show_more": "عرض المزيد",
-  "show_less": "إخفاء المزيد",
+  "show_more": "  عرض المزيد  ",
+  "show_less": "  أخفاء المزيد ",
 
   "no_other_results": "لا يوجد نتائج اخرى",
   "no_results": "لا يوجد نتائج",

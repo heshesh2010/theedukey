@@ -5,17 +5,19 @@ class Facility {
   final List<Gallery>? gallery;
   final List<Stages>? stages;
   final List<Prices>? prices;
+  final List<SchoolData>? related;
 
   Facility({
     this.school,
     this.gallery,
     this.stages,
     this.prices,
+    this.related,
   });
 
   Facility.fromJson(Map<String, dynamic> json)
-      : school = (json['facility'] as Map<String, dynamic>?) != null
-            ? SchoolData.fromJson(json['facility'] as Map<String, dynamic>)
+      : school = (json['facilities'] as Map<String, dynamic>?) != null
+            ? SchoolData.fromJson(json['facilities'] as Map<String, dynamic>)
             : null,
         gallery = (json['gallery'] as List?)
             ?.map((dynamic e) => Gallery.fromJson(e as Map<String, dynamic>))
@@ -25,13 +27,17 @@ class Facility {
             .toList(),
         prices = (json['prices'] as List?)
             ?.map((dynamic e) => Prices.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        related = (json['related'] as List?)
+            ?.map((dynamic e) => SchoolData.fromJson(e as Map<String, dynamic>))
             .toList();
 
   Map<String, dynamic> toJson() => {
         'facility': school?.toJson(),
         'gallery': gallery?.map((e) => e.toJson()).toList(),
         'stages': stages?.map((e) => e.toJson()).toList(),
-        'prices': prices?.map((e) => e.toJson()).toList()
+        'prices': prices?.map((e) => e.toJson()).toList(),
+        'related': related?.map((e) => e.toJson()).toList(),
       };
 }
 

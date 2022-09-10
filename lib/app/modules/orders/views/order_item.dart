@@ -153,32 +153,33 @@ class OrderItem extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  //TODO: check if status accepted and payment is not null
                 ),
               ],
             ),
-            SizedBox(
-              width: Get.width / 1.5,
-              height: 60,
-              child: ElevatedButton.icon(
-                icon: const Icon(Icons.pin_drop),
-                label: Text('pay'.tr),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WebView(
-                            "https://checkout.payments.tap.company?mode=page&token=62f68be543c54209cc9db938",
-                            "دفع الكتروني", onGet: (value) {
-                          if (value) {
-                            print(value);
-                          }
-                        }),
-                      ));
-                },
-              ),
-            ),
+            order.paymentUrl != null
+                ? SizedBox(
+                    width: Get.width / 1.5,
+                    height: 60,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.pin_drop),
+                      label: Text('pay'.tr),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WebView(
+                                  order.paymentUrl ??
+                                      "https://checkout.payments.tap.company?mode=page&token=6300ce0023e1b600fd3a4213",
+                                  "دفع الكتروني", onGet: (value) {
+                                if (value) {
+                                  print(value);
+                                }
+                              }),
+                            ));
+                      },
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),

@@ -30,7 +30,7 @@ class SchoolGallery extends GetWidget<SchoolDetailsController> {
                   childAspectRatio: 1.0,
                   children: controller.facility.value.gallery?.map((e) {
                         return GalleryItem(
-                          image: e.image ?? " ",
+                          image: e.image ?? "",
                         );
                       }).toList() ??
                       [],

@@ -1,6 +1,7 @@
 import '../models/route_argument.dart';
 
 class SearchModel {
+  SearchModel({this.routeArgument});
   RouteArgument? routeArgument;
 
   void search(routeArgument) {
@@ -25,6 +26,10 @@ class SearchModel {
 
   void setSonList(value) {
     routeArgument?.sonList = value;
+  }
+
+  void setSchoolsList(value) {
+    routeArgument?.schoolsList = value;
   }
 
   void clear() {

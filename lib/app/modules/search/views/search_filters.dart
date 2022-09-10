@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../data/models/payment_method.dart';
+import '../../../data/models/rate.dart';
 import '../../../data/models/stage.dart';
 import '../controllers/search_controller.dart';
 
@@ -63,16 +64,36 @@ class SearchFilters extends GetWidget<SearchController> {
                                 MaterialTapTargetSize.shrinkWrap,
                             focusColor: Theme.of(context).focusColor,
                             onChanged: (bool? value) {
-                              controller.stagesCheckBoxes[controller
-                                  .filterData.value.stages!
-                                  .indexOf(selectedType)] = {
-                                selectedType: !value!
-                              };
-                              controller.setSelectedStageCheckBox(
-                                  index: controller.filterData.value.stages!
-                                      .indexOf(selectedType),
-                                  value: value,
-                                  stage: selectedType);
+                              if (selectedType.id == -1) {
+                                controller.stagesCheckBoxes[controller
+                                    .filterData.value.stages!
+                                    .indexOf(selectedType)] = {
+                                  selectedType: !value!
+                                };
+                                if (!value) {
+                                  controller
+                                      .unCheckAllSelectedStagesCheckBoxes();
+                                } else {
+                                  controller.checkAllSelectedStagesCheckBoxes();
+                                }
+
+                                controller.setSelectedStageCheckBox(
+                                    index: controller.filterData.value.stages!
+                                        .indexOf(selectedType),
+                                    value: value,
+                                    stage: selectedType);
+                              } else {
+                                controller.stagesCheckBoxes[controller
+                                    .filterData.value.stages!
+                                    .indexOf(selectedType)] = {
+                                  selectedType: !value!
+                                };
+                                controller.setSelectedStageCheckBox(
+                                    index: controller.filterData.value.stages!
+                                        .indexOf(selectedType),
+                                    value: value,
+                                    stage: selectedType);
+                              }
                             },
                             value: controller.stagesCheckBoxes[controller
                                 .filterData.value.stages!
@@ -129,17 +150,38 @@ class SearchFilters extends GetWidget<SearchController> {
                                 MaterialTapTargetSize.shrinkWrap,
                             focusColor: Theme.of(context).focusColor,
                             onChanged: (bool? value) {
-                              controller.paymentMethodsCheckBoxes[controller
-                                  .filterData.value.paymentMethods!
-                                  .indexOf(selectedType)] = {
-                                selectedType: !value!
-                              };
-                              controller.setSelectedPaymentMethod(
-                                  index: controller
-                                      .filterData.value.paymentMethods!
-                                      .indexOf(selectedType),
-                                  value: value,
-                                  paymentMethod: selectedType);
+                              if (selectedType.id == -1) {
+                                controller.paymentMethodsCheckBoxes[controller
+                                    .filterData.value.paymentMethods!
+                                    .indexOf(selectedType)] = {
+                                  selectedType: !value!
+                                };
+                                if (!value) {
+                                  controller
+                                      .unCheckAllSelectedPaymentMethodsCheckBoxes();
+                                } else {
+                                  controller
+                                      .checkAllSelectedPaymentMethodsCheckBoxes();
+                                }
+                                controller.setSelectedPaymentMethod(
+                                    index: controller
+                                        .filterData.value.paymentMethods!
+                                        .indexOf(selectedType),
+                                    value: value,
+                                    paymentMethod: selectedType);
+                              } else {
+                                controller.paymentMethodsCheckBoxes[controller
+                                    .filterData.value.paymentMethods!
+                                    .indexOf(selectedType)] = {
+                                  selectedType: !value!
+                                };
+                                controller.setSelectedPaymentMethod(
+                                    index: controller
+                                        .filterData.value.paymentMethods!
+                                        .indexOf(selectedType),
+                                    value: value,
+                                    paymentMethod: selectedType);
+                              }
                             },
                             value: controller.paymentMethodsCheckBoxes[
                                 controller.filterData.value.paymentMethods!
@@ -183,7 +225,7 @@ class SearchFilters extends GetWidget<SearchController> {
                 ),
                 onChanged: (dynamic value) {},
                 items: controller.filterData.value.ratings
-                    ?.map((int selectedType) {
+                    ?.map((Rate selectedType) {
                   return DropdownMenuItem(
                     value: selectedType,
                     child: Row(
@@ -193,38 +235,63 @@ class SearchFilters extends GetWidget<SearchController> {
                                 MaterialTapTargetSize.shrinkWrap,
                             focusColor: Theme.of(context).focusColor,
                             onChanged: (bool? value) {
-                              controller.ratingsCheckBoxes[controller
-                                  .filterData.value.ratings!
-                                  .indexOf(selectedType)] = {
-                                selectedType: !value!
-                              };
-                              controller.setSelectedRatingCheckBox(
-                                  index: controller.filterData.value.ratings!
-                                      .indexOf(selectedType),
-                                  value: value,
-                                  rateing: selectedType);
+                              if (selectedType.id == -1) {
+                                controller.ratingsCheckBoxes[controller
+                                    .filterData.value.ratings!
+                                    .indexOf(selectedType)] = {
+                                  selectedType: !value!
+                                };
+
+                                if (!value) {
+                                  controller
+                                      .unCheckAllSelectedRatingCheckBoxes();
+                                } else {
+                                  controller.checkAllSelectedRatingCheckBoxes();
+                                }
+                                controller.setSelectedRatingCheckBox(
+                                    index: controller.filterData.value.ratings!
+                                        .indexOf(selectedType),
+                                    value: value,
+                                    rateing: selectedType);
+                              } else {
+                                controller.ratingsCheckBoxes[controller
+                                    .filterData.value.ratings!
+                                    .indexOf(selectedType)] = {
+                                  selectedType: !value!
+                                };
+
+                                controller.setSelectedRatingCheckBox(
+                                    index: controller.filterData.value.ratings!
+                                        .indexOf(selectedType),
+                                    value: value,
+                                    rateing: selectedType);
+                              }
                             },
                             value: controller.ratingsCheckBoxes[controller
                                 .filterData.value.ratings!
                                 .indexOf(selectedType)][selectedType])),
-                        RatingBar.builder(
-                          ignoreGestures: true,
-                          initialRating: selectedType.toDouble(),
-                          minRating: 1,
-                          itemSize: 15,
-                          //   textDirection: TextDirection.ltr,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          itemBuilder: (context, _) => const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 1,
-                          ),
-                          onRatingUpdate: (rating) {
-                            print(rating);
-                          },
-                        ),
+                        selectedType.id == -1
+                            ? Text(selectedType.name)
+                            : RatingBar.builder(
+                                ignoreGestures: true,
+                                initialRating: selectedType.id == -1
+                                    ? 0
+                                    : selectedType.id.toDouble(),
+                                minRating: 1,
+                                itemSize: 15,
+                                //   textDirection: TextDirection.ltr,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemBuilder: (context, _) => const Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                  size: 1,
+                                ),
+                                onRatingUpdate: (rating) {
+                                  print(rating);
+                                },
+                              ),
                       ],
                     ),
                   );

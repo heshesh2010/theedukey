@@ -6,8 +6,6 @@ import '../../../routes/app_pages.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class SplashController extends GetxController {
-  final count = 0.obs;
-
   //final AuthController controller = Get.put(Authcontroller);
 
   @override

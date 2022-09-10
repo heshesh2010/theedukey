@@ -15,13 +15,13 @@ class SonsRepository {
   Future<dynamic> getSonsApi({nextUrl}) async {
     Response? response = await apiClient.getAsync(
         nextUrl ??
-            'student-auth/children?lang=${LocalStorage().getlanguageSelected() ?? "ar"}',
+            'student-auth/children?lang=${LocalStorage().getlanguageSelected() ?? "ar"}&pagenate=true',
         isTokenRequired: true);
     if (response?.statusCode == 200) {
       Son son = Son.fromJson(response?.data);
       if (son.data?.nextPageUrl != null) {
         nextUrl =
-            "${(son.data?.nextPageUrl)!}&lang=${LocalStorage().getlanguageSelected() ?? "ar"}";
+            "${(son.data?.nextPageUrl)!}&lang=${LocalStorage().getlanguageSelected() ?? "ar"}&pagenate=true";
       }
       if (son.data?.data != null) {
         return son.data?.data;

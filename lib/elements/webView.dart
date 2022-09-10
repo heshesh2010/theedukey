@@ -37,10 +37,18 @@ class _WebView extends State<WebView> {
                   clearCache: true,
                 )),
                 onWebViewCreated: (InAppWebViewController controller) {},
+                onLoadStart: (InAppWebViewController controller, Uri? url) =>
+                    print(
+                  url.toString(),
+                ),
                 onLoadStop: (InAppWebViewController controller, Uri? url) {
                   controller.getHtml().then((value) => {
+                        print(value),
                         if (value!.contains("success\":\"true"))
                           {widget.onGet(true)}
+                        else if (value.contains(
+                            "<html><head></head><body>false</body></html>"))
+                          {widget.onGet(false)}
                       });
                 },
               ),

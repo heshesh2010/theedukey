@@ -8,19 +8,50 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image/image.dart';
 
-import '../../search/controllers/search_controller.dart';
+import '../../../data/models/facility.dart';
+import '../../../data/models/route_argument.dart';
+import '../../../data/service/locator.dart';
+import '../../../data/service/search_model.dart';
+import '../../../routes/app_pages.dart';
 
 class MapController extends GetxController {
   List<Marker> allMarkers = <Marker>[].obs; // Inside Map View Controller
-  SearchController? searchController;
   late BitmapDescriptor customIcon;
+  GoogleMapController? mapController;
 
-  @override
-  void onInit() {
-    searchController = Get.find<SearchController>();
+  CameraPosition kGooglePlex = const CameraPosition(
+    target: LatLng(24.69596839147883, 46.686680461716264),
+    zoom: 14.4746,
+  );
 
-    getMarkers();
-    super.onInit();
+  void onMapCreated(GoogleMapController controller) {
+    //   _controller.complete(controller);
+
+    controller.setMapStyle(
+        '[{"featureType": "poi","stylers": [{"visibility": "off"}]}]');
+
+    mapController = controller;
+
+    getIt<SearchModel>()
+        .routeArgument!
+        .schoolsList
+        .asMap()
+        .forEach((key, Facility value) async {
+      int? idx = value.school?.mapLocation?.indexOf(",");
+
+      if (key == 0) {
+        updateMapCamera(
+            double.parse(
+                value.school?.mapLocation?.substring(0, idx).trim() ?? "0"),
+            double.parse(
+                value.school?.mapLocation?.substring(idx! + 1).trim() ?? "0"));
+      }
+
+      await getMarkers(idx, key, value);
+
+      update();
+      // controller.showMarkerInfoWindow(MarkerId(key.toString()));
+    });
   }
 
   Future<ByteBuffer> loadNetworkImage(path) async {
@@ -65,36 +96,44 @@ class MapController extends GetxController {
     return encodePng(markerImage);
   }
 
-  getMarkers() async {
-    searchController?.schoolList.asMap().forEach((key, value) async {
-      int? idx = value.mapLocation?.indexOf(",");
+  void updateMapCamera(latitude, longitude) {
+    CameraUpdate update = CameraUpdate.newCameraPosition(
+        CameraPosition(target: LatLng(latitude, longitude), zoom: 12));
+    mapController?.animateCamera(update);
+    mapController!.moveCamera(update);
+  }
 
+  getMarkers(idx, key, Facility value) async {
 // make sure to initialize before map loading
-      Uint8List image = Uint8List.fromList(await makeReceiptImage(value.logo ??
-          "https://dev17.toplinedev.com/theedukey/public/uploads/facilities/16570474004006.png"));
-      final Codec markerImageCodec = await instantiateImageCodec(
-          image.buffer.asUint8List(),
-          targetHeight: 300,
-          targetWidth: 250);
-      final FrameInfo frameInfo = await markerImageCodec.getNextFrame();
-      final ByteData? byteData =
-          await frameInfo.image.toByteData(format: ImageByteFormat.png);
-      final Uint8List resizedImageMarker = byteData!.buffer.asUint8List();
+    Uint8List image = Uint8List.fromList(await makeReceiptImage(value
+            .school?.logo ??
+        "https://dev17.toplinedev.com/theedukey/public/uploads/facilities/16570474004006.png"));
+    final Codec markerImageCodec = await instantiateImageCodec(
+        image.buffer.asUint8List(),
+        targetHeight: 300,
+        targetWidth: 250);
+    final FrameInfo frameInfo = await markerImageCodec.getNextFrame();
+    final ByteData? byteData =
+        await frameInfo.image.toByteData(format: ImageByteFormat.png);
+    final Uint8List resizedImageMarker = byteData!.buffer.asUint8List();
 
-      allMarkers.add(Marker(
-          icon: BitmapDescriptor.fromBytes(resizedImageMarker),
-          markerId: MarkerId(key.toString()),
-          position: LatLng(
-              double.parse(value.mapLocation?.substring(0, idx).trim() ?? "0"),
-              double.parse(
-                  value.mapLocation?.substring(idx! + 1).trim() ?? "0")),
-          infoWindow: InfoWindow(title: value.name ?? " "),
+    allMarkers.add(Marker(
+      icon: BitmapDescriptor.fromBytes(resizedImageMarker),
+      markerId: MarkerId(key.toString()),
+      position: LatLng(
+          double.parse(
+              value.school?.mapLocation?.substring(0, idx).trim() ?? "0"),
+          double.parse(
+              value.school?.mapLocation?.substring(idx! + 1).trim() ?? "0")),
+      infoWindow: InfoWindow(
+          title: value.school?.name ?? " ",
+          snippet: 'press_to_view_details'.tr,
           onTap: () {
-            //do something here
-          }));
-    });
+            Get.toNamed(Routes.schoolDetails,
+                arguments: RouteArgument(schoolId: value.school?.id));
+          }),
+    ));
 
-    update(); // <=== Add, because you are using GetBuilder
     //   });
   }
 }

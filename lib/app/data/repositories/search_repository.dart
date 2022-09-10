@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' as dio;
 import 'package:flutter/foundation.dart';
 
 import '../../core/utils/local_storage.dart';
+import '../models/facility.dart';
 import '../models/filter_data.dart';
 import '../models/route_argument.dart';
 import '../models/school.dart';
@@ -65,7 +66,13 @@ class SearchRepository {
     dio.Response? response = await apiClient.getAsync(
         "search?keyword=${routeArgument?.keyword}&stage=$stagesIds&payment_method=$paymentMethodsIds&rate=$rateingsIds&lang=${LocalStorage().getlanguageSelected() ?? "ar"}");
     if (response?.statusCode == 200) {
-      return School.fromJson(response?.data).data?.results ?? response;
+      List<Facility> list = <Facility>[];
+
+      for (var element in (response?.data["facilities"] as List)) {
+        list.add(Facility(school: SchoolData.fromJson(element)));
+      }
+
+      return list;
     } else {
       return response;
     }

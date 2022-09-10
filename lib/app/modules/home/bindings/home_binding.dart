@@ -4,11 +4,15 @@ import '../../../data/repositories/auth_repository.dart';
 import '../../../data/repositories/home_repository.dart';
 import '../../../data/repositories/notification_repository.dart';
 import '../../../data/repositories/orders_repository.dart';
+import '../../../data/repositories/school_repository.dart';
+import '../../../data/repositories/search_repository.dart';
 import '../../auth/controllers/auth_controller.dart';
 import '../../edit_profile/controllers/edit_profile_controller.dart';
 import '../../language/controllers/language_controller.dart';
 import '../../notifications/controllers/notifications_controller.dart';
 import '../../orders/controllers/orders_controller.dart';
+import '../../school_details/controllers/school_details_controller.dart';
+import '../../search/controllers/search_controller.dart';
 import '../../sign_up/controllers/signup_controller.dart';
 import '../controllers/home_controller.dart';
 import 'package:dio/dio.dart';
@@ -31,5 +35,9 @@ class HomeBinding implements Bindings {
         repository: AuthRepository(apiClient: ApiClient(dio: Dio()))));
     Get.create(() => EditProfileController(
         repository: AuthRepository(apiClient: ApiClient(dio: Dio()))));
+    Get.lazyPut<SchoolDetailsController>(() => SchoolDetailsController(
+        repository: SchoolRepository(apiClient: ApiClient(dio: Dio()))));
+    Get.lazyPut(() => SearchController(
+        repository: SearchRepository(apiClient: ApiClient(dio: Dio()))));
   }
 }

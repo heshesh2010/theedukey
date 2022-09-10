@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 
 import '../../../../helper.dart';
+import '../../../data/models/facility.dart';
 import '../../../data/models/filter_data.dart';
 import '../../../data/models/payment_method.dart';
-import '../../../data/models/school.dart';
+import '../../../data/models/rate.dart';
 import '../../../data/models/stage.dart';
 import '../../../data/repositories/search_repository.dart';
 import '../../../data/service/locator.dart';
@@ -18,13 +19,13 @@ class SearchController extends GetxController {
       PaymentMethod(name: "payment_method".tr).obs;
 
   var filterData = FilterDataData().obs;
-  var schoolList = <SchoolData>[].obs;
+  RxList<Facility> schoolList = <Facility>[].obs;
 
   RxList<Map<Stage, bool>> stagesCheckBoxes = <Map<Stage, bool>>[].obs;
   RxList<Map<PaymentMethod, bool>> paymentMethodsCheckBoxes =
       <Map<PaymentMethod, bool>>[].obs;
 
-  RxList<Map<int, bool>> ratingsCheckBoxes = <Map<int, bool>>[].obs;
+  RxList<Map<Rate, bool>> ratingsCheckBoxes = <Map<Rate, bool>>[].obs;
 
   List<int> listOfSelcetedStagesId = [];
   List<int> listOfSelcetedPaymentMethodsId = [];
@@ -53,7 +54,7 @@ class SearchController extends GetxController {
 
     for (int i = 0; i < stagesCheckBoxes.length; i++) {
       for (var entry in stagesCheckBoxes[i].entries) {
-        if (entry.value) {
+        if (entry.value && entry.key.id != -1) {
           listOfSelcetedStagesId.add(entry.key.id ?? 0);
         } // remove dublicated
         // listOfSelcetedStagesId.removeWhere((item) => item == stage.id);
@@ -80,7 +81,7 @@ class SearchController extends GetxController {
 
     for (int i = 0; i < paymentMethodsCheckBoxes.length; i++) {
       for (var entry in paymentMethodsCheckBoxes[i].entries) {
-        if (entry.value) {
+        if (entry.value && entry.key.id != -1) {
           listOfSelcetedPaymentMethodsId.add(entry.key.id ?? 0);
         } // remove dublicated
         // listOfSelcetedStagesId.removeWhere((item) => item == stage.id);
@@ -91,8 +92,86 @@ class SearchController extends GetxController {
     getSearchResults();
   }
 
+  unCheckAllSelectedStagesCheckBoxes() {
+    listOfSelcetedStagesId.clear();
+    for (int i = 0; i < stagesCheckBoxes.length; i++) {
+      if (!stagesCheckBoxes[i].containsKey(Stage(id: -1, name: "all".tr))) {
+        stagesCheckBoxes[i].update(
+            Stage(
+                id: stagesCheckBoxes[i].keys.first.id,
+                name: stagesCheckBoxes[i].keys.first.name),
+            (value) => false);
+      }
+    }
+  }
+
+  checkAllSelectedStagesCheckBoxes() {
+    listOfSelcetedStagesId.clear();
+    for (int i = 0; i < stagesCheckBoxes.length; i++) {
+      if (!stagesCheckBoxes[i].containsKey(Stage(id: -1, name: "all".tr))) {
+        stagesCheckBoxes[i].update(
+            Stage(
+                id: stagesCheckBoxes[i].keys.first.id,
+                name: stagesCheckBoxes[i].keys.first.name),
+            (value) => true);
+      }
+    }
+  }
+
+  unCheckAllSelectedRatingCheckBoxes() {
+    listOfSelcetedRatingsId.clear();
+    for (int i = 0; i < ratingsCheckBoxes.length; i++) {
+      if (!ratingsCheckBoxes[i].containsKey(Rate(-1, "all".tr))) {
+        ratingsCheckBoxes[i].update(
+            Rate(ratingsCheckBoxes[i].keys.first.id,
+                ratingsCheckBoxes[i].keys.first.name),
+            (value) => false);
+      }
+    }
+  }
+
+  checkAllSelectedRatingCheckBoxes() {
+    listOfSelcetedRatingsId.clear();
+    for (int i = 0; i < ratingsCheckBoxes.length; i++) {
+      if (!ratingsCheckBoxes[i].containsKey(Rate(-1, "all".tr))) {
+        ratingsCheckBoxes[i].update(
+            Rate(ratingsCheckBoxes[i].keys.first.id,
+                ratingsCheckBoxes[i].keys.first.name),
+            (value) => true);
+      }
+    }
+  }
+
+  unCheckAllSelectedPaymentMethodsCheckBoxes() {
+    listOfSelcetedPaymentMethodsId.clear();
+    for (int i = 0; i < paymentMethodsCheckBoxes.length; i++) {
+      if (!paymentMethodsCheckBoxes[i]
+          .containsKey(PaymentMethod(id: -1, name: "all".tr))) {
+        paymentMethodsCheckBoxes[i].update(
+            PaymentMethod(
+                id: paymentMethodsCheckBoxes[i].keys.first.id,
+                name: paymentMethodsCheckBoxes[i].keys.first.name),
+            (value) => false);
+      }
+    }
+  }
+
+  checkAllSelectedPaymentMethodsCheckBoxes() {
+    listOfSelcetedPaymentMethodsId.clear();
+    for (int i = 0; i < paymentMethodsCheckBoxes.length; i++) {
+      if (!paymentMethodsCheckBoxes[i]
+          .containsKey(PaymentMethod(id: -1, name: "all".tr))) {
+        paymentMethodsCheckBoxes[i].update(
+            PaymentMethod(
+                id: paymentMethodsCheckBoxes[i].keys.first.id,
+                name: paymentMethodsCheckBoxes[i].keys.first.name),
+            (value) => true);
+      }
+    }
+  }
+
   setSelectedRatingCheckBox(
-      {required int index, required int rateing, required bool value}) {
+      {required int index, required Rate rateing, required bool value}) {
     ratingsCheckBoxes[index].update(
       rateing,
       // You can ignore the incoming parameter if you want to always update the value even if it is already in the map
@@ -103,11 +182,10 @@ class SearchController extends GetxController {
 
     for (int i = 0; i < ratingsCheckBoxes.length; i++) {
       for (var entry in ratingsCheckBoxes[i].entries) {
-        if (entry.value) {
-          listOfSelcetedRatingsId.add(entry.key);
+        if (entry.value && entry.key.id != -1) {
+          listOfSelcetedRatingsId.add(entry.key.id);
         } // remove dublicated
         // listOfSelcetedStagesId.removeWhere((item) => item == stage.id);
-
       }
     }
 
@@ -131,8 +209,10 @@ class SearchController extends GetxController {
   getSearchResults() async {
     schoolList.clear();
     dynamic response = await repository.getSearchResultsApi();
-    if (response is List<SchoolData>) {
+    if (response is List<Facility>) {
       schoolList.addAll(response);
+      getIt<SearchModel>().setSchoolsList(schoolList);
+
       update();
     } else {
       Helper().showErrorToast("حدث خطأ ما يرجى المحاولة مرة اخرى");

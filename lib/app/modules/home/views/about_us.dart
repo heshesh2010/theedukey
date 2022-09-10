@@ -61,12 +61,16 @@ class AboutUs extends GetWidget<HomeController> {
                 child: Obx(() => ReadMoreText(
                       controller.aboutUs.value,
                       textAlign: TextAlign.justify,
-                      trimLines: 5,
+                      trimLines: 7,
                       colorClickableText: Colors.pink,
                       trimMode: TrimMode.Length,
                       trimCollapsedText: 'show_more'.tr,
                       trimExpandedText: 'show_less'.tr,
                       style: Theme.of(context).textTheme.bodyText1,
+                      lessStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
                       moreStyle: const TextStyle(
                           color: Colors.black,
                           fontSize: 14,

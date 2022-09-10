@@ -43,10 +43,19 @@ class RelatedSchoolsView extends GetWidget<SchoolDetailsController> {
                               onPageChanged: (index, reason) {
                                 controller.current.value = index;
                               }),
-                          items: controller.facility.value.prices!.map((i) {
+                          items: controller.facility.value.related!.map((i) {
                             return Builder(
                               builder: (BuildContext context) {
-                                return RelatedSchoolItem(relatedItem: i);
+                                return InkWell(
+                                    onTap: () {
+                                      // Get.back();
+                                      // Get.toNamed(Routes.schoolDetails,
+                                      //     arguments:
+                                      //         RouteArgument(schoolId: i.id));
+
+                                      controller.getFacility(id: i.id);
+                                    },
+                                    child: RelatedSchoolItem(relatedItem: i));
                               },
                             );
                           }).toList(),

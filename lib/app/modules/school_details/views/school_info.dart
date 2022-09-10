@@ -19,7 +19,7 @@ class SchoolInfo extends GetWidget<SchoolDetailsController> {
                       borderRadius: BorderRadius.circular(80.0),
                       child: ImageTools.image(
                         fit: BoxFit.fitHeight,
-                        url: controller.facility.value.school?.logo ?? " ",
+                        url: controller.facility.value.school?.logo ?? "",
                         height: 60,
                         width: 60,
                       )),

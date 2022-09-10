@@ -68,6 +68,8 @@ class SchoolData {
   final String? status;
   final String? cityId;
   final String? cityName;
+  bool? isFavorite;
+  final bool? canRate;
 
   SchoolData({
     this.id,
@@ -86,6 +88,8 @@ class SchoolData {
     this.status,
     this.cityId,
     this.cityName,
+    this.isFavorite,
+    this.canRate,
   });
 
   SchoolData.fromJson(Map<String, dynamic> json)
@@ -104,7 +108,9 @@ class SchoolData {
         visits = json['visits'] as int?,
         status = json['status'] as String?,
         cityId = json['city_id'] as String?,
-        cityName = json['city_name'] as String?;
+        cityName = json['city_name'] as String?,
+        isFavorite = json['is_favorite'] as bool?,
+        canRate = json['can_rate'] as bool?;
 
   Map<String, dynamic> toJson() => {
         'id': id,

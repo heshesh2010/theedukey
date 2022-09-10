@@ -7,8 +7,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import '../../../core/utils/image_tools.dart';
+import '../../../data/models/facility.dart';
 import '../../../data/models/route_argument.dart';
-import '../../../data/models/school.dart';
 import '../../../data/models/stage.dart';
 import '../../../data/service/locator.dart';
 import '../../../data/service/search_model.dart';
@@ -122,18 +122,21 @@ class HomeView extends GetWidget<HomeController> {
                       controller.pattern = pattern;
                       return await controller.getSuggestions(pattern);
                     },
-                    itemBuilder: (context, SchoolData suggestion) {
+                    itemBuilder: (context, Facility suggestion) {
                       return ListTile(
                         leading: ImageTools.image(
-                            url: suggestion.logo, height: 50, width: 50),
-                        title: Text(suggestion.name!),
-                        subtitle: Text(suggestion.cityName!),
+                          url: suggestion.school?.logo,
+                          height: 50,
+                          width: 50,
+                        ),
+                        title: Text(suggestion.school?.name ?? ""),
+                        subtitle: Text(suggestion.school?.cityName ?? ""),
                       );
                     },
-                    onSuggestionSelected: (SchoolData suggestion) {
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //   builder: (context) => ProductPage(product: suggestion)
-                      // ));
+                    onSuggestionSelected: (Facility suggestion) {
+                      Get.toNamed(Routes.schoolDetails,
+                          arguments: RouteArgument(
+                              schoolId: suggestion.school?.id ?? 0));
                     },
                   ),
                   const SizedBox(
@@ -148,18 +151,18 @@ class HomeView extends GetWidget<HomeController> {
                         shadowColor: Colors.transparent,
                         // padding: const EdgeInsets.all(10),
                         primary: Theme.of(context).primaryColor,
-                        onPrimary: Colors.white,
+                        onPrimary: const Color.fromRGBO(255, 255, 255, 1),
                       ),
                       child: Text(
                         "search".tr,
                       ),
                       onPressed: () {
                         getIt<SearchModel>().search(RouteArgument(stagesList: [
-                          controller.selectedStage.value.id ?? 0
+                          controller.selectedStage.value.id ?? -1
                         ], keyword: controller.pattern));
 
                         Get.toNamed(
-                          Routes.schoolDetails,
+                          Routes.search,
                         );
                       },
                     ),

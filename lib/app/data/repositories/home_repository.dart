@@ -1,4 +1,5 @@
 import '../../core/utils/local_storage.dart';
+import '../models/facility.dart';
 import '../models/school.dart';
 import '../models/stage.dart';
 import '../provider/api_helper.dart';
@@ -35,7 +36,13 @@ class HomeRepository {
     Response? response = await apiClient.getAsync(
         "search?keyword=$pattern&lang=${LocalStorage().getlanguageSelected() ?? "ar"}");
     if (response?.statusCode == 200) {
-      return School.fromJson(response?.data).data?.results ?? response;
+      List<Facility> list = <Facility>[];
+
+      for (var element in (response?.data["facilities"] as List)) {
+        list.add(Facility(school: SchoolData.fromJson(element)));
+      }
+
+      return list;
     } else {
       return response;
     }

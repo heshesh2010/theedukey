@@ -7,6 +7,8 @@ import '../../../core/utils/first_page_error_indicator.dart';
 import '../../../core/utils/local_storage.dart';
 import '../../../../elements/permission_dcenied_widget.dart';
 import '../../../../elements/drawer.dart';
+import '../../../data/models/route_argument.dart';
+import '../../../routes/app_pages.dart';
 import 'favorite_item.dart';
 import '../../../../elements/topbar.dart';
 import '../../../data/models/favorite.dart';
@@ -36,8 +38,15 @@ class FavoriteView extends GetWidget<FavoriteController> {
                       builderDelegate:
                           PagedChildBuilderDelegate<FavoriteDataData>(
                         itemBuilder: (context, item, index) => GestureDetector(
-                          child: FavoriteItem(
-                            favorite: item,
+                          child: InkWell(
+                            onTap: () => Get.toNamed(
+                              Routes.schoolDetails,
+                              arguments:
+                                  RouteArgument(schoolId: item.facilityId),
+                            ),
+                            child: FavoriteItem(
+                              favorite: item,
+                            ),
                           ),
                         ),
                         //  firstPageProgressIndicatorBuilder: (_)=> ShimmerHelper(type: Type.complex),

@@ -1,12 +1,9 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../elements/drawer.dart';
 import '../../../../elements/topbar.dart';
-import '../../../data/models/son.dart';
-import '../../../routes/app_pages.dart';
 import '../controllers/add_order_controller.dart';
 
 class AddOrderView extends GetWidget<AddOrderController> {
@@ -18,259 +15,304 @@ class AddOrderView extends GetWidget<AddOrderController> {
       drawer: DrawerSideMenu(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("باقة الاشتراك",
-                  style: Theme.of(context).textTheme.headline1),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                color: Colors.white,
-                child: SizedBox(
-                  width: Get.width,
-                  child: DataTable(
-                    //horizontalMargin: 80.0,
-                    //  colu mnSpacing: 110,
-                    border: TableBorder.all(
-                        color: const Color.fromRGBO(238, 238, 238, 1)),
-                    columns: <DataColumn>[
-                      DataColumn(
-                        label: Text(
-                          'stage'.tr,
-                        ),
-                      ),
-                      const DataColumn(
-                        label: Text(
-                          "تمهيدي",
-                        ),
-                      ),
-                    ],
-                    rows: <DataRow>[
-                      DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text('subscriptionTypr'.tr)),
-                          DataCell(Text('عام دراسي'.tr)),
-                        ],
-                      ),
-                      DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text('from'.tr)),
-                          DataCell(Text('من'.tr)),
-                        ],
-                      ),
-                      DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text('to'.tr)),
-                          DataCell(Text('من'.tr)),
-                        ],
-                      ),
-                      DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text('theClass'.tr)),
-                          DataCell(Text('من'.tr)),
-                        ],
-                      ),
-                      DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text('before_discount'.tr)),
-                          DataCell(Text('من'.tr)),
-                        ],
-                      ),
-                      DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text('after_discount'.tr)),
-                          DataCell(Text('من'.tr)),
-                        ],
-                      ),
-                      DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text('note'.tr)),
-                          DataCell(Text('من'.tr)),
-                        ],
-                      ),
-                    ],
-                  ),
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("subscription_package".tr,
+                    style: Theme.of(context).textTheme.headline1),
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Text("بيانات المشترك",
-                  style: Theme.of(context).textTheme.headline1),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
+                Container(
                   color: Colors.white,
                   child: SizedBox(
-                      width: Get.width,
-                      child: DataTable(
-                          //horizontalMargin: 80.0,
-                          //  colu mnSpacing: 110,
-                          border: TableBorder.all(
-                              color: const Color.fromRGBO(238, 238, 238, 1)),
-                          columns: <DataColumn>[
-                            DataColumn(
-                              label: Text(
-                                'stage'.tr,
-                              ),
-                            ),
-                            const DataColumn(
-                              label: Text(
-                                "تمهيدي",
-                              ),
-                            ),
+                    width: Get.width,
+                    child: DataTable(
+                      dataRowHeight: 70,
+                      //horizontalMargin: 80.0,
+                      //  colu mnSpacing: 110,
+                      border: TableBorder.all(
+                          color: const Color.fromRGBO(238, 238, 238, 1)),
+                      columns: <DataColumn>[
+                        DataColumn(
+                          label: Text(
+                            'stage'.tr,
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            controller.priceItem?.stageName ?? " ",
+                          ),
+                        ),
+                      ],
+                      rows: <DataRow>[
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('subscriptionTypr'.tr)),
+                            DataCell(Text(
+                                controller.priceItem?.paymentMethod ?? " ")),
                           ],
-                          rows: <DataRow>[
-                            DataRow(
-                              cells: <DataCell>[
-                                DataCell(Text('subscriptionTypr'.tr)),
-                                DataCell(Text('عام دراسي'.tr)),
-                              ],
-                            ),
-                            DataRow(
-                              cells: <DataCell>[
-                                DataCell(Text('from'.tr)),
-                                DataCell(Text('من'.tr)),
-                              ],
-                            )
-                          ]))),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: Get.width,
-                height: 60,
-                child: ElevatedButton(
-                  child: Text(
-                    "اتمام الطلب بالحساب الاساسي".tr,
+                        ),
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('from'.tr)),
+                            DataCell(Text(controller.priceItem?.start ?? " ")),
+                          ],
+                        ),
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('to'.tr)),
+                            DataCell(Text(controller.priceItem?.end ?? " ")),
+                          ],
+                        ),
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('theClass'.tr)),
+                            DataCell(
+                                Text(controller.priceItem?.className ?? " ")),
+                          ],
+                        ),
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('before_discount'.tr)),
+                            DataCell(Text(
+                                controller.priceItem?.priceBeforeDiscount ??
+                                    " ")),
+                          ],
+                        ),
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('after_discount'.tr)),
+                            DataCell(Text(
+                                controller.priceItem?.priceAfterDiscount ??
+                                    " ".tr)),
+                          ],
+                        ),
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('note'.tr)),
+                            DataCell(SizedBox(
+                              width: 170,
+                              child: Text(
+                                controller.priceItem?.note ?? " ",
+                                softWrap: true,
+                                textAlign: TextAlign.justify,
+                                maxLines: 10,
+                                style: const TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: 12),
+                              ),
+                            )),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  onPressed: () {
-                    //TODO: updatePrictTO dependency injector
-                    Get.toNamed(
-                      Routes.ADD_ORDER,
-                    );
-                  },
                 ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Center(
-                child: Text("او يمكنك ايضا",
+                const SizedBox(
+                  height: 30,
+                ),
+                Text("subscriber_info".tr,
                     style: Theme.of(context).textTheme.headline1),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: Get.width,
-                height: 60,
-                child: ElevatedButton(
-                  child: Text(
-                    "اتمام الطلب بالحساب الاساسي".tr,
-                  ),
-                  onPressed: () {
-                    //TODO: updatePrictTO dependency injector
-                    Get.toNamed(
-                      Routes.ADD_ORDER,
-                    );
-                  },
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Obx(() => Center(
-                    child: Container(
-                      // width: 400,
-                      height: 55,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton2(
-                          dropdownDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              width: 1,
-                              color: Colors.grey[400] ?? Colors.black,
-                            ),
-                          ),
-                          isExpanded: true,
-                          iconSize: 0.0,
-                          icon: const Icon(Icons.keyboard_arrow_up_sharp),
-                          style: const TextStyle(color: Colors.grey),
-                          iconEnabledColor: Colors.grey,
-                          hint: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              border: Border.all(
-                                  width: 1,
-                                  color:
-                                      const Color.fromRGBO(238, 238, 238, 1)),
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 30.0, left: 30),
-                              child: Center(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(
-                                      Icons.keyboard_arrow_down_sharp,
-                                      color: Colors.grey,
-                                    ),
-                                    Text(
-                                      controller.selectedSon.value.name!,
-                                      style:
-                                          Theme.of(context).textTheme.subtitle1,
-                                    ),
-                                  ],
+                Container(
+                    color: Colors.white,
+                    child: SizedBox(
+                        width: Get.width,
+                        child: DataTable(
+                            //horizontalMargin: 80.0,
+                            //  colu mnSpacing: 110,
+                            border: TableBorder.all(
+                                color: const Color.fromRGBO(238, 238, 238, 1)),
+                            columns: <DataColumn>[
+                              DataColumn(
+                                label: Text(
+                                  'name'.tr,
                                 ),
                               ),
-                            ),
-                          ),
-                          onChanged: (dynamic value) {
-                            controller.setSelectedSon(value);
-                            controller.selectedSon.value = value;
+                              DataColumn(
+                                label: Text(
+                                  controller.currentUser?.name ?? " ",
+                                ),
+                              ),
+                            ],
+                            rows: <DataRow>[
+                              DataRow(
+                                cells: <DataCell>[
+                                  DataCell(Text('id_number'.tr)),
+                                  DataCell(Text(
+                                      controller.currentUser?.idNumber ?? " ")),
+                                ],
+                              ),
+                              DataRow(
+                                cells: <DataCell>[
+                                  DataCell(Text('mobile'.tr)),
+                                  DataCell(Text(
+                                      controller.currentUser?.mobile ?? " ")),
+                                ],
+                              )
+                            ]))),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: Get.width,
+                  height: 60,
+                  child: ElevatedButton(
+                    child: Text(
+                      "continue_with_main_account".tr,
+                    ),
+                    onPressed: () {
+                      controller.addOrder();
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Center(
+                  child: Text("also_you_can".tr,
+                      style: Theme.of(context).textTheme.headline1),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Obx(
+                  () => SizedBox(
+                    width: Get.width,
+                    height: 60,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.resolveWith<Color?>(
+                          (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.pressed)) {
+                              return Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(0.5);
+                            } else if (states
+                                .contains(MaterialState.disabled)) {
+                              return Colors.grey;
+                            }
+                            return Theme.of(context)
+                                .focusColor; // Use the component's default.
                           },
-                          items: controller.sonsList
-                              .map((SonDataData selectedSon) {
-                            return DropdownMenuItem(
-                              value: selectedSon,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 50.0, left: 50),
-                                child: Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.keyboard_arrow_up_sharp,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      selectedSon.name!,
-                                      style:
-                                          Theme.of(context).textTheme.subtitle1,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }).toList(),
                         ),
                       ),
+                      onPressed: controller.selectedSon.value.id == null
+                          ? null
+                          : addOrderCallBack,
+                      child: Text(
+                        "continue_and_add_sons".tr,
+                      ),
                     ),
-                  )),
-            ],
-          ),
-        ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+
+                Obx(() => Center(
+                      child: Container(
+                        // width: 400,
+                        // height: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            // dropdownDecoration: BoxDecoration(
+                            //   borderRadius: BorderRadius.circular(14),
+                            //   border: Border.all(
+                            //     width: 1,
+                            //     color: Colors.grey[400] ?? Colors.black,
+                            //   ),
+                            // ),
+                            isExpanded: true,
+                            iconSize: 0.0,
+                            icon: const Icon(Icons.keyboard_arrow_up_sharp),
+                            style: const TextStyle(color: Colors.grey),
+                            iconEnabledColor: Colors.grey,
+                            hint: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(
+                                    width: 1,
+                                    color:
+                                        const Color.fromRGBO(238, 238, 238, 1)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 30.0, left: 30),
+                                child: Center(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.keyboard_arrow_down_sharp,
+                                        color: Colors.grey,
+                                      ),
+                                      Text(
+                                        controller.selectedSon.value.name!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            onChanged: (dynamic value) {
+                              controller.setSelectedSon(value);
+                              controller.selectedSon.value = value;
+                            },
+                            items: controller.sonsList.map((selectedSon) {
+                              return DropdownMenuItem(
+                                value: selectedSon,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 50.0, left: 50),
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.keyboard_arrow_up_sharp,
+                                        color: Colors.white,
+                                      ),
+                                      Text(
+                                        selectedSon.name ?? " xcxc",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    )),
+                // const SizedBox(
+                //   height: 300,
+                // ),
+              ],
+            )),
       ),
     );
+  }
+
+  addOrderCallBack() {
+    return controller.selectedSon.value.id == null
+        ? null
+        : controller.addOrderWithSon();
   }
 }

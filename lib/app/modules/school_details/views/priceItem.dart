@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:theedukey/app/data/models/facility.dart';
 
 import '../../../../config/app_config.dart';
+import '../../../data/models/route_argument.dart';
 import '../../../routes/app_pages.dart';
 
 class PriceItem extends StatelessWidget {
@@ -83,10 +84,8 @@ class PriceItem extends StatelessWidget {
                   "subscribe_now".tr,
                 ),
                 onPressed: () {
-                  //TODO: updatePrictTO dependency injector
-                  Get.toNamed(
-                    Routes.ADD_ORDER,
-                  );
+                  Get.toNamed(Routes.ADD_ORDER,
+                      arguments: RouteArgument(priceItem: price));
                 },
               ),
             ),
