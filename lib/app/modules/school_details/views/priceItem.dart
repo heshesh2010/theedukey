@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:theedukey/app/data/models/facility.dart';
 
 import '../../../../config/app_config.dart';
+import '../../../core/utils/local_storage.dart';
 import '../../../data/models/route_argument.dart';
 import '../../../routes/app_pages.dart';
 
@@ -76,19 +77,20 @@ class PriceItem extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              width: Get.width / 1.9,
-              height: 60,
-              child: ElevatedButton(
-                child: Text(
-                  "subscribe_now".tr,
+            if (LocalStorage().getUser() != null)
+              SizedBox(
+                width: Get.width / 1.9,
+                height: 60,
+                child: ElevatedButton(
+                  child: Text(
+                    "subscribe_now".tr,
+                  ),
+                  onPressed: () {
+                    Get.toNamed(Routes.ADD_ORDER,
+                        arguments: RouteArgument(priceItem: price));
+                  },
                 ),
-                onPressed: () {
-                  Get.toNamed(Routes.ADD_ORDER,
-                      arguments: RouteArgument(priceItem: price));
-                },
               ),
-            ),
           ],
         ),
       ),

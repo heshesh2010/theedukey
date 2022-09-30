@@ -39,28 +39,38 @@ class FavoriteController extends GetxController {
     }
   }
 
+  @override
+  void dispose() {
+    pagingController.dispose();
+    super.dispose();
+  }
+
   void deleteFav([FavoriteDataData? sonDataData]) async {
     dynamic response = await repository.deleteFavoriteApi(sonDataData);
-    if (response) {
-      Helper().showSuccessToast("delete_favorite_success".tr);
-      newFavoritItems.clear();
+
+    if (response is String) {
+      Helper().showErrorToast(response);
+    } else if (response) {
+      newFavoritItems.removeWhere(
+        (element) =>
+            element.facilityId == sonDataData?.facilityId, // remove from list
+      );
       pagingController.refresh();
       update();
-    } else {
-      if (response is String) {
-        Helper().showErrorToast(response);
-      } else {
-        Helper().showErrorToast(response.statusMessage.toString());
-      }
+      refresh();
+      //getFavorites();
+      Helper().showSuccessToast("delete_favorite_success".tr);
     }
   }
 
   Future<dynamic> getFavorites() async {
     dynamic response = await repository.getFavoritesApi();
     if (response is List<FavoriteDataData>) {
+      //   newFavoritItems.assignAll(response);
+
       return response;
     } else {
-      Helper().showErrorToast("حدث خطأ بالاتصال حاول لاحقاً");
+      Helper().showErrorToast("Something went wrong".tr);
     }
   }
 }

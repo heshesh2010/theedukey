@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:theedukey/app/modules/orders/controllers/orders_controller.dart';
 
 import '../../../../helper.dart';
 import '../../../data/models/facility.dart';
@@ -33,12 +34,13 @@ class AddOrderController extends GetxController {
     );
 
     if (response == true) {
+      Get.find<OrdersController>().refreshOrders();
       Get.defaultDialog(
-        title: "Success".tr,
-        middleText: "Order_added_successfully".tr,
-      );
+          title: "success".tr,
+          middleText: "Order_added_successfully".tr,
+          confirm: Text("OK".tr));
     } else {
-      Helper().showErrorToast("حدث خطأ بالاتصال حاول لاحقاً");
+      Helper().showErrorToast("Something went wrong".tr);
     }
   }
 
@@ -51,11 +53,11 @@ class AddOrderController extends GetxController {
 
     if (response == true) {
       Get.defaultDialog(
-          title: "Success".tr,
+          title: "success".tr,
           middleText: "Order_added_successfully".tr,
           confirm: Text("OK".tr));
     } else {
-      Helper().showErrorToast("حدث خطأ بالاتصال حاول لاحقاً");
+      Helper().showErrorToast("Something went wrong".tr);
     }
   }
 
@@ -65,7 +67,7 @@ class AddOrderController extends GetxController {
       sonsList.addAll(response);
       return sonsList;
     } else {
-      Helper().showErrorToast("حدث خطأ بالاتصال حاول لاحقاً");
+      Helper().showErrorToast("Something went wrong".tr);
     }
   }
 

@@ -2,9 +2,11 @@ import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../constants/general.dart';
+import '../../../../elements/bottom_navigation_bar.dart';
 import '../../../../helper.dart';
 import '../../../data/models/order.dart';
 import '../../../data/repositories/orders_repository.dart';
+import '../../home/bindings/home_binding.dart';
 
 class OrdersController extends GetxController {
   final OrdersRepository repository;
@@ -25,7 +27,7 @@ class OrdersController extends GetxController {
 
   Future<void> _fetchOrdersPage(pageKey) async {
     try {
-      newOrdersItems = await getOrders();
+      newOrdersItems = await getOrders(pageKey);
 
       final isLastPage = newOrdersItems.length < apiPageSize;
       if (isLastPage) {
@@ -39,12 +41,18 @@ class OrdersController extends GetxController {
     }
   }
 
-  Future<dynamic> getOrders() async {
-    dynamic response = await repository.getOrdersApi();
+  Future<dynamic> getOrders(pageKey) async {
+    dynamic response = await repository.getOrdersApi(pageKey);
     if (response is List<OrderDataData>) {
       return response;
     } else {
-      Helper().showErrorToast("حدث خطأ بالاتصال حاول لاحقاً");
+      Helper().showErrorToast("Something went wrong".tr);
     }
+  }
+
+  void refreshOrders() {
+    getOrders(0);
+    pagingController.refresh();
+    Get.to(() => const NavigatorPage(tabIndex: 0), binding: HomeBinding());
   }
 }

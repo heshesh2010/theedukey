@@ -93,7 +93,7 @@ class SonItem extends StatelessWidget {
                       DataRow(
                         cells: <DataCell>[
                           DataCell(Text('id_number'.tr)),
-                          DataCell(Text(son.id.toString())),
+                          DataCell(Text(son.idNumber.toString())),
                         ],
                       ),
                       DataRow(

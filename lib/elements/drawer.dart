@@ -269,7 +269,6 @@ class DrawerSideMenu extends StatelessWidget {
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       controller.logout();
-                      Get.back();
                     },
                   ),
                 ],

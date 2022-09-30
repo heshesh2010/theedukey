@@ -11,6 +11,7 @@ import '../../../data/service/locator.dart';
 import '../../../data/service/search_model.dart';
 
 class SearchController extends GetxController {
+  RxBool isLoading = true.obs;
   final SearchRepository repository;
   SearchController({required this.repository});
 
@@ -208,14 +209,19 @@ class SearchController extends GetxController {
 
   getSearchResults() async {
     schoolList.clear();
+    isLoading.value = true;
+
     dynamic response = await repository.getSearchResultsApi();
     if (response is List<Facility>) {
-      schoolList.addAll(response);
+      schoolList.assignAll(response);
       getIt<SearchModel>().setSchoolsList(schoolList);
+      isLoading.value = false;
 
       update();
     } else {
-      Helper().showErrorToast("حدث خطأ ما يرجى المحاولة مرة اخرى");
+      isLoading.value = false;
+      Helper().showErrorToast("Something went wrong".tr);
+      update();
     }
   }
 
@@ -236,7 +242,7 @@ class SearchController extends GetxController {
         ratingsCheckBoxes.add({filterData.value.ratings![i]: false});
       }
     } else {
-      Helper().showErrorToast("حدث خطأ ما يرجى المحاولة مرة اخرى");
+      Helper().showErrorToast("Something went wrong".tr);
     }
   }
 }

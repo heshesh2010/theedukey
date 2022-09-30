@@ -6,6 +6,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../../core/utils/local_storage.dart';
 import '../../../data/models/son.dart';
 import '../../../data/repositories/sons_repository.dart';
+import '../../../routes/app_pages.dart';
 
 class SonsController extends GetxController {
   final SonsRepository repository;
@@ -23,11 +24,11 @@ class SonsController extends GetxController {
   List<String> gender = ["male".tr, "female".tr];
 
   String? selectedGender = "male".tr;
-  String? selectedImage;
-  String? selectedIdImage;
-  String? selectedPersonalImage;
-  String? selectedCertificateImage;
-  String? selectedFamilyIdImage;
+  RxString selectedImage = "".obs;
+  RxString selectedIdImage = "".obs;
+  RxString selectedPersonalImage = "".obs;
+  RxString selectedCertificateImage = "".obs;
+  RxString selectedFamilyIdImage = "".obs;
 
   String? selectedGenderApi = "male";
 
@@ -59,30 +60,30 @@ class SonsController extends GetxController {
   Future<dynamic> getSons() async {
     dynamic response = await repository.getSonsApi();
     if (response is List<SonDataData>) {
-      sonsList.addAll(response);
+      sonsList.assignAll(response);
       return sonsList;
     } else {
-      Helper().showErrorToast("حدث خطأ بالاتصال حاول لاحقاً");
+      Helper().showErrorToast("Something went wrong".tr);
     }
   }
 
   void onSelectIdImage(value) {
-    selectedIdImage = value;
+    selectedIdImage.value = value;
     update();
   }
 
   void onSelectPersonalImage(value) {
-    selectedPersonalImage = value;
+    selectedPersonalImage.value = value;
     update();
   }
 
   void onSelectCertificateImage(value) {
-    selectedCertificateImage = value;
+    selectedCertificateImage.value = value;
     update();
   }
 
   void onSelectFamilyIdImage(value) {
-    selectedFamilyIdImage = value;
+    selectedFamilyIdImage.value = value;
     // updateApi if image != null
     update();
   }
@@ -106,11 +107,10 @@ class SonsController extends GetxController {
       Helper().showSuccessToast("add_son_success".tr);
       sonsList.clear();
 
-      Future.delayed(const Duration(seconds: 3), () {
-        Get.back();
-        pagingController.refresh();
-        update();
-      });
+      getSons();
+      pagingController.refresh();
+      //   update();
+      Get.toNamed(Routes.sons);
     } else {
       submitButtonController.error();
       Future.delayed(const Duration(seconds: 3), () {
@@ -175,11 +175,11 @@ class SonsController extends GetxController {
 
   void clearAllVars() {
     gender = ["male".tr, "female".tr];
-    selectedImage = null;
+    selectedImage.value = "";
     selectedGender = "male".tr;
-    selectedIdImage = null;
-    selectedPersonalImage = null;
-    selectedCertificateImage = null;
+    selectedIdImage.value = "";
+    selectedPersonalImage.value = "";
+    selectedCertificateImage.value = "";
     selectedGenderApi = "male";
   }
 

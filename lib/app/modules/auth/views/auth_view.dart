@@ -21,7 +21,7 @@ class AuthView extends GetWidget<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getTopBar(context),
+      appBar: getTopBar(context, isLeadingIconDisabled: true),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -94,16 +94,8 @@ class AuthView extends GetWidget<AuthController> {
                             Center(
                               child: TextButton(
                                 onPressed: () {
-                                  if (Get.previousRoute !=
-                                          Routes.splashScreen &&
-                                      Get.previousRoute != Routes.forget &&
-                                      Get.previousRoute !=
-                                          Routes.splashScreen) {
-                                    Get.back();
-                                  } else {
-                                    Get.to(
-                                        () => const NavigatorPage(tabIndex: 1));
-                                  }
+                                  Get.to(
+                                      () => const NavigatorPage(tabIndex: 1));
                                 },
                                 child: Text("skip".tr),
                               ),

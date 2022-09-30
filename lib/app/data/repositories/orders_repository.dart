@@ -9,10 +9,12 @@ class OrdersRepository {
   OrdersRepository({required this.apiClient});
 
   var loadCompleted = false;
-  Future<dynamic> getOrdersApi() async {
+  Future<dynamic> getOrdersApi(pageKey) async {
     dio.Response? response = await apiClient.getAsync(
-        nextUrl ??
-            'student-auth/orders?lang=${LocalStorage().getlanguageSelected() ?? "ar"}',
+        pageKey == 0
+            ? "student-auth/orders?lang=${LocalStorage().getlanguageSelected() ?? "ar"}"
+            : nextUrl ??
+                'student-auth/orders?lang=${LocalStorage().getlanguageSelected() ?? "ar"}',
         isTokenRequired: true);
 
     if (response?.statusCode == 200) {

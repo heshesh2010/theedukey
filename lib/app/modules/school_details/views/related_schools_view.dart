@@ -36,7 +36,8 @@ class RelatedSchoolsView extends GetWidget<SchoolDetailsController> {
                           carouselController: _controller,
                           options: CarouselOptions(
                               height: 400.0,
-                              autoPlay: true,
+                              autoPlay: false,
+                              enableInfiniteScroll: false,
                               viewportFraction: 0.8,
                               //   aspectRatio: 2.0,
                               enlargeCenterPage: true,
@@ -65,7 +66,7 @@ class RelatedSchoolsView extends GetWidget<SchoolDetailsController> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: controller.facility.value.prices!
+                          children: controller.facility.value.related!
                               .asMap()
                               .entries
                               .map((entry) {

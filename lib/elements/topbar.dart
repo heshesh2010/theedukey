@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 
 import '../app/core/utils/image_tools.dart';
 
-getTopBar(BuildContext context, {String? title, bool? isback}) {
+getTopBar(BuildContext context,
+    {String? title, bool? isback, bool? isLeadingIconDisabled}) {
   return PreferredSize(
     preferredSize: const Size(0, 200),
     child: Stack(
@@ -23,22 +24,26 @@ getTopBar(BuildContext context, {String? title, bool? isback}) {
           child: Padding(
               padding: const EdgeInsets.only(top: 1.0, right: 10),
               child: Builder(
-                  builder: (context) => isback != null && isback
-                      ? IconButton(
-                          onPressed: () => Get.back(),
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          ),
-                        )
-                      : // Ensure Scaffold is in context
-                      IconButton(
-                          icon: const Icon(
-                            Icons.menu,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                          onPressed: () => Scaffold.of(context).openDrawer()))),
+                  builder: (context) =>
+                      isLeadingIconDisabled != null && isLeadingIconDisabled
+                          ? Container()
+                          : isback != null && isback
+                              ? IconButton(
+                                  onPressed: () => Get.back(),
+                                  icon: const Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : // Ensure Scaffold is in context
+                              IconButton(
+                                  icon: const Icon(
+                                    Icons.menu,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                                  onPressed: () =>
+                                      Scaffold.of(context).openDrawer()))),
         ),
         Align(
           alignment: Alignment.center,

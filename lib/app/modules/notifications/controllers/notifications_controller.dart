@@ -43,7 +43,7 @@ class NotificationController extends GetxController {
     if (response is List<NotificationData>) {
       return (response);
     } else {
-      Helper().showErrorToast("حدث خطأ بالاتصال حاول لاحقاً");
+      Helper().showErrorToast("Something went wrong".tr);
     }
   }
 }

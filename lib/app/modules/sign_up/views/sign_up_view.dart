@@ -227,7 +227,20 @@ class SignUpView extends GetWidget<SignUpController> {
                                             color:
                                                 Theme.of(context).hintColor)),
                                     onTap: () {
-                                      //     showTosDialog(context, _con);
+                                      Get.defaultDialog(
+                                          title: "terms".tr,
+                                          content: Expanded(
+                                            child: SingleChildScrollView(
+                                                child: Obx(() => Expanded(
+                                                      child: Text(controller
+                                                          .terms.value),
+                                                    ))),
+                                          ),
+                                          textConfirm: "terms approve".tr,
+                                          confirmTextColor: Colors.white,
+                                          onConfirm: () {
+                                            Get.back();
+                                          });
                                     })
                               ],
                             ),

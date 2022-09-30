@@ -31,7 +31,7 @@ class SonsView extends GetWidget<SonsController> {
                     content: ImagePickerHelper(
                       editButtonTitle: "edit_family_id_image".tr,
                       buttonTitle: "family_id_image".tr,
-                      imageUrl: controller.selectedFamilyIdImage,
+                      imageUrl: controller.selectedFamilyIdImage.value,
                       onGet: (value) {
                         controller.onSelectFamilyIdImage(value);
                       },

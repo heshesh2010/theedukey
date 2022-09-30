@@ -9,6 +9,17 @@ class AuthRepository {
 
   AuthRepository({required this.apiClient});
 
+  Future<dynamic> termsApi() async {
+    Response? response = await apiClient.getAsync(
+        "terms?lang=${LocalStorage().getlanguageSelected() ?? "ar"}",
+        isTokenRequired: false);
+    if (response?.statusCode == 200) {
+      return (response?.data["data"]["terms"]);
+    } else {
+      return response?.statusMessage;
+    }
+  }
+
   Future<dynamic> loginApi(User user) async {
     dynamic response = await apiClient.postAsyncNormal(
         "student-auth/login", user.toJson(),

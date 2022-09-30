@@ -19,38 +19,45 @@ class OrdersView extends GetWidget<OrdersController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getTopBar(context, title: "my_orders".tr),
-      drawer: DrawerSideMenu(),
-      body: Padding(
-        padding:
-            const EdgeInsets.only(left: 10, right: 10.0, top: 10, bottom: 15),
-        child: LocalStorage().getUser()?.token == null
-            ? const PermissionDeniedWidget()
-            : GetBuilder<OrdersController>(
-                builder: (c) => PagedListView<int, OrderDataData>.separated(
-                  scrollDirection: Axis.vertical,
-                  pagingController: controller.pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<OrderDataData>(
-                    itemBuilder: (context, item, index) => GestureDetector(
-                      child: OrderItem(
-                        order: item,
+        appBar: getTopBar(context, title: "my_orders".tr),
+        drawer: DrawerSideMenu(),
+        body: Padding(
+          padding:
+              const EdgeInsets.only(left: 10, right: 10.0, top: 10, bottom: 15),
+          child: LocalStorage().getUser()?.token == null
+              ? const PermissionDeniedWidget()
+              : GetBuilder<OrdersController>(
+                  builder: (c) => RefreshIndicator(
+                    onRefresh: () => Future.sync(
+                      () => controller.pagingController.refresh(),
+                    ),
+                    child: PagedListView<int, OrderDataData>.separated(
+                      scrollDirection: Axis.vertical,
+                      pagingController: controller.pagingController,
+                      builderDelegate: PagedChildBuilderDelegate<OrderDataData>(
+                        itemBuilder: (context, item, index) => GestureDetector(
+                          child: OrderItem(
+                            order: item,
+                          ),
+                        ),
+                        //  firstPageProgressIndicatorBuilder: (_)=> ShimmerHelper(type: Type.complex),
+                        noItemsFoundIndicatorBuilder: (_) =>
+                            const EmptyResults(),
+                        firstPageErrorIndicatorBuilder: (_) =>
+                            FirstPageErrorIndicator(
+                          error: controller.pagingController.error,
+                          onTryAgain: () =>
+                              controller.pagingController.refresh(),
+                        ),
+                        noMoreItemsIndicatorBuilder: (_) =>
+                            const NoOtherResults(),
+                      ),
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 20,
                       ),
                     ),
-                    //  firstPageProgressIndicatorBuilder: (_)=> ShimmerHelper(type: Type.complex),
-                    noItemsFoundIndicatorBuilder: (_) => const EmptyResults(),
-                    firstPageErrorIndicatorBuilder: (_) =>
-                        FirstPageErrorIndicator(
-                      error: controller.pagingController.error,
-                      onTryAgain: () => controller.pagingController.refresh(),
-                    ),
-                    noMoreItemsIndicatorBuilder: (_) => const NoOtherResults(),
-                  ),
-                  separatorBuilder: (context, index) => const SizedBox(
-                    height: 20,
                   ),
                 ),
-              ),
-      ),
-    );
+        ));
   }
 }

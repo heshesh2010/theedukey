@@ -69,25 +69,30 @@ class SearchView extends StatelessWidget {
               child: GetX<SearchController>(
                 //   init: SearchController(),
                 builder: (_) {
-                  return _.schoolList.isEmpty
-                      ? Center(child: Text('empty_results'.tr))
-                      : ListView.builder(
-                          itemCount: _.schoolList.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: InkWell(
-                                onTap: () => Get.toNamed(Routes.schoolDetails,
-                                    arguments: RouteArgument(
-                                        schoolId:
-                                            _.schoolList[index].school?.id)),
-                                child: SchoolItem(
-                                  school: _.schoolList[index].school,
-                                ),
-                              ),
+                  return _.isLoading.value
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : _.schoolList.isEmpty
+                          ? Center(child: Text('empty_results'.tr))
+                          : ListView.builder(
+                              itemCount: _.schoolList.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: InkWell(
+                                    onTap: () => Get.toNamed(
+                                        Routes.schoolDetails,
+                                        arguments: RouteArgument(
+                                            schoolId: _
+                                                .schoolList[index].school?.id)),
+                                    child: SchoolItem(
+                                      school: _.schoolList[index].school,
+                                    ),
+                                  ),
+                                );
+                              },
                             );
-                          },
-                        );
                 },
               ),
             )

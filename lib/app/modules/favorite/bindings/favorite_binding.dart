@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 class FavoriteBinding extends Bindings {
   @override
   void dependencies() {
-    Get.create<FavoriteController>(
+    Get.lazyPut<FavoriteController>(
       () => FavoriteController(
           repository: FavoriteRepository(apiClient: ApiClient(dio: Dio()))),
     );

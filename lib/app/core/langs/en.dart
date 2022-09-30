@@ -1,4 +1,15 @@
 const Map<String, String> en = {
+  // dio error messages
+  "Request to API server was cancelled": "Request to API server was cancelled",
+  "Connection timeout with API server": "Connection timeout with API server",
+  "Connection to API server failed due to internet connection":
+      "Connection to API server failed due to internet connection",
+  "Receive timeout in connection with API server":
+      "Receive timeout in connection with API server",
+  "Send timeout in connection with API server":
+      "Send timeout in connection with API server",
+  "Something went wrong": "Something went wrong",
+
   // login page
   'login': 'Login',
   'email': 'Email',
@@ -7,7 +18,7 @@ const Map<String, String> en = {
   'signUp': 'Sign up',
   'enter': 'Enter',
   'skip': 'Skip',
-
+  "password or email is wrong": "password or email is wrong",
   // signUp page
   'name_ar': 'Arabic full name',
   'name_en': 'English full name',
@@ -22,11 +33,11 @@ const Map<String, String> en = {
   'Mobile is not valid': 'Mobile is not valid',
   'Phone is not valid': 'Phone is not valid',
   'Password is require': 'Password must be more than 8 chars',
-  'terms approve': 'Terms approve',
+  'terms approve': 'I approve to the terms and conditions',
   "don't_have_an_account": 'Don\'t have an account ? ',
   'have_an_account': 'Have an account ?  ',
   "you_must_agree_TOS": "You must agree TOS",
-
+  "terms": "Terms",
   // forget pass
   'remember_pass': 'Remember pass?',
 
@@ -51,7 +62,7 @@ const Map<String, String> en = {
   'edit_profile': 'Edit profile',
   'favorite': 'Favorite',
   'my_orders': 'My orders',
-  'offers': 'Offers',
+  'offers': 'Recreational activities and programs',
   'sons': 'Sons',
   'language': 'Language',
   'contact_us': 'Contact us',
@@ -97,6 +108,9 @@ const Map<String, String> en = {
   'edit_son': 'Edit son',
 
 // orders
+  'success': 'Success',
+  'payment_success': 'Payment success',
+  'error': 'error',
 
   'orderNum': 'Order num',
   'serviceProvider': 'Service provider',
@@ -107,12 +121,20 @@ const Map<String, String> en = {
   'subscriptionTypr': 'Subscription Type',
   'priceAfterDiscount': 'Price After Discount',
   'pay': 'pay',
+
+// order status
+  "is_paid": "paid",
+  "new": "new",
+  "accepted": " accepted",
+  "under_revision": "under revision",
+  "rejected": "rejected",
+
 // search screen
   'search_results': 'Search results',
   'show_results_on_map': 'Show on map',
   'search_results_for': 'Search results for :',
   'payment_method': 'Payment method',
-  'rateings': ' Rateings',
+  'ratings': ' Ratings',
   'all': 'All',
   'press_to_view_details': 'Press to view details',
   // school details
@@ -139,7 +161,7 @@ const Map<String, String> en = {
   'add_photo': 'Add photo',
   'camera': 'Camera',
   'currency': 'SAR',
-  'OK': 'حسنا',
+  'OK': 'ok',
 
   'empty_results': 'Empty results',
 

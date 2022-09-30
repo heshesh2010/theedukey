@@ -20,59 +20,60 @@ class FavoriteView extends GetWidget<FavoriteController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getTopBar(context, title: 'favorite'.tr),
-      drawer: DrawerSideMenu(),
-      body: Padding(
-          padding:
-              const EdgeInsets.only(left: 20, right: 20.0, top: 10, bottom: 15),
-          child: LocalStorage().getUser()?.token == null
-              ? const PermissionDeniedWidget()
-              : GetBuilder<FavoriteController>(
-                  builder: (c) => RefreshIndicator(
-                    onRefresh: () => Future.sync(
-                      () => controller.pagingController.refresh(),
-                    ),
-                    child: PagedListView<int, FavoriteDataData>.separated(
-                      scrollDirection: Axis.vertical,
-                      pagingController: controller.pagingController,
-                      builderDelegate:
-                          PagedChildBuilderDelegate<FavoriteDataData>(
-                        itemBuilder: (context, item, index) => GestureDetector(
-                          child: InkWell(
-                            onTap: () => Get.toNamed(
-                              Routes.schoolDetails,
-                              arguments:
-                                  RouteArgument(schoolId: item.facilityId),
-                            ),
-                            child: FavoriteItem(
-                              favorite: item,
+        appBar: getTopBar(context, title: 'favorite'.tr),
+        drawer: DrawerSideMenu(),
+        body: Padding(
+            padding: const EdgeInsets.only(
+                left: 20, right: 20.0, top: 10, bottom: 15),
+            child: LocalStorage().getUser()?.token == null
+                ? const PermissionDeniedWidget()
+                : GetBuilder<FavoriteController>(builder: (controllerBuilder) {
+                    return RefreshIndicator(
+                      onRefresh: () => Future.sync(
+                        () => controller.pagingController.refresh(),
+                      ),
+                      child: PagedListView<int, FavoriteDataData>.separated(
+                        scrollDirection: Axis.vertical,
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        pagingController: controller.pagingController,
+                        builderDelegate:
+                            PagedChildBuilderDelegate<FavoriteDataData>(
+                          itemBuilder: (context, item, index) =>
+                              GestureDetector(
+                            child: InkWell(
+                              onTap: () => Get.toNamed(
+                                Routes.schoolDetails,
+                                arguments:
+                                    RouteArgument(schoolId: item.facilityId),
+                              ),
+                              child: FavoriteItem(
+                                favorite: item,
+                              ),
                             ),
                           ),
+                          //  firstPageProgressIndicatorBuilder: (_)=> ShimmerHelper(type: Type.complex),
+                          noItemsFoundIndicatorBuilder: (_) =>
+                              const EmptyResults(),
+                          firstPageErrorIndicatorBuilder: (_) =>
+                              FirstPageErrorIndicator(
+                            error: controller.pagingController.error,
+                            onTryAgain: () =>
+                                controller.pagingController.refresh(),
+                          ),
+                          newPageErrorIndicatorBuilder: (_) =>
+                              FirstPageErrorIndicator(
+                            error: controller.pagingController.error,
+                            onTryAgain: () =>
+                                controller.pagingController.refresh(),
+                          ),
+                          noMoreItemsIndicatorBuilder: (_) =>
+                              const NoOtherResults(),
                         ),
-                        //  firstPageProgressIndicatorBuilder: (_)=> ShimmerHelper(type: Type.complex),
-                        noItemsFoundIndicatorBuilder: (_) =>
-                            const EmptyResults(),
-                        firstPageErrorIndicatorBuilder: (_) =>
-                            FirstPageErrorIndicator(
-                          error: controller.pagingController.error,
-                          onTryAgain: () =>
-                              controller.pagingController.refresh(),
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 20,
                         ),
-                        newPageErrorIndicatorBuilder: (_) =>
-                            FirstPageErrorIndicator(
-                          error: controller.pagingController.error,
-                          onTryAgain: () =>
-                              controller.pagingController.refresh(),
-                        ),
-                        noMoreItemsIndicatorBuilder: (_) =>
-                            const NoOtherResults(),
                       ),
-                      separatorBuilder: (context, index) => const SizedBox(
-                        height: 20,
-                      ),
-                    ),
-                  ),
-                )),
-    );
+                    );
+                  })));
   }
 }

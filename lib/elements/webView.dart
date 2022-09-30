@@ -44,11 +44,12 @@ class _WebView extends State<WebView> {
                 onLoadStop: (InAppWebViewController controller, Uri? url) {
                   controller.getHtml().then((value) => {
                         print(value),
-                        if (value!.contains("success\":\"true"))
-                          {widget.onGet(true)}
+                        if (value!.contains(
+                            "<html><head></head><body>true</body></html>"))
+                          widget.onGet(true)
                         else if (value.contains(
                             "<html><head></head><body>false</body></html>"))
-                          {widget.onGet(false)}
+                          widget.onGet(false)
                       });
                 },
               ),

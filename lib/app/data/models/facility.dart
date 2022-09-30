@@ -16,8 +16,8 @@ class Facility {
   });
 
   Facility.fromJson(Map<String, dynamic> json)
-      : school = (json['facilities'] as Map<String, dynamic>?) != null
-            ? SchoolData.fromJson(json['facilities'] as Map<String, dynamic>)
+      : school = (json['facility'] as Map<String, dynamic>?) != null
+            ? SchoolData.fromJson(json['facility'] as Map<String, dynamic>)
             : null,
         gallery = (json['gallery'] as List?)
             ?.map((dynamic e) => Gallery.fromJson(e as Map<String, dynamic>))

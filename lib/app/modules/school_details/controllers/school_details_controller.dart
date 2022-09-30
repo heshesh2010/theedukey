@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../../helper.dart';
 import '../../../data/models/facility.dart';
 import '../../../data/repositories/school_repository.dart';
+import '../../favorite/controllers/favorite_controller.dart';
 
 class SchoolDetailsController extends GetxController {
   final SchoolRepository repository;
@@ -35,12 +36,16 @@ class SchoolDetailsController extends GetxController {
         );
       }
     } else {
-      Helper().showErrorToast("حدث خطأ ما يرجى المحاولة مرة اخرى");
+      Helper().showErrorToast("Something went wrong".tr);
     }
   }
 
   void favoriteSchool() {
     isFavorite.value ? removeFavorite() : addFavorite();
+
+    if (Get.isRegistered<FavoriteController>()) {
+      Get.find<FavoriteController>().pagingController.refresh();
+    }
 
     //facility.value.school?.isFavorite = facility.value.school?.isFavorite!;
   }

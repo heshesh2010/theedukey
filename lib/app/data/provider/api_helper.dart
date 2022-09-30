@@ -59,8 +59,7 @@ class ApiClient {
             // create custom dio error
             request.extra["tokenErrorType"] = TokenErrorType
                 .tokenNotFound; // I use enum type, you can chage it to string
-            final error =
-                DioError(requestOptions: request, type: DioErrorType.other);
+            final error = DioError(requestOptions: request);
             return handler.reject(error);
           }
 

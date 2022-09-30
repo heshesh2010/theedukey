@@ -9,6 +9,8 @@ import '../../../data/repositories/auth_repository.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import '../../../routes/app_pages.dart';
+
 class AuthController extends GetxController {
   final AuthRepository repository;
   AuthController({required this.repository});
@@ -38,6 +40,7 @@ class AuthController extends GetxController {
   logout() {
     currentUser.value = null;
     GetStorage().remove(kLocalKey["userInfo"]!);
+    Get.offAllNamed(Routes.login);
     update();
   }
 
@@ -62,8 +65,8 @@ class AuthController extends GetxController {
         Future.delayed(const Duration(seconds: 3), () {
           submitButtonController.reset();
         });
-        if (response is String) {
-          Helper().showErrorToast(response);
+        if (response == "false") {
+          Helper().showErrorToast("password or email is wrong".tr);
         } else {
           Helper().showErrorToast(response.statusMessage.toString());
         }

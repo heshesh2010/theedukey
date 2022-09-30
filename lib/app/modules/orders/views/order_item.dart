@@ -105,7 +105,7 @@ class OrderItem extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text('${order.orderStatus}',
+                        Text(getOrderStatus(order.orderStatus),
                             style: Theme.of(context).textTheme.bodyText2),
                         const SizedBox(
                           height: 10,
@@ -172,7 +172,27 @@ class OrderItem extends StatelessWidget {
                                       "https://checkout.payments.tap.company?mode=page&token=6300ce0023e1b600fd3a4213",
                                   "دفع الكتروني", onGet: (value) {
                                 if (value) {
-                                  print(value);
+                                  Get.back();
+
+                                  Get.defaultDialog(
+                                      title: 'success'.tr,
+                                      middleText: 'payment_success'.tr,
+                                      confirm: TextButton(
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          child: Text('OK'.tr)));
+                                } else {
+                                  Get.back();
+
+                                  Get.defaultDialog(
+                                      title: 'error'.tr,
+                                      middleText: 'Something went wrong'.tr,
+                                      confirm: TextButton(
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          child: Text('OK'.tr)));
                                 }
                               }),
                             ));
@@ -184,5 +204,27 @@ class OrderItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getOrderStatus(String? orderStatus) {
+    switch (orderStatus) {
+      case "is_paid":
+        return "is_paid".tr;
+
+      case "new":
+        return "new".tr;
+
+      case "accepted":
+        return "accepted".tr;
+
+      case "under_revision":
+        return "under_revision".tr;
+
+      case "rejected":
+        return "rejected".tr;
+
+      default:
+        return orderStatus ?? "";
+    }
   }
 }

@@ -54,17 +54,17 @@ class SearchRepository {
         .replaceAll(']', '')
         .replaceAll(' ', '');
 
-    var rateingsIds = (routeArgument?.ratingsList ?? "")
+    var ratingsIds = (routeArgument?.ratingsList ?? "")
         .toString()
         .replaceAll('[', '')
         .replaceAll(']', '')
         .replaceAll(' ', '');
 
     if (kDebugMode) {
-      print("$stagesIds//$paymentMethodsIds//$rateingsIds");
+      print("$stagesIds//$paymentMethodsIds//$ratingsIds");
     }
     dio.Response? response = await apiClient.getAsync(
-        "search?keyword=${routeArgument?.keyword}&stage=$stagesIds&payment_method=$paymentMethodsIds&rate=$rateingsIds&lang=${LocalStorage().getlanguageSelected() ?? "ar"}");
+        "search?keyword=${routeArgument?.keyword}&stage=$stagesIds&payment_method=$paymentMethodsIds&rate=$ratingsIds&lang=${LocalStorage().getlanguageSelected() ?? "ar"}");
     if (response?.statusCode == 200) {
       List<Facility> list = <Facility>[];
 

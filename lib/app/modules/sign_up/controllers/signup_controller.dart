@@ -9,7 +9,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 class SignUpController extends GetxController {
   final AuthRepository repository;
   SignUpController({required this.repository});
-
+  final terms = "".obs;
   late Rx<City> selectedCity = City(name: "choose_city".tr).obs;
 
   late Rx<User?> currentUser = User().obs;
@@ -27,6 +27,7 @@ class SignUpController extends GetxController {
   @override
   void onInit() {
     getCities();
+    getTerms();
     currentUser = LocalStorage().getUser().obs;
     super.onInit();
   }
@@ -52,7 +53,7 @@ class SignUpController extends GetxController {
     if (response is List<City>) {
       citiesList.addAll(response);
     } else {
-      Helper().showErrorToast("لا يمكن التسجيل حالياً يرجى المٌراجعة لاحقاً");
+      Helper().showErrorToast("Something went wrong".tr);
     }
   }
 
@@ -79,5 +80,12 @@ class SignUpController extends GetxController {
     selectedFamilyIdImage = value;
     // updateApi if image != null
     update();
+  }
+
+  void getTerms() async {
+    dynamic response = await repository.termsApi();
+    if (response is String) {
+      terms.value = response;
+    }
   }
 }

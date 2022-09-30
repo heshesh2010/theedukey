@@ -20,12 +20,12 @@ class OffersController extends GetxController {
     pagingController.addPageRequestListener((pageKey) {
       newOffersItems.clear();
       offersList.clear();
-      _fetchFavoritePage(pageKey);
+      _fetchOffersPage(pageKey);
     });
     super.onInit();
   }
 
-  Future<void> _fetchFavoritePage(pageKey) async {
+  Future<void> _fetchOffersPage(pageKey) async {
     try {
       if (pageKey == 0) {
         newOffersItems = await getOffers();
@@ -53,7 +53,7 @@ class OffersController extends GetxController {
       offersList.addAll(response);
       return offersList;
     } else {
-      Helper().showErrorToast("حدث خطأ بالاتصال حاول لاحقاً");
+      Helper().showErrorToast("Something went wrong".tr);
     }
   }
 }

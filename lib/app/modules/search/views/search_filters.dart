@@ -218,7 +218,7 @@ class SearchFilters extends GetWidget<SearchController> {
                 borderRadius: BorderRadius.circular(10),
                 hint: Center(
                   child: Text(
-                    'rateings'.tr,
+                    'ratings'.tr,
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 8.sp),
                   ),

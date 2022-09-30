@@ -1,4 +1,15 @@
 const Map<String, String> ar = {
+  // dio error messages
+  "Request to API server was cancelled": "تم إلغاء طلب الخادم ",
+  "Connection timeout with API server": " انتهت مهلة الاتصال مع الخادم",
+  "Connection to API server failed due to internet connection":
+      "فشل الاتصال  بسبب اتصال الإنترنت",
+  "Receive timeout in connection with API server":
+      " انتهت مهلة الاستلام في الاتصال مع الخادم ",
+  "Send timeout in connection with API server":
+      " انتهت مهلة الإرسال في الاتصال مع الخادم ",
+  "Something went wrong": "حدث خطأ ما",
+
   // login page
   'login': 'تسجيل دخول',
   'email': 'البريد الإلكتروني',
@@ -7,7 +18,7 @@ const Map<String, String> ar = {
   'signUp': 'تسجيل حساب جديد',
   'enter': 'دخول',
   'skip': 'تخطي',
-
+  "password or email is wrong": "كلمة المرور أو البريد الإلكتروني غير صحيحة",
   // signUp page
   'name_ar': 'الإسم الثلاثي',
   'name_en': 'الإسم الثلاثي باللغة الإنجليزية',
@@ -18,14 +29,14 @@ const Map<String, String> ar = {
   'password_confirm': 'تأكيد كلمة المرور',
   'Password is not match': 'كلمة المرور غير متطابقة',
   'Name is not valid': 'الأسم غير صحيح',
-  'terms approve': 'الموافقة على الشروط والأحكام',
+  'terms approve': 'انا اوافق على الشروط والأحكام',
   'Email is not valid': 'البريد الإلكتروني غير صالح',
   'Mobile is not valid': 'رقم الجوال غير صالح',
   'Phone is not valid': 'رقم الجوال غير صالح',
   'Password is require': 'كلمة المرور يجب ان تكون اكثر من 8 خانات',
   "don't_have_an_account": ' ليس لديك حساب ؟',
   'have_an_account': 'لديك حساب ؟ ',
-
+  "terms": "الشروط والأحكام",
   "you_must_agree_TOS": "يجب الموافقة على الشروط والاحكام",
 
   // forget pass
@@ -46,7 +57,7 @@ const Map<String, String> ar = {
   'edit_profile': 'تعديل الملف الشخصي',
   'favorite': 'المفضلة',
   'my_orders': 'طلباتي',
-  'offers': 'العروض الترويجية',
+  'offers': 'أنشطة وبرامج ترفيهية',
   'sons': 'الأبناء',
   'language': 'اللغات',
   'contact_us': 'اتصل بنا',
@@ -77,11 +88,11 @@ const Map<String, String> ar = {
   'family_id_image': 'صورة بطاقة العائلة',
   'edit_family_id_image': 'تعديل صورة بطاقة العائلة',
 
-  'add_son': 'اضافة ابن',
+  'add_son': 'ة/اضافة ابن',
   'male': 'ذكر',
   'female': 'انثى',
-  'gender': 'نوع الطالب',
-  'son_id': 'رقم هوية الطالب',
+  'gender': 'جنس الابن/ة',
+  'son_id': 'رقم هوية الابن/ة',
   'personal_image': 'الصوره الشخصية',
   'edit_personal_image': 'تعديل الصوره الشخصية ',
   'personal_image is not valid': 'يجب ادخال صورة الشخصية ',
@@ -96,6 +107,9 @@ const Map<String, String> ar = {
   'edit_son': 'تعديل الطالب',
 
 // orders
+  'success': 'رسالة تأكيد',
+  'payment_success': 'تمت العملية بنجاح',
+  'error': 'خطأ',
 
   'orderNum': 'رقم الطلب',
   'serviceProvider': 'مقدم الخدمة',
@@ -107,12 +121,19 @@ const Map<String, String> ar = {
   'priceAfterDiscount': 'السعر بعد الخصم',
   'pay': 'الدفع',
 
+// order status
+  "is_paid": "مدفوع",
+  "new": "جديد",
+  "accepted": "بنتظار الدفع",
+  "under_revision": "تحت المراجعة",
+  "rejected": "مرفوض",
+
 // search screen
   'search_results': 'نتائج البحث',
   'show_results_on_map': 'عرض على الخريطة',
   'search_results_for': ' نتائج البحث عن :',
   'payment_method': 'طريقة الدفع',
-  'rateings': 'التقييمات',
+  'ratings': 'التقييمات',
   'all': 'الكل',
   'press_to_view_details': 'اضغط لمشاهدة التفاصيل',
   // school details

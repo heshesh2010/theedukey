@@ -20,11 +20,11 @@ class EditSonView extends GetWidget<SonsController> {
   final SonDataData _sonData = Get.arguments;
   @override
   Widget build(BuildContext context) {
-    controller.selectedPersonalImage = _sonData.image ?? "";
+    controller.selectedPersonalImage.value = _sonData.image ?? "";
 
-    controller.selectedIdImage = _sonData.idImage ?? "";
+    controller.selectedIdImage.value = _sonData.idImage ?? "";
 
-    controller.selectedCertificateImage = _sonData.certificateImage ?? "";
+    controller.selectedCertificateImage.value = _sonData.certificateImage ?? "";
 
     return Scaffold(
         appBar: getTopBar(context, isback: true),
@@ -157,7 +157,7 @@ class EditSonView extends GetWidget<SonsController> {
                         ),
                         GetBuilder<SonsController>(
                             initState: (_) {},
-                            builder: (controller) {
+                            builder: (builderController) {
                               return Column(
                                 children: [
                                   Row(
@@ -179,9 +179,12 @@ class EditSonView extends GetWidget<SonsController> {
                                               "edit_personal_image".tr,
                                           buttonTitle: "personal_image".tr,
                                           imageUrl: controller
-                                                  .selectedPersonalImage ??
-                                              _sonData.image ??
-                                              "",
+                                                  .selectedPersonalImage
+                                                  .value
+                                                  .isEmpty
+                                              ? _sonData.image
+                                              : controller
+                                                  .selectedPersonalImage.value,
                                           onGet: (value) {
                                             controller
                                                 .onSelectPersonalImage(value);
@@ -193,10 +196,11 @@ class EditSonView extends GetWidget<SonsController> {
                                         ImagePickerHelper(
                                           editButtonTitle: "edit_id_image".tr,
                                           buttonTitle: "id_image".tr,
-                                          imageUrl:
-                                              controller.selectedIdImage ??
-                                                  _sonData.idImage ??
-                                                  "",
+                                          imageUrl: controller
+                                                  .selectedIdImage.value.isEmpty
+                                              ? _sonData.idImage
+                                              : controller
+                                                  .selectedIdImage.value,
                                           onGet: (value) {
                                             controller.onSelectIdImage(value);
                                           },
@@ -209,9 +213,13 @@ class EditSonView extends GetWidget<SonsController> {
                                               "edit_certificate_image".tr,
                                           buttonTitle: "certificate_image".tr,
                                           imageUrl: controller
-                                                  .selectedCertificateImage ??
-                                              _sonData.certificateImage ??
-                                              "",
+                                                  .selectedCertificateImage
+                                                  .value
+                                                  .isEmpty
+                                              ? _sonData.certificateImage
+                                              : controller
+                                                  .selectedCertificateImage
+                                                  .value,
                                           onGet: (value) {
                                             controller.onSelectCertificateImage(
                                                 value);
@@ -230,8 +238,7 @@ class EditSonView extends GetWidget<SonsController> {
                           onPressed: () async {
                             // showLoadingDialog(context);
                             // btnSignUpController.stop();
-                            if (_formKey.currentState!.validate() &&
-                                controller.selectedPersonalImage != null) {
+                            if (_formKey.currentState!.validate()) {
                               await controller.editSon(SonDataData(
                                 id: _sonData.id,
                                 name: _nameArTextController.text,
@@ -239,10 +246,10 @@ class EditSonView extends GetWidget<SonsController> {
                                 idNumber: _idNumberTextController.text,
                                 birthDate: _birthDateTextController.text,
                                 gender: controller.selectedGenderApi,
-                                idImage: controller.selectedIdImage,
-                                image: controller.selectedPersonalImage,
+                                idImage: controller.selectedIdImage.value,
+                                image: controller.selectedPersonalImage.value,
                                 certificateImage:
-                                    controller.selectedCertificateImage,
+                                    controller.selectedCertificateImage.value,
                               ));
                             } else {
                               Helper().showErrorToast(
