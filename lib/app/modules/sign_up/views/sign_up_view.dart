@@ -44,7 +44,7 @@ class SignUpView extends GetWidget<SignUpController> {
                                 style: Theme.of(context).textTheme.headline1),
                             //ar_name
                             TextFormField(
-                              enabled: controller.isProcessEnabled.value,
+                              enabled: !controller.isProcessEnabled.value,
                               controller: _nameArTextController,
                               decoration:
                                   InputDecoration(labelText: "name_ar".tr),
@@ -52,7 +52,14 @@ class SignUpView extends GetWidget<SignUpController> {
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
                                 if (value != null && value.length > 5) {
-                                  return null;
+                                  if (GetUtils.hasMatch(
+                                    value,
+                                    "[a-z]",
+                                  )) {
+                                    return "Name is not valid".tr;
+                                  } else {
+                                    return null;
+                                  }
                                 } else {
                                   return "Name is not valid".tr;
                                 }
@@ -68,7 +75,14 @@ class SignUpView extends GetWidget<SignUpController> {
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
                                 if (value != null && value.length > 5) {
-                                  return null;
+                                  if (GetUtils.hasMatch(
+                                    value,
+                                    "[ء-ي]",
+                                  )) {
+                                    return "Name is not valid".tr;
+                                  } else {
+                                    return null;
+                                  }
                                 } else {
                                   return "Name is not valid".tr;
                                 }

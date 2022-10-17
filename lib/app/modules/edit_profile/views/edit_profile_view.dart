@@ -23,6 +23,8 @@ class EditProfileView extends GetWidget<EditProfileController> {
   final _passwordConfirmTextController = TextEditingController(text: "");
   final _phoneTextController = TextEditingController(text: "");
 
+  final _idNumberTextController = TextEditingController(text: "");
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,9 @@ class EditProfileView extends GetWidget<EditProfileController> {
                             //ar_name
                             TextFormField(
                               enabled: !controller.isProcessEnabled.value,
-                              controller: _nameArTextController,
+                              controller: _nameArTextController
+                                ..text =
+                                    controller.currentUser.value?.name ?? " ",
                               decoration: InputDecoration(
                                 labelText: "name_ar".tr,
                                 suffixText: '*',
@@ -60,7 +64,14 @@ class EditProfileView extends GetWidget<EditProfileController> {
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
                                 if (value != null && value.length > 5) {
-                                  return null;
+                                  if (GetUtils.hasMatch(
+                                    value,
+                                    "[a-z]",
+                                  )) {
+                                    return "Name is not valid".tr;
+                                  } else {
+                                    return null;
+                                  }
                                 } else {
                                   return "Name is not valid".tr;
                                 }
@@ -83,9 +94,41 @@ class EditProfileView extends GetWidget<EditProfileController> {
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
                                 if (value != null && value.length > 5) {
-                                  return null;
+                                  if (GetUtils.hasMatch(
+                                    value,
+                                    "[ء-ي]",
+                                  )) {
+                                    return "Name is not valid".tr;
+                                  } else {
+                                    return null;
+                                  }
                                 } else {
                                   return "Name is not valid".tr;
+                                }
+                              },
+                            ),
+
+                            TextFormField(
+                              enabled: !controller.isProcessEnabled.value,
+                              controller: _idNumberTextController
+                                ..text = controller.currentUser.value?.idNumber
+                                        ?.replaceAll(' ', '') ??
+                                    "",
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                labelText: "id_number".tr,
+                                suffixText: '*',
+                                suffixStyle: const TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value != null && value.length != 10) {
+                                  return "id is not valid".tr;
+                                } else {
+                                  return null;
                                 }
                               },
                             ),
@@ -342,6 +385,7 @@ class EditProfileView extends GetWidget<EditProfileController> {
                                         controller.selectedCertificateImage,
                                     familyIdImage:
                                         controller.selectedFamilyIdImage,
+                                    idNumber: _idNumberTextController.text,
                                   ));
                                 } else {
                                   Helper().showErrorToast(
@@ -353,6 +397,7 @@ class EditProfileView extends GetWidget<EditProfileController> {
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold)),
                             ),
+                            const SizedBox(height: 40),
                           ]));
                 })),
           ],

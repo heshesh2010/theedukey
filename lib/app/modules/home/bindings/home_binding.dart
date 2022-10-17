@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../../../../navigator_controller.dart';
 import '../../../data/provider/api_helper.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../../data/repositories/home_repository.dart';
@@ -39,5 +40,6 @@ class HomeBinding implements Bindings {
         repository: SchoolRepository(apiClient: ApiClient(dio: Dio()))));
     Get.lazyPut(() => SearchController(
         repository: SearchRepository(apiClient: ApiClient(dio: Dio()))));
+    Get.lazyPut(() => NavigatorController());
   }
 }

@@ -34,7 +34,7 @@ class User {
   final int? id;
   final String? name;
   final String? nameEn;
-  final String? token;
+  String? token;
   final dynamic guardianName;
   final String? image;
   final String? idNumber;

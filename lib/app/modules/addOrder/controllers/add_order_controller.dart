@@ -38,7 +38,8 @@ class AddOrderController extends GetxController {
       Get.defaultDialog(
           title: "success".tr,
           middleText: "Order_added_successfully".tr,
-          confirm: Text("OK".tr));
+          confirm: Text("OK".tr),
+          onConfirm: () {});
     } else {
       Helper().showErrorToast("Something went wrong".tr);
     }
@@ -52,10 +53,13 @@ class AddOrderController extends GetxController {
     );
 
     if (response == true) {
+      Get.find<OrdersController>().refreshOrders();
+
       Get.defaultDialog(
           title: "success".tr,
           middleText: "Order_added_successfully".tr,
-          confirm: Text("OK".tr));
+          confirm: Text("OK".tr),
+          onConfirm: () {});
     } else {
       Helper().showErrorToast("Something went wrong".tr);
     }

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:get/get.dart';
+import '../../../../navigator_controller.dart';
 import '../../../core/utils/local_storage.dart';
 import '../../../../elements/bottom_navigation_bar.dart';
 import '../../../routes/app_pages.dart';
@@ -24,8 +25,9 @@ class SplashController extends GetxController {
       Get.toNamed(Routes.login);
     } else {
       Get.to(
-        () => const NavigatorPage(tabIndex: 1),
+        () => const NavigatorPage(),
       );
+      Get.find<NavigatorController>().changePage(1);
     }
     FlutterNativeSplash.remove();
   }

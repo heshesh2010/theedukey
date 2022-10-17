@@ -26,10 +26,11 @@ class ContactUsController extends GetxController {
         bodyTextController.text);
     if (response.contains("Send Success")) {
       btnSubmitController.success();
+      Get.back();
       Helper().showSuccessToast(response);
     } else {
       contactUsUpProcess = false.obs;
-      btnSubmitController.error();
+      btnSubmitController.reset();
       Helper().showErrorToast(response);
     }
   }

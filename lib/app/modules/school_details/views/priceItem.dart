@@ -46,7 +46,7 @@ class PriceItem extends StatelessWidget {
                       widgetTextKey('from'.tr, context),
                       widgetTextKey('to'.tr, context),
                       widgetTextKey('theClass'.tr, context),
-                      widgetTextKey('serviceProvider'.tr, context),
+                      widgetTextKey('priceBeforeDiscount'.tr, context),
                       widgetTextKey('priceAfterDiscount'.tr, context),
                       widgetTextKey('note'.tr, context),
                     ],

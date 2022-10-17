@@ -43,7 +43,7 @@ const Map<String, String> en = {
 
 // edit profile
   'old_password': 'Old password',
-
+  'profile_updated': 'Profile updated successfully',
   // home screen
   'search_about': 'Search about',
   'Please_select_the_educational_stage': 'Please select the educational stage',
@@ -63,7 +63,7 @@ const Map<String, String> en = {
   'favorite': 'Favorite',
   'my_orders': 'My orders',
   'offers': 'Recreational activities and programs',
-  'sons': 'Sons',
+  'sons': 'Children',
   'language': 'Language',
   'contact_us': 'Contact us',
   'logout': 'Logout',
@@ -89,23 +89,23 @@ const Map<String, String> en = {
   'family_id_image': 'Family id image',
   'edit_family_id_image': 'Edit family id image',
 
-  'add_son': 'Add son',
+  'add_son': 'Add child',
   'male': 'male',
   'female': "female",
   'gender': 'Gender',
-  'son_id': 'Son id',
+  'son_id': 'Child id',
   'personal_image': 'personal image',
   'edit_personal_image': 'Edit personal image',
   'birth_date is not valid': 'birth date is not valid',
   'personal_image is not valid': 'Personal image is not valid',
   'id is not valid': 'id is not valid',
   'add': 'Add',
-  'add_son_success': 'Add son success',
-  'edit_son_success': 'Edit son success',
-  'delete_son_success': 'Delete son success',
+  'add_son_success': 'Add Child success',
+  'edit_son_success': 'Edit Child success',
+  'delete_son_success': 'Delete Child success',
 
   'edit_picture': 'Edit picture',
-  'edit_son': 'Edit son',
+  'edit_son': 'Edit Child',
 
 // orders
   'success': 'Success',
@@ -120,6 +120,7 @@ const Map<String, String> en = {
   'theClass': 'Class ',
   'subscriptionTypr': 'Subscription Type',
   'priceAfterDiscount': 'Price After Discount',
+  'priceBeforeDiscount': 'Price Before Discount',
   'pay': 'pay',
 
 // order status
@@ -144,7 +145,7 @@ const Map<String, String> en = {
   'subscribe_now': 'Subscribe now',
   "related_schools": 'Related schools',
   'Please_select_the_child': 'Please select the child',
-  'continue_and_add_sons': '  Continue and add sons',
+  'continue_and_add_sons': '  Continue and add children',
   'also_you_can': 'Also you can',
   'continue_with_main_account': ' Continue with main account',
   'subscriber_info': 'Subscriber info',
@@ -152,6 +153,10 @@ const Map<String, String> en = {
   'Order_added_successfully': 'Order added successfully',
   'added_to_favorite': 'Added to favorite',
   'removed_from_favorite': 'Removed from favorite',
+  'confirm': 'Confirm',
+  'confirm_continue_with_main_account': 'Confirm continue with main account',
+  'confirm_continue_with_son': 'confirm continue with child?',
+
   // other
   'submit': 'Submit',
   'cancel': 'Cancel',

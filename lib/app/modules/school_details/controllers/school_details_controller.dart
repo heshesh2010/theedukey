@@ -44,7 +44,7 @@ class SchoolDetailsController extends GetxController {
     isFavorite.value ? removeFavorite() : addFavorite();
 
     if (Get.isRegistered<FavoriteController>()) {
-      Get.find<FavoriteController>().pagingController.refresh();
+      Get.find<FavoriteController>().getFavorites();
     }
 
     //facility.value.school?.isFavorite = facility.value.school?.isFavorite!;
@@ -57,6 +57,7 @@ class SchoolDetailsController extends GetxController {
       Helper().showSuccessToast("added_to_favorite".tr);
       isFavorite.value = !isFavorite.value;
       facility.value.school?.isFavorite = true;
+      Get.find<FavoriteController>().pagingController.refresh();
     } else {
       if (response is String) {
         Helper().showErrorToast(response);
@@ -67,12 +68,12 @@ class SchoolDetailsController extends GetxController {
   }
 
   void removeFavorite() async {
-    dynamic response =
-        await repository.removeFavoriteApi(facility.value.school?.id);
+    dynamic response = await repository
+        .removeFavoriteApiByFacilityId(facility.value.school?.id);
     if (response) {
       isFavorite.value = !isFavorite.value;
       facility.value.school?.isFavorite = false;
-
+      Get.find<FavoriteController>().pagingController.refresh();
       Helper().showSuccessToast("removed_from_favorite".tr);
     } else {
       if (response is String) {

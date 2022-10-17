@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import '../../../../elements/bottom_navigation_bar.dart';
+import '../../../../navigator_controller.dart';
 import '../../../core/utils/local_storage.dart';
 import '../../../core/values/constants/general.dart';
 import '../../../../helper.dart';
@@ -40,7 +41,7 @@ class AuthController extends GetxController {
   logout() {
     currentUser.value = null;
     GetStorage().remove(kLocalKey["userInfo"]!);
-    Get.offAllNamed(Routes.login);
+    Get.toNamed(Routes.login);
     update();
   }
 
@@ -54,8 +55,9 @@ class AuthController extends GetxController {
         submitButtonController.success();
         currentUser = LocalStorage().getUser().obs;
         Get.to(
-          () => const NavigatorPage(tabIndex: 1),
+          () => const NavigatorPage(),
         );
+        Get.find<NavigatorController>().changePage(1);
         isProcessEnabled = false.obs;
 
         //  Get.back();
@@ -103,6 +105,8 @@ class AuthController extends GetxController {
     if (response is User) {
       submitButtonController.success();
       isProcessEnabled = false.obs;
+      Get.back();
+      submitButtonController.reset();
     } else {
       isProcessEnabled = false.obs;
       submitButtonController.reset();

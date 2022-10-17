@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../elements/bottom_navigation_bar.dart';
 import '../../../../elements/topbar.dart';
+import '../../../../navigator_controller.dart';
 import '../../../data/models/user.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/auth_controller.dart';
@@ -94,8 +95,8 @@ class AuthView extends GetWidget<AuthController> {
                             Center(
                               child: TextButton(
                                 onPressed: () {
-                                  Get.to(
-                                      () => const NavigatorPage(tabIndex: 1));
+                                  Get.to(() => const NavigatorPage());
+                                  Get.find<NavigatorController>().changePage(1);
                                 },
                                 child: Text("skip".tr),
                               ),

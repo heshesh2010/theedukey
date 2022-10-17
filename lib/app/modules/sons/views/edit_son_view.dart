@@ -58,7 +58,14 @@ class EditSonView extends GetWidget<SonsController> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value != null && value.length > 5) {
-                              return null;
+                              if (GetUtils.hasMatch(
+                                value,
+                                "[a-z]",
+                              )) {
+                                return "Name is not valid".tr;
+                              } else {
+                                return null;
+                              }
                             } else {
                               return "Name is not valid".tr;
                             }
@@ -80,7 +87,14 @@ class EditSonView extends GetWidget<SonsController> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value != null && value.length > 5) {
-                              return null;
+                              if (GetUtils.hasMatch(
+                                value,
+                                "[ء-ي]",
+                              )) {
+                                return "Name is not valid".tr;
+                              } else {
+                                return null;
+                              }
                             } else {
                               return "Name is not valid".tr;
                             }

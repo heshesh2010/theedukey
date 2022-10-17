@@ -3,24 +3,8 @@ import 'package:get/get.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import '../navigator_controller.dart';
 
-class NavigatorPage extends StatefulWidget {
-  const NavigatorPage({Key? key, required this.tabIndex}) : super(key: key);
-  final int tabIndex;
-
-  @override
-  NavigatorPageState createState() => NavigatorPageState();
-}
-
-class NavigatorPageState extends State<NavigatorPage> {
-  NavigatorController controller = Get.put(NavigatorController());
-
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.changePage(widget.tabIndex);
-    });
-    super.initState();
-  }
+class NavigatorPage extends GetWidget<NavigatorController> {
+  const NavigatorPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../../../constants/general.dart';
 import '../../../../elements/bottom_navigation_bar.dart';
 import '../../../../helper.dart';
+import '../../../../navigator_controller.dart';
 import '../../../data/models/order.dart';
 import '../../../data/repositories/orders_repository.dart';
 import '../../home/bindings/home_binding.dart';
@@ -53,6 +54,7 @@ class OrdersController extends GetxController {
   void refreshOrders() {
     getOrders(0);
     pagingController.refresh();
-    Get.to(() => const NavigatorPage(tabIndex: 0), binding: HomeBinding());
+    Get.to(() => const NavigatorPage(), binding: HomeBinding());
+    Get.find<NavigatorController>().changePage(0);
   }
 }

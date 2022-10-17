@@ -44,4 +44,15 @@ class SchoolRepository {
       return response;
     }
   }
+
+  removeFavoriteApiByFacilityId(int? schoolId) async {
+    dio.Response? response = await apiClient.postAsyncNormal(
+        "student-auth/remove-from-favorite-by-facility-id", {"id": schoolId},
+        isTokenRequired: true);
+    if (response?.statusCode == 200) {
+      return response?.data["status"];
+    } else {
+      return response;
+    }
+  }
 }

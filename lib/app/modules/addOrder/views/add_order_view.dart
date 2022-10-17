@@ -166,7 +166,15 @@ class AddOrderView extends GetWidget<AddOrderController> {
                       "continue_with_main_account".tr,
                     ),
                     onPressed: () {
-                      controller.addOrder();
+                      Get.defaultDialog(
+                          title: "confirm".tr,
+                          middleText: "confirm_continue_with_main_account".tr,
+                          textConfirm: "confirm".tr,
+                          textCancel: "cancel".tr,
+                          onCancel: () {},
+                          onConfirm: () {
+                            controller.addOrder();
+                          });
                     },
                   ),
                 ),
@@ -205,7 +213,15 @@ class AddOrderView extends GetWidget<AddOrderController> {
                       ),
                       onPressed: controller.selectedSon.value.id == null
                           ? null
-                          : addOrderCallBack,
+                          : () => Get.defaultDialog(
+                              title: "confirm".tr,
+                              middleText: "confirm_continue_with_son".tr,
+                              textConfirm: "confirm".tr,
+                              textCancel: "cancel".tr,
+                              onCancel: () {},
+                              onConfirm: () {
+                                addOrderCallBack;
+                              }),
                       child: Text(
                         "continue_and_add_sons".tr,
                       ),

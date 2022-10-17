@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../provider/api_helper.dart';
 import 'package:dio/dio.dart';
 
@@ -14,7 +16,8 @@ class ContactUsRepository {
       "subject": subject,
       "message": message
     };
-    Response? response = await apiClient.postAsyncNormal("send-message", data,
+    Response? response = await apiClient.postAsyncNormal(
+        "send-message", json.encode(data),
         isTokenRequired: false);
     if (response?.statusCode == 200) {
       return response?.data["data"]["message"];

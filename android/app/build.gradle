@@ -43,8 +43,8 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.topline.theedukey.client.theedukey"
-        minSdkVersion 16
+        applicationId "com.topline.theedukey"
+        minSdkVersion 20
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -57,7 +57,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    namespace 'com.topline.theedukey.client.theedukey'
+    namespace 'com.topline.theedukey'
 }
 
 flutter {

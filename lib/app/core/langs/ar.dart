@@ -44,7 +44,7 @@ const Map<String, String> ar = {
 
 // edit profile
   'old_password': 'كلمة المرور القديمة',
-
+  'profile_updated': 'تم تحديث الملف الشخصي',
   // home
   'search_about': 'ابحث عن ',
   'Please_select_the_educational_stage': 'من فضلك اختر المرحلة التعليمية',
@@ -99,12 +99,12 @@ const Map<String, String> ar = {
 
   'birth_date is not valid': 'يجب ادخال تاريخ الميلاد',
   'id is not valid': 'رقم الهوية غير صالح',
-  'add_son_success': 'تم اضافة الطالب بنجاح',
-  'edit_son_success': 'تم تعديل الطالب بنجاح',
-  'delete_son_success': 'تم حذف الطالب بنجاح',
+  'add_son_success': 'تم اضافة الابن/ة بنجاح',
+  'edit_son_success': 'تم تعديل الابن/ة بنجاح',
+  'delete_son_success': 'تم حذف الابن/ة بنجاح',
   'add': 'اضافة',
   'edit_picture': 'تعديل الصورة',
-  'edit_son': 'تعديل الطالب',
+  'edit_son': 'تعديل بيانات الابن/ة',
 
 // orders
   'success': 'رسالة تأكيد',
@@ -119,6 +119,8 @@ const Map<String, String> ar = {
   'theClass': 'الصف الدراسي ',
   'subscriptionTypr': 'نوع الاشتراك',
   'priceAfterDiscount': 'السعر بعد الخصم',
+  'priceBeforeDiscount': 'السعر قبل الخصم',
+
   'pay': 'الدفع',
 
 // order status
@@ -148,9 +150,13 @@ const Map<String, String> ar = {
   'added_to_favorite': 'تم اضافة المنشأة الى المفضلة',
   'removed_from_favorite': 'تم حذف المنشأة من المفضلة',
   "continue_with_main_account": 'متابعة بالحساب الرئيسي',
+  "confirm_continue_with_son": 'التأكيد بالمتابعة باختيار الطفل ؟',
+
   'subscriber_info': 'بيانات المشترك',
   "subscription_package": 'باقة الاشتراك',
   'Order_added_successfully': 'تم اضافة الطلب بنجاح',
+  'confirm': 'تأكيد',
+  'confirm_continue_with_main_account': 'هل تريد المتابعة بالحساب الرئيسي؟',
   // other
   'cancel': 'الغاء',
   'submit': 'ارسال',

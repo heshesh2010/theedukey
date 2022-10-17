@@ -66,7 +66,7 @@ class FavoriteController extends GetxController {
   Future<dynamic> getFavorites() async {
     dynamic response = await repository.getFavoritesApi();
     if (response is List<FavoriteDataData>) {
-      //   newFavoritItems.assignAll(response);
+      newFavoritItems.assignAll(response);
 
       return response;
     } else {

@@ -61,6 +61,7 @@ class AuthRepository {
       "name": user?.name,
       "name_en": user?.nameEn,
       "mobile": user?.mobile,
+      "phone": user?.phone,
       "old_password": user?.oldPassword,
       "password": user?.password,
       "password_confirmation": user?.passwordConfirmation,
@@ -82,7 +83,7 @@ class AuthRepository {
         isTokenRequired: true);
     if (response is Response) {
       if (response.statusCode == 200) {
-        return User.fromMap(response.data["user"]);
+        return User.fromMap(response.data["student"]);
       } else {
         return response;
       }

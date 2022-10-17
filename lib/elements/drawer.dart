@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../app/modules/auth/controllers/auth_controller.dart';
+import '../app/modules/favorite/controllers/favorite_controller.dart';
 import '../app/modules/home/bindings/home_binding.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../app/core/utils/local_storage.dart';
@@ -28,13 +29,11 @@ class DrawerSideMenu extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
+                        SizedBox(
                           height: 80.0,
                           width: 100.0,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.green),
                           child: CachedNetworkImage(
-                            maxHeightDiskCache: 10,
+                            //     maxHeightDiskCache: 10,
                             imageUrl: controller.currentUser.value?.image ?? "",
                             placeholder: (context, url) =>
                                 const CircularProgressIndicator(),
@@ -86,8 +85,9 @@ class DrawerSideMenu extends StatelessWidget {
                             Get.find<NavigatorController>();
                         navigatorController.changePage(1);
                       } else {
-                        Get.to(() => const NavigatorPage(tabIndex: 1),
+                        Get.to(() => const NavigatorPage(),
                             binding: HomeBinding());
+                        Get.find<NavigatorController>().changePage(1);
                       }
                     },
                   ),
@@ -111,8 +111,9 @@ class DrawerSideMenu extends StatelessWidget {
                         navigatorController.changePage(2);
                         Get.back();
                       } else {
-                        Get.to(() => const NavigatorPage(tabIndex: 2),
+                        Get.to(() => const NavigatorPage(),
                             binding: HomeBinding());
+                        Get.find<NavigatorController>().changePage(2);
                       }
                     },
                   ),
@@ -150,6 +151,7 @@ class DrawerSideMenu extends StatelessWidget {
                       if (Get.currentRoute == Routes.favorite) {
                         Get.back();
                       } else {
+                        Get.delete<FavoriteController>();
                         Get.toNamed(Routes.favorite);
                       }
                     },
@@ -173,8 +175,9 @@ class DrawerSideMenu extends StatelessWidget {
                         navigatorController.changePage(0);
                         Get.back();
                       } else {
-                        Get.to(() => const NavigatorPage(tabIndex: 0),
+                        Get.to(() => const NavigatorPage(),
                             binding: HomeBinding());
+                        Get.find<NavigatorController>().changePage(0);
                       }
                     },
                   ),
@@ -317,8 +320,9 @@ class DrawerSideMenu extends StatelessWidget {
                             Get.find<NavigatorController>();
                         navigatorController.changePage(1);
                       } else {
-                        Get.to(() => const NavigatorPage(tabIndex: 1),
+                        Get.to(() => const NavigatorPage(),
                             binding: HomeBinding());
+                        Get.find<NavigatorController>().changePage(1);
                       }
                     },
                   ),

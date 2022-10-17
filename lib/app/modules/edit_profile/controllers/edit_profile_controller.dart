@@ -1,11 +1,9 @@
 import 'package:get/get.dart';
 import '../../../core/utils/local_storage.dart';
-import '../../../core/values/constants/general.dart';
 import '../../../../helper.dart';
 import '../../../data/models/city.dart';
 import '../../../data/models/user.dart';
 import '../../../data/repositories/auth_repository.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../routes/app_pages.dart';
@@ -38,12 +36,6 @@ class EditProfileController extends GetxController {
 
   final RoundedLoadingButtonController submitButtonController =
       RoundedLoadingButtonController();
-
-  logout() {
-    currentUser.value = null;
-    GetStorage().remove(kLocalKey["userInfo"]!);
-    update();
-  }
 
   Future<dynamic> login(User user) async {
     try {
@@ -102,6 +94,15 @@ class EditProfileController extends GetxController {
     if (response is User) {
       submitButtonController.success();
       isProcessEnabled = false.obs;
+
+      currentUser = LocalStorage().getUser().obs;
+      User tempUser = response;
+      tempUser.token = currentUser.value!.token;
+
+      LocalStorage().saveUser(tempUser);
+      Get.back();
+
+      Helper().showSuccessToast("profile_updated".tr);
     } else {
       isProcessEnabled = false.obs;
       submitButtonController.reset();
