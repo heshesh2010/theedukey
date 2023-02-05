@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../../../../elements/drawer.dart';
 import '../../../../elements/topbar.dart';
+import '../../../../helper.dart';
 import '../controllers/add_order_controller.dart';
 
 class AddOrderView extends GetWidget<AddOrderController> {
@@ -151,7 +151,7 @@ class AddOrderView extends GetWidget<AddOrderController> {
                                 cells: <DataCell>[
                                   DataCell(Text('mobile'.tr)),
                                   DataCell(Text(
-                                      controller.currentUser?.mobile ?? " ")),
+                                      controller.currentUser?.phone ?? " ")),
                                 ],
                               )
                             ]))),
@@ -166,15 +166,11 @@ class AddOrderView extends GetWidget<AddOrderController> {
                       "continue_with_main_account".tr,
                     ),
                     onPressed: () {
-                      Get.defaultDialog(
-                          title: "confirm".tr,
-                          middleText: "confirm_continue_with_main_account".tr,
-                          textConfirm: "confirm".tr,
-                          textCancel: "cancel".tr,
-                          onCancel: () {},
+                      Helper().showCustomDialog(
+                          "confirm".tr, "confirm_continue_with_main_account".tr,
                           onConfirm: () {
-                            controller.addOrder();
-                          });
+                        controller.addOrder();
+                      }, onCancel: () {});
                     },
                   ),
                 ),

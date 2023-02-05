@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theedukey/app/data/models/facility.dart';
 
 import '../../../../config/app_config.dart';
-import '../../../core/utils/local_storage.dart';
+import '../../../data/models/facility.dart';
 import '../../../data/models/route_argument.dart';
 import '../../../routes/app_pages.dart';
+import '../../../services/auth_service.dart';
 
 class PriceItem extends StatelessWidget {
   PriceItem({Key? key, required this.price}) : super(key: key);
@@ -48,12 +48,12 @@ class PriceItem extends StatelessWidget {
                       widgetTextKey('theClass'.tr, context),
                       widgetTextKey('priceBeforeDiscount'.tr, context),
                       widgetTextKey('priceAfterDiscount'.tr, context),
+                      widgetTextKey('is_tmara_enabled'.tr, context),
                       widgetTextKey('note'.tr, context),
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: 140,
+                Flexible(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 30, top: 10.0),
                     child: Column(
@@ -70,6 +70,8 @@ class PriceItem extends StatelessWidget {
                         widgetTextValue(
                             '${price.priceAfterDiscount}${'currency'.tr}',
                             context),
+                        widgetTextValue(
+                            price.isTmaraEnabled ? "yes".tr : "no".tr, context),
                         widgetTextValue('${price.note}', context),
                       ],
                     ),
@@ -77,7 +79,10 @@ class PriceItem extends StatelessWidget {
                 ),
               ],
             ),
-            if (LocalStorage().getUser() != null)
+            const SizedBox(
+              height: 40,
+            ),
+            if (Get.find<AuthService>().isAuth)
               SizedBox(
                 width: Get.width / 1.9,
                 height: 60,

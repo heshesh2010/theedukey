@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../elements/webView.dart';
+
 import '../../../data/models/order.dart';
+import '../../../routes/app_pages.dart';
 
 class OrderItem extends StatelessWidget {
   const OrderItem({Key? key, required this.order}) : super(key: key);
@@ -40,47 +41,47 @@ class OrderItem extends StatelessWidget {
                         height: 10,
                       ),
                       Text('serviceProvider'.tr,
-                          style: Theme.of(context).textTheme.bodyText2),
+                          style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(
                         height: 10,
                       ),
                       Text('orderStatus'.tr,
-                          style: Theme.of(context).textTheme.bodyText2),
+                          style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(
                         height: 10,
                       ),
                       Text('serviceName'.tr,
-                          style: Theme.of(context).textTheme.bodyText2),
+                          style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(
                         height: 10,
                       ),
                       Text('stage'.tr,
-                          style: Theme.of(context).textTheme.bodyText2),
+                          style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(
                         height: 10,
                       ),
                       Text('theClass'.tr,
-                          style: Theme.of(context).textTheme.bodyText2),
+                          style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(
                         height: 10,
                       ),
                       Text('subscriptionTypr'.tr,
-                          style: Theme.of(context).textTheme.bodyText2),
+                          style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(
                         height: 10,
                       ),
                       Text('priceAfterDiscount'.tr,
-                          style: Theme.of(context).textTheme.bodyText2),
+                          style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(
                         height: 10,
                       ),
                       Text('from'.tr,
-                          style: Theme.of(context).textTheme.bodyText2),
+                          style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(
                         height: 10,
                       ),
                       Text('to'.tr,
-                          style: Theme.of(context).textTheme.bodyText2),
+                          style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(
                         height: 10,
                       ),
@@ -101,12 +102,12 @@ class OrderItem extends StatelessWidget {
                           height: 10,
                         ),
                         Text('${order.serviceProvider}',
-                            style: Theme.of(context).textTheme.bodyText2),
+                            style: Theme.of(context).textTheme.bodyMedium),
                         const SizedBox(
                           height: 10,
                         ),
                         Text(getOrderStatus(order.orderStatus),
-                            style: Theme.of(context).textTheme.bodyText2),
+                            style: Theme.of(context).textTheme.bodyMedium),
                         const SizedBox(
                           height: 10,
                         ),
@@ -114,39 +115,39 @@ class OrderItem extends StatelessWidget {
                             maxLines: 1,
                             //   softWrap: false,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.bodyText2),
+                            style: Theme.of(context).textTheme.bodyMedium),
                         const SizedBox(
                           height: 10,
                         ),
                         Text('${order.stage}',
                             maxLines: 2,
-                            style: Theme.of(context).textTheme.bodyText2),
+                            style: Theme.of(context).textTheme.bodyMedium),
                         const SizedBox(
                           height: 10,
                         ),
                         Text('${order.theClass}',
                             maxLines: 2,
-                            style: Theme.of(context).textTheme.bodyText2),
+                            style: Theme.of(context).textTheme.bodyMedium),
                         const SizedBox(
                           height: 10,
                         ),
                         Text('${order.subscriptionTypr}',
-                            style: Theme.of(context).textTheme.bodyText2),
+                            style: Theme.of(context).textTheme.bodyMedium),
                         const SizedBox(
                           height: 10,
                         ),
                         Text('${order.priceAfterDiscount}${'currency'.tr}',
-                            style: Theme.of(context).textTheme.bodyText2),
+                            style: Theme.of(context).textTheme.bodyMedium),
                         const SizedBox(
                           height: 10,
                         ),
                         Text('${order.from}',
-                            style: Theme.of(context).textTheme.bodyText2),
+                            style: Theme.of(context).textTheme.bodyMedium),
                         const SizedBox(
                           height: 10,
                         ),
                         Text('${order.to}',
-                            style: Theme.of(context).textTheme.bodyText2),
+                            style: Theme.of(context).textTheme.bodyMedium),
                         const SizedBox(
                           height: 10,
                         ),
@@ -156,46 +157,15 @@ class OrderItem extends StatelessWidget {
                 ),
               ],
             ),
-            order.paymentUrl != null
+            order.orderStatus == "accepted"
                 ? SizedBox(
                     width: Get.width / 1.5,
                     height: 60,
                     child: ElevatedButton.icon(
-                      icon: const Icon(Icons.pin_drop),
+                      icon: const Icon(Icons.payment),
                       label: Text('pay'.tr),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => WebView(
-                                  order.paymentUrl ??
-                                      "https://checkout.payments.tap.company?mode=page&token=6300ce0023e1b600fd3a4213",
-                                  "دفع الكتروني", onGet: (value) {
-                                if (value) {
-                                  Get.back();
-
-                                  Get.defaultDialog(
-                                      title: 'success'.tr,
-                                      middleText: 'payment_success'.tr,
-                                      confirm: TextButton(
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          child: Text('OK'.tr)));
-                                } else {
-                                  Get.back();
-
-                                  Get.defaultDialog(
-                                      title: 'error'.tr,
-                                      middleText: 'Something went wrong'.tr,
-                                      confirm: TextButton(
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          child: Text('OK'.tr)));
-                                }
-                              }),
-                            ));
+                        Get.toNamed(Routes.PAYMENT_METHODS, arguments: order);
                       },
                     ),
                   )

@@ -4,8 +4,8 @@ import '../app/modules/auth/controllers/auth_controller.dart';
 import '../app/modules/favorite/controllers/favorite_controller.dart';
 import '../app/modules/home/bindings/home_binding.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../app/core/utils/local_storage.dart';
 import '../app/routes/app_pages.dart';
+import '../app/services/auth_service.dart';
 import '../navigator_controller.dart';
 import 'bottom_navigation_bar.dart';
 
@@ -16,7 +16,7 @@ class DrawerSideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LocalStorage().getUser() != null
+    return Get.find<AuthService>().isAuth
         ? Drawer(
             backgroundColor: const Color(0xFF414755),
             child: SingleChildScrollView(
@@ -34,7 +34,7 @@ class DrawerSideMenu extends StatelessWidget {
                           width: 100.0,
                           child: CachedNetworkImage(
                             //     maxHeightDiskCache: 10,
-                            imageUrl: controller.currentUser.value?.image ?? "",
+                            imageUrl: controller.currentUser.value.image ?? "",
                             placeholder: (context, url) =>
                                 const CircularProgressIndicator(),
                             errorWidget: (context, url, error) =>
@@ -46,7 +46,7 @@ class DrawerSideMenu extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              controller.currentUser.value?.name ?? "",
+                              controller.currentUser.value.name ?? "",
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
@@ -54,7 +54,7 @@ class DrawerSideMenu extends StatelessWidget {
                                   ?.copyWith(color: Colors.white),
                             ),
                             Text(
-                              controller.currentUser.value?.nameEn ?? " ",
+                              controller.currentUser.value.nameEn ?? " ",
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme

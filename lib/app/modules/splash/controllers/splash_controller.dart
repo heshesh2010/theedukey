@@ -1,10 +1,12 @@
 import 'dart:async';
-import 'package:get/get.dart';
-import '../../../../navigator_controller.dart';
-import '../../../core/utils/local_storage.dart';
-import '../../../../elements/bottom_navigation_bar.dart';
-import '../../../routes/app_pages.dart';
+
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:get/get.dart';
+
+import '../../../../elements/bottom_navigation_bar.dart';
+import '../../../../navigator_controller.dart';
+import '../../../routes/app_pages.dart';
+import '../../../services/auth_service.dart';
 
 class SplashController extends GetxController {
   //final AuthController controller = Get.put(Authcontroller);
@@ -21,7 +23,7 @@ class SplashController extends GetxController {
   }
 
   onDoneLoading() async {
-    if (LocalStorage().getUser() == null) {
+    if (!Get.find<AuthService>().isAuth) {
       Get.toNamed(Routes.login);
     } else {
       Get.to(

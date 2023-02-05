@@ -4,36 +4,40 @@
 
 import 'dart:convert';
 
+import 'package:intl_phone_field/countries.dart';
+import 'package:intl_phone_field/phone_number.dart';
+
 import 'city.dart';
 
 class User {
-  User({
-    this.id,
-    this.name,
-    this.nameEn,
-    this.token,
-    this.guardianName,
-    this.image,
-    this.idNumber,
-    this.guardianIdNumber,
-    this.idImage,
-    this.familyIdImage,
-    this.certificateImage,
-    this.phone,
-    this.mobile,
-    this.email,
-    this.city,
-    this.mapLocation,
-    this.legalAgreement,
-    this.emailVerifiedAt,
-    this.oldPassword,
-    this.password,
-    this.passwordConfirmation,
-  });
+  User(
+      {this.id,
+      this.name,
+      this.nameEn,
+      this.token,
+      this.guardianName,
+      this.image,
+      this.idNumber,
+      this.guardianIdNumber,
+      this.idImage,
+      this.familyIdImage,
+      this.certificateImage,
+      this.phone,
+      this.email,
+      this.city,
+      this.mapLocation,
+      this.legalAgreement,
+      this.emailVerifiedAt,
+      this.oldPassword,
+      this.password,
+      this.passwordConfirmation,
+      this.verificationId,
+      this.auth = false,
+      this.verifiedPhone = 0});
 
   final int? id;
-  final String? name;
-  final String? nameEn;
+  String? name;
+  String? nameEn;
   String? token;
   final dynamic guardianName;
   final String? image;
@@ -42,16 +46,19 @@ class User {
   final String? idImage;
   final String? familyIdImage;
   final String? certificateImage;
-  final String? phone;
-  final String? mobile;
-  final String? email;
-  final City? city;
+  String? phone;
+  String? email;
+  City? city;
   final String? mapLocation;
   final String? legalAgreement;
   final dynamic emailVerifiedAt;
   String? oldPassword;
   String? password;
   String? passwordConfirmation;
+  String? verificationId;
+  bool auth;
+  int verifiedPhone;
+
   factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
@@ -69,12 +76,14 @@ class User {
         familyIdImage: json["family_id_image"],
         certificateImage: json["certificate_image"],
         phone: json["phone"],
-        mobile: json["mobile"],
         email: json["email"],
         city: json["city"] != null ? City.fromMap(json["city"]) : null,
         mapLocation: json["map_location"],
         legalAgreement: json["legal_agreement"],
         emailVerifiedAt: json["email_verified_at"],
+        verificationId: json["verificationId"],
+        auth: json["auth"] ?? false,
+        verifiedPhone: json["phone_verify"] ?? 0,
       );
 
   Map<String, dynamic> toMap() => {
@@ -93,11 +102,41 @@ class User {
         "family_id_image": familyIdImage,
         "certificate_image": certificateImage,
         "phone": phone,
-        "mobile": mobile,
         "email": email,
-        "city": city?.name,
+        "city": city?.id,
         "map_location": mapLocation,
         "legal_agreement": legalAgreement,
         "email_verified_at": emailVerifiedAt,
+        "verificationId": verificationId,
+        "auth": auth,
+        "verifiedPhone": verifiedPhone,
       };
+
+  PhoneNumber getMobileNumber() {
+    if (phone != null) {
+      phone = phone?.replaceAll(' ', '');
+      String? dialCode1 = phone?.substring(1, 2);
+      String? dialCode2 = phone?.substring(1, 3);
+      String? dialCode3 = phone?.substring(1, 4);
+      for (int i = 0; i < countries.length; i++) {
+        if (countries[i].dialCode == dialCode1) {
+          return PhoneNumber(
+              countryISOCode: countries[i].code,
+              countryCode: dialCode1 ?? "",
+              number: phone?.substring(2) ?? "");
+        } else if (countries[i].dialCode == dialCode2) {
+          return PhoneNumber(
+              countryISOCode: countries[i].code,
+              countryCode: dialCode2 ?? "",
+              number: phone?.substring(3) ?? "");
+        } else if (countries[i].dialCode == dialCode3) {
+          return PhoneNumber(
+              countryISOCode: countries[i].code,
+              countryCode: dialCode3 ?? "",
+              number: phone?.substring(4) ?? "");
+        }
+      }
+    }
+    return PhoneNumber(countryISOCode: "SA", countryCode: '966', number: '');
+  }
 }

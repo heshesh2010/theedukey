@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../../../../elements/drawer.dart';
 import '../../../../elements/topbar.dart';
-import '../../../core/utils/local_storage.dart';
 import '../../../data/service/locator.dart';
 import '../../../data/service/search_model.dart';
 import '../../../routes/app_pages.dart';
-import 'related_schools_view.dart';
+import '../../../services/auth_service.dart';
 import '../controllers/school_details_controller.dart';
+import 'related_schools_view.dart';
 import 'school_gallery.dart';
 import 'school_info.dart';
 import 'school_prices.dart';
@@ -22,7 +21,7 @@ class SchoolDetailsView extends GetWidget<SchoolDetailsController> {
         appBar: getTopBar(context, title: "school_details".tr, isback: true),
         drawer: DrawerSideMenu(),
         // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: LocalStorage().getUser() != null
+        floatingActionButton: Get.find<AuthService>().isAuth
             ? Obx(() => FloatingActionButton(
                   onPressed: () {
                     controller.favoriteSchool();

@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
-import '../../../core/utils/local_storage.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
+
 import '../../../../helper.dart';
 import '../../../data/models/city.dart';
 import '../../../data/models/user.dart';
 import '../../../data/repositories/auth_repository.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import '../../../routes/app_pages.dart';
+import '../../../services/auth_service.dart';
+import '../../../services/settngs_service.dart';
 
 class SignUpController extends GetxController {
   final AuthRepository repository;
@@ -12,7 +15,7 @@ class SignUpController extends GetxController {
   final terms = "".obs;
   late Rx<City> selectedCity = City(name: "choose_city".tr).obs;
 
-  late Rx<User?> currentUser = User().obs;
+  final Rx<User> currentUser = Get.find<AuthService>().user;
   String? selectedImage;
   String? selectedIdImage;
   String? selectedPersonalImage;
@@ -22,29 +25,85 @@ class SignUpController extends GetxController {
   RxBool passwordVisible = false.obs;
   var agreedToTOS = false.obs;
   var citiesList = <City>[].obs;
+  final loading = false.obs;
+
   final RoundedLoadingButtonController submitButtonController =
       RoundedLoadingButtonController();
+
+  final RoundedLoadingButtonController submitVerifyButtonController =
+      RoundedLoadingButtonController();
+
+  final smsSent = ''.obs;
+
   @override
   void onInit() {
     getCities();
     getTerms();
-    currentUser = LocalStorage().getUser().obs;
+    //    currentUser = LocalStorage().getUser().obs;
     super.onInit();
   }
 
-  Future<dynamic> signUp(User user) async {
-    isProcessEnabled = true.obs;
-    dynamic response = await repository.signUpApi(user);
+  Future<dynamic> signUpApi() async {
+    dynamic response = await repository.signUpApi(currentUser.value);
     if (response is User) {
-      submitButtonController.success();
+      Get.offNamed(
+        Routes.login,
+      );
+      Helper().showSuccessToast("sign_up_success".tr);
     } else {
-      isProcessEnabled = false.obs;
+      isProcessEnabled = true.obs;
       submitButtonController.error();
-      Helper().showErrorToast(Helper().getErrorStringFromMap(response));
-
+      //  Helper().showErrorToast(Helper().getErrorStringFromMap(response));
       Future.delayed(const Duration(seconds: 3), () {
         submitButtonController.reset();
       });
+      throw Helper().getErrorStringFromMap(response);
+    }
+  }
+
+  Future<void> verifyPhone() async {
+    try {
+      loading.value = true;
+      //  await repository.sendCodeToPhone();
+      await repository.verifyPhone(smsSent.value);
+      await signUpApi();
+
+      // await repository.signUpWithEmailAndPassword(
+      //     currentUser.value.email ?? "", currentUser.value.password ?? "");
+    } catch (e) {
+      Get.back();
+      Helper().showErrorToast(e.toString());
+    } finally {
+      loading.value = false;
+      isProcessEnabled.value = false;
+      submitVerifyButtonController.reset();
+
+      submitButtonController.reset();
+    }
+  }
+
+  Future<void> resendOTPCode() async {
+    await repository.sendCodeToPhone();
+    Helper().showSuccessToast("OTP_sent_successfully".tr);
+  }
+
+  Future<dynamic> signUp() async {
+    isProcessEnabled = true.obs;
+    loading.value = true;
+    try {
+      if (Get.find<SettingsService>().settings.value.mobileVerification ==
+          "1") {
+        await repository.sendCodeToPhone();
+        await Get.toNamed(Routes.phoneVerification);
+      } else {
+        await signUpApi();
+      }
+    } catch (e) {
+      isProcessEnabled = false.obs;
+
+      Helper().showErrorToast(e.toString());
+    } finally {
+      loading.value = false;
     }
   }
 
@@ -59,6 +118,7 @@ class SignUpController extends GetxController {
 
   void setSelectedCity(value) {
     selectedCity.value = value!;
+    currentUser.value.city = value;
   }
 
   void onSelectIdImage(value) {

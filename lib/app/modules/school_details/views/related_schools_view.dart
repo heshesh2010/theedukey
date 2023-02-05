@@ -1,11 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:theedukey/app/modules/school_details/views/related_item.dart';
 
 import '../../../../config/app_config.dart';
 import '../controllers/school_details_controller.dart';
+import 'related_item.dart';
 
 class RelatedSchoolsView extends GetWidget<SchoolDetailsController> {
   RelatedSchoolsView({Key? key}) : super(key: key);
@@ -35,7 +34,7 @@ class RelatedSchoolsView extends GetWidget<SchoolDetailsController> {
                             child: CarouselSlider(
                           carouselController: _controller,
                           options: CarouselOptions(
-                              height: 400.0,
+                              height: 450.0,
                               autoPlay: false,
                               enableInfiniteScroll: false,
                               viewportFraction: 0.8,

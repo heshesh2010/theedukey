@@ -1,9 +1,14 @@
 import 'package:get/get.dart';
 
+import '../modules/PayTab/bindings/pay_tab_binding.dart';
+import '../modules/PayTab/views/pay_tab_view.dart';
+import '../modules/Tamara/bindings/tamara_binding.dart';
+import '../modules/Tamara/views/tamara_view.dart';
 import '../modules/addOrder/bindings/add_order_binding.dart';
 import '../modules/addOrder/views/add_order_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
+import '../modules/auth/views/phone_verification_view.dart';
 import '../modules/contact_us/bindings/contact_us_binding.dart';
 import '../modules/contact_us/views/contact_us_view.dart';
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
@@ -22,6 +27,8 @@ import '../modules/offers/bindings/offers_binding.dart';
 import '../modules/offers/views/offers_view.dart';
 import '../modules/orders/bindings/orders_binding.dart';
 import '../modules/orders/views/orders_view.dart';
+import '../modules/paymentMethods/bindings/payment_methods_binding.dart';
+import '../modules/paymentMethods/views/payment_methods_view.dart';
 import '../modules/school_details/bindings/school_details_binding.dart';
 import '../modules/school_details/views/school_details_view.dart';
 import '../modules/search/bindings/search_binding.dart';
@@ -101,6 +108,11 @@ class AppPages {
         page: () => const SchoolDetailsView(),
         binding: SchoolDetailsBinding()),
 
+    GetPage(
+        name: Routes.phoneVerification,
+        page: () => const PhoneVerificationView(),
+        binding: AuthBinding()),
+
     //       GetPage(
     //   name: _Paths.webView,
     //   page: () =>  WebView(),
@@ -109,6 +121,22 @@ class AppPages {
       name: _Paths.ADD_ORDER,
       page: () => const AddOrderView(),
       binding: AddOrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYMENT_METHODS,
+      page: () => const PaymentMethodsView(),
+      binding: PaymentMethodsBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.PAY_TAB,
+      page: () => const PayTabView(),
+      binding: PayTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.TAMARA,
+      page: () => const TamaraView(),
+      binding: TamaraBinding(),
     ),
   ];
 }

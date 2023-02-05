@@ -71,26 +71,24 @@ class OrderDataData {
   String? orderdAt;
   String? lastUpdate;
   String? normalStatus;
-  String? paymentUrl;
-  OrderDataData({
-    this.orderNum,
-    this.orderChildId,
-    this.orderStatus,
-    this.InvoiceId,
-    this.serviceProvider,
-    this.serviceName,
-    this.from,
-    this.to,
-    this.priceAfterDiscount,
-    this.priceBeforeDiscount,
-    this.theClass,
-    this.stage,
-    this.subscriptionTypr,
-    this.orderdAt,
-    this.lastUpdate,
-    this.normalStatus,
-    this.paymentUrl,
-  });
+
+  OrderDataData(
+      {this.orderNum,
+      this.orderChildId,
+      this.orderStatus,
+      this.InvoiceId,
+      this.serviceProvider,
+      this.serviceName,
+      this.from,
+      this.to,
+      this.priceAfterDiscount,
+      this.priceBeforeDiscount,
+      this.theClass,
+      this.stage,
+      this.subscriptionTypr,
+      this.orderdAt,
+      this.lastUpdate,
+      this.normalStatus});
   OrderDataData.fromJson(Map<String, dynamic> json) {
     orderNum = json['order_num']?.toInt();
     orderChildId = json['order_child_id']?.toInt();
@@ -100,8 +98,6 @@ class OrderDataData {
     serviceName = json['service_name']?.toString();
     from = json['from']?.toString();
     to = json['to']?.toString();
-    paymentUrl = json['payment_url']?.toString();
-
     priceAfterDiscount = json['price_after_discount']?.toString();
     priceBeforeDiscount = json['price_before_discount']?.toString();
     theClass = json['class']?.toString();
@@ -129,7 +125,6 @@ class OrderDataData {
     data['orderd_at'] = orderdAt;
     data['last_update'] = lastUpdate;
     data['normal_status'] = normalStatus;
-    data['payment_url'] = paymentUrl;
 
     return data;
   }

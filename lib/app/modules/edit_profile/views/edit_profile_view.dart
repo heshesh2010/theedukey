@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
+
 import '../../../../elements/drawer.dart';
 import '../../../../elements/topbar.dart';
-import '../../sons/views/image_picker/image_picker_helper.dart';
-import '../../auth/controllers/auth_controller.dart';
 import '../../../../helper.dart';
 import '../../../data/models/city.dart';
 import '../../../data/models/user.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
-
+import '../../auth/controllers/auth_controller.dart';
+import '../../sons/views/image_picker/image_picker_helper.dart';
 import '../controllers/edit_profile_controller.dart';
 
 class EditProfileView extends GetWidget<EditProfileController> {
@@ -150,7 +150,7 @@ class EditProfileView extends GetWidget<EditProfileController> {
                                           imageUrl: controller
                                                   .selectedPersonalImage ??
                                               controller
-                                                  .currentUser.value?.image ??
+                                                  .currentUser.value.image ??
                                               "",
                                           onGet: (value) {
                                             controller
@@ -166,7 +166,7 @@ class EditProfileView extends GetWidget<EditProfileController> {
                                           imageUrl:
                                               controller.selectedIdImage ??
                                                   controller.currentUser.value
-                                                      ?.idImage ??
+                                                      .idImage ??
                                                   "",
                                           onGet: (value) {
                                             controller.onSelectIdImage(value);
@@ -182,7 +182,7 @@ class EditProfileView extends GetWidget<EditProfileController> {
                                           imageUrl: controller
                                                   .selectedCertificateImage ??
                                               controller.currentUser.value
-                                                  ?.certificateImage ??
+                                                  .certificateImage ??
                                               "",
                                           onGet: (value) {
                                             controller.onSelectCertificateImage(
@@ -213,24 +213,6 @@ class EditProfileView extends GetWidget<EditProfileController> {
                               },
                             ),
 
-                            //mobile
-                            TextFormField(
-                              enabled: !controller.isProcessEnabled.value,
-                              controller: _mobileTextController
-                                ..text =
-                                    controller.currentUser.value?.mobile ?? " ",
-                              decoration:
-                                  InputDecoration(labelText: "mobile".tr),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) {
-                                if (!GetUtils.isPhoneNumber(value!)) {
-                                  return "Mobile is not valid".tr;
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
                             //email
                             TextFormField(
                               enabled: !controller.isProcessEnabled.value,
@@ -371,7 +353,6 @@ class EditProfileView extends GetWidget<EditProfileController> {
                                     email: _emailTextController.text,
                                     name: _nameArTextController.text,
                                     nameEn: _nameEnTextController.text,
-                                    mobile: _mobileTextController.text,
                                     phone: _phoneTextController.text,
                                     oldPassword:
                                         _oldPasswordTextController.text,

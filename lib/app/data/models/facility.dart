@@ -1,4 +1,4 @@
-import 'package:theedukey/app/data/models/school.dart';
+import 'school.dart';
 
 class Facility {
   final SchoolData? school;
@@ -104,24 +104,25 @@ class Prices {
   final String? className;
   final int? paymentMethodId;
   final String? paymentMethod;
+  final bool isTmaraEnabled;
 
-  Prices({
-    this.id,
-    this.facilityId,
-    this.name,
-    this.priceBeforeDiscount,
-    this.priceAfterDiscount,
-    this.numberOfAllowedStudent,
-    this.start,
-    this.end,
-    this.note,
-    this.stageId,
-    this.stageName,
-    this.classId,
-    this.className,
-    this.paymentMethodId,
-    this.paymentMethod,
-  });
+  Prices(
+      {this.id,
+      this.facilityId,
+      this.name,
+      this.priceBeforeDiscount,
+      this.priceAfterDiscount,
+      this.numberOfAllowedStudent,
+      this.start,
+      this.end,
+      this.note,
+      this.stageId,
+      this.stageName,
+      this.classId,
+      this.className,
+      this.paymentMethodId,
+      this.paymentMethod,
+      this.isTmaraEnabled = false});
 
   Prices.fromJson(Map<String, dynamic> json)
       : id = json['id'] as int?,
@@ -138,7 +139,8 @@ class Prices {
         classId = json['class_id'] as int?,
         className = json['class_name'] as String?,
         paymentMethodId = json['payment_method_id'] as int?,
-        paymentMethod = json['payment_method'] as String?;
+        paymentMethod = json['payment_method'] as String?,
+        isTmaraEnabled = json['tamara'] as bool;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -155,6 +157,7 @@ class Prices {
         'class_id': classId,
         'class_name': className,
         'payment_method_id': paymentMethodId,
-        'payment_method': paymentMethod
+        'payment_method': paymentMethod,
+        'tamara': isTmaraEnabled
       };
 }

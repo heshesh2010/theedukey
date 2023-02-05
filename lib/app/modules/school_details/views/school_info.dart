@@ -13,62 +13,78 @@ class SchoolInfo extends GetWidget<SchoolDetailsController> {
           children: [
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 30.0),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(80.0),
-                      child: ImageTools.image(
-                        fit: BoxFit.fitHeight,
-                        url: controller.facility.value.school?.logo ?? "",
-                        height: 60,
-                        width: 60,
-                      )),
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 30.0),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(80.0),
+                        child: ImageTools.image(
+                          fit: BoxFit.contain,
+                          url: controller.facility.value.school?.logo ?? "",
+                          height: 60,
+                          width: 60,
+                        )),
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            const SizedBox(
-                              width: 5,
+                Expanded(
+                  flex: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(controller.facility.value.school?.name ??
+                                  "0"),
+                            ],
+                          ),
+                          Flexible(
+                            //   fit: FlexFit.loose,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.location_on,
+                                  color: Theme.of(context).focusColor,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    controller.facility.value.school?.address ??
+                                        " ",
+                                    maxLines: 2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(controller.facility.value.school?.name ?? "0"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.location_on,
-                              color: Theme.of(context).focusColor,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              controller.facility.value.school?.address ?? " ",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.star,
-                              color: Color.fromRGBO(255, 191, 14, 1),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(controller.facility.value.school?.rate ?? "0"),
-                          ],
-                        ),
-                      ]),
+                          ),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.star,
+                                color: Color.fromRGBO(255, 191, 14, 1),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(controller.facility.value.school?.rate ??
+                                  "0"),
+                            ],
+                          ),
+                        ]),
+                  ),
                 ),
               ],
             ),

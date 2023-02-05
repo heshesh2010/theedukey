@@ -69,13 +69,14 @@ class MapController extends GetxController {
 
   Future<List<int>> makeReceiptImage(value) async {
     // load avatar image
-    List<int> bytes = Uint8List.view(await loadNetworkImage(value));
-    var avatarImage = decodeImage(bytes);
+
+    var avatarImage =
+        decodeImage(Uint8List.view(await loadNetworkImage(value)));
 
     //load marker image
     ByteData imageData = await rootBundle.load('assets/img/ma.png');
-    bytes = Uint8List.view(imageData.buffer);
-    var markerImage = decodeImage(bytes);
+
+    var markerImage = decodeImage(Uint8List.view(imageData.buffer));
 
     //resize the avatar image to fit inside the marker image
     avatarImage = copyResize(avatarImage!,
@@ -88,7 +89,7 @@ class MapController extends GetxController {
     for (int y = -radius; y <= radius; y++) {
       for (int x = -radius; x <= radius; x++) {
         if (x * x + y * y <= radius * radius) {
-          markerImage.setPixelSafe(originX + x + 8, originY + y + 10,
+          markerImage.setPixel(originX + x + 8, originY + y + 10,
               avatarImage.getPixelSafe(originX + x, originY + y));
         }
       }

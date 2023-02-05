@@ -1,4 +1,4 @@
-import 'package:theedukey/app/data/models/filter_data.dart';
+import 'filter_data.dart';
 
 class School {
   final bool? success;
@@ -104,7 +104,7 @@ class SchoolData {
         commercialRecord = json['commercial_record'] as String?,
         ownerId = json['owner_id'] as String?,
         logo = json['logo'] as String?,
-        rate = json['rate'].toString(),
+        rate = json['rate'] as String?,
         visits = json['visits'] as int?,
         status = json['status'] as String?,
         cityId = json['city_id'] as String?,

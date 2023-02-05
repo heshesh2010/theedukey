@@ -14,14 +14,6 @@ class LocalStorage {
     return GetStorage().read('lang');
   }
 
-  User? getUser() {
-    if (GetStorage().read(kLocalKey["userInfo"]!) != null) {
-      return User.fromJson(GetStorage().read(kLocalKey["userInfo"]!));
-    } else {
-      return null;
-    }
-  }
-
   getToken() {
     if (GetStorage().read(kLocalKey["userInfo"]!) != null) {
       return User.fromJson(GetStorage().read(kLocalKey["userInfo"]!)).token;

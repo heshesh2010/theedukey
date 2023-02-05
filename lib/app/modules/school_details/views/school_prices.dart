@@ -23,7 +23,7 @@ class SchoolPrices extends GetWidget<SchoolDetailsController> {
               carouselController: _controller,
               options: CarouselOptions(
                   enableInfiniteScroll: false,
-                  height: 600.0,
+                  height: 550.0,
                   autoPlay: true,
                   viewportFraction: 1,
                   //aspectRatio: 0.5,

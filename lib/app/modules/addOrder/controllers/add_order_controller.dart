@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theedukey/app/modules/orders/controllers/orders_controller.dart';
 
 import '../../../../helper.dart';
 import '../../../data/models/facility.dart';
@@ -9,6 +7,7 @@ import '../../../data/models/son.dart';
 import '../../../data/models/user.dart';
 import '../../../data/repositories/add_order_repository.dart';
 import '../../auth/controllers/auth_controller.dart';
+import '../../orders/controllers/orders_controller.dart';
 
 class AddOrderController extends GetxController {
   final AddOrderRepository repository;
@@ -34,12 +33,13 @@ class AddOrderController extends GetxController {
     );
 
     if (response == true) {
-      Get.find<OrdersController>().refreshOrders();
-      Get.defaultDialog(
-          title: "success".tr,
-          middleText: "Order_added_successfully".tr,
-          confirm: Text("OK".tr),
-          onConfirm: () {});
+      Helper().showCustomAlertDialog(
+        "success".tr,
+        "Order_added_successfully".tr,
+        onConfirm: () {
+          Get.find<OrdersController>().refreshOrders();
+        },
+      );
     } else {
       Helper().showErrorToast("Something went wrong".tr);
     }
@@ -55,11 +55,13 @@ class AddOrderController extends GetxController {
     if (response == true) {
       Get.find<OrdersController>().refreshOrders();
 
-      Get.defaultDialog(
-          title: "success".tr,
-          middleText: "Order_added_successfully".tr,
-          confirm: Text("OK".tr),
-          onConfirm: () {});
+      Helper().showCustomAlertDialog(
+        "success".tr,
+        "Order_added_successfully".tr,
+        onConfirm: () {
+          Get.find<OrdersController>().refreshOrders();
+        },
+      );
     } else {
       Helper().showErrorToast("Something went wrong".tr);
     }

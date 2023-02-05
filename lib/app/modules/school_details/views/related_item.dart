@@ -4,14 +4,15 @@ import '../../../core/utils/image_tools.dart';
 import '../../../data/models/school.dart';
 
 class RelatedSchoolItem extends StatelessWidget {
-  RelatedSchoolItem({Key? key, required this.relatedItem}) : super(key: key);
+  const RelatedSchoolItem({Key? key, required this.relatedItem})
+      : super(key: key);
 
-  SchoolData relatedItem;
+  final SchoolData relatedItem;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 10),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
         // width: 400,
         //height: 100,
@@ -46,23 +47,27 @@ class RelatedSchoolItem extends StatelessWidget {
                 height: 20,
               ),
               Text(relatedItem.name ?? "0"),
-              Row(
-                children: [
-                  Icon(
-                    Icons.location_on,
-                    color: Theme.of(context).focusColor,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    relatedItem.address ?? " ",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ],
+              Expanded(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.location_on,
+                      color: Theme.of(context).focusColor,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Text(
+                        relatedItem.address ?? " ",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Row(
                 children: [
@@ -75,6 +80,9 @@ class RelatedSchoolItem extends StatelessWidget {
                   ),
                   Text(relatedItem.rate ?? "0"),
                 ],
+              ),
+              const SizedBox(
+                height: 10,
               ),
             ],
           ),

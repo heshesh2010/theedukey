@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theedukey/app/modules/notifications/views/notification_item.dart';
-import 'package:theedukey/elements/topbar.dart';
-import 'package:theedukey/app/data/models/notification.dart' as model;
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+
+import '../../../../elements/drawer.dart';
 import '../../../../elements/empty_results.dart';
 import '../../../../elements/no_other_results.dart';
-import '../../../core/utils/first_page_error_indicator.dart';
-import '../../../core/utils/local_storage.dart';
 import '../../../../elements/permission_dcenied_widget.dart';
-import '../../../../elements/drawer.dart';
+import '../../../../elements/topbar.dart';
+import '../../../core/utils/first_page_error_indicator.dart';
+import '../../../data/models/notification.dart' as model;
+import '../../../services/auth_service.dart';
 import '../controllers/notifications_controller.dart';
+import 'notification_item.dart';
 
 class NotificationsView extends GetWidget<NotificationController> {
   const NotificationsView({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class NotificationsView extends GetWidget<NotificationController> {
       body: Padding(
         padding:
             const EdgeInsets.only(left: 10, right: 10.0, top: 10, bottom: 15),
-        child: LocalStorage().getUser()?.token == null
+        child: !Get.find<AuthService>().isAuth
             ? const PermissionDeniedWidget()
             : GetBuilder<NotificationController>(
                 builder: (c) =>

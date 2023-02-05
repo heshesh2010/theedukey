@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import '../../../../elements/phone_field_widget.dart';
 import '../../../../elements/topbar.dart';
 import '../../../../helper.dart';
 import '../../../data/models/city.dart';
-import '../../../data/models/user.dart';
 import '../controllers/signup_controller.dart';
 
 class SignUpView extends GetWidget<SignUpController> {
@@ -15,7 +15,6 @@ class SignUpView extends GetWidget<SignUpController> {
   final _nameEnTextController = TextEditingController(text: "");
   final _mobileTextController = TextEditingController(text: "");
   final _phoneTextController = TextEditingController(text: "");
-
   final _emailTextController = TextEditingController(text: "");
   final _passwordTextController = TextEditingController(text: "");
   final _passwordConfirmTextController = TextEditingController(text: "");
@@ -24,6 +23,8 @@ class SignUpView extends GetWidget<SignUpController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.submitButtonController.reset();
+    controller.isProcessEnabled = false.obs;
     return Scaffold(
       appBar: getTopBar(context, isback: true),
       body: SingleChildScrollView(
@@ -50,6 +51,8 @@ class SignUpView extends GetWidget<SignUpController> {
                                   InputDecoration(labelText: "name_ar".tr),
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
+                              onSaved: (input) =>
+                                  controller.currentUser.value.name = input,
                               validator: (value) {
                                 if (value != null && value.length > 5) {
                                   if (GetUtils.hasMatch(
@@ -73,6 +76,8 @@ class SignUpView extends GetWidget<SignUpController> {
                                   InputDecoration(labelText: "name_en".tr),
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
+                              onSaved: (input) =>
+                                  controller.currentUser.value.nameEn = input,
                               validator: (value) {
                                 if (value != null && value.length > 5) {
                                   if (GetUtils.hasMatch(
@@ -88,44 +93,47 @@ class SignUpView extends GetWidget<SignUpController> {
                                 }
                               },
                             ),
-                            //mobile
-                            TextFormField(
-                              enabled: !controller.isProcessEnabled.value,
-                              controller: _mobileTextController,
-                              decoration:
-                                  InputDecoration(labelText: "mobile".tr),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) {
-                                if (!GetUtils.isPhoneNumber(value!)) {
-                                  return "Mobile is not valid".tr;
-                                } else {
-                                  return null;
-                                }
+
+                            PhoneFieldWidget(
+                              labelText: "mobile".tr,
+                              hintText: "590000000".tr,
+                              initialCountryCode: controller.currentUser.value
+                                  .getMobileNumber()
+                                  .countryISOCode,
+                              initialValue: controller.currentUser.value
+                                  .getMobileNumber()
+                                  .number,
+                              onSaved: (phone) {
+                                controller.currentUser.value.phone =
+                                    phone?.completeNumber ?? "";
                               },
                             ),
 
-                            //phone
-                            TextFormField(
-                              enabled: !controller.isProcessEnabled.value,
-                              controller: _phoneTextController,
-                              decoration:
-                                  InputDecoration(labelText: "phone".tr),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) {
-                                if (!GetUtils.isPhoneNumber(value!)) {
-                                  return "Phone is not valid".tr;
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
+                            // //mobile
+                            // TextFormField(
+                            //   enabled: !controller.isProcessEnabled.value,
+                            //   controller: _mobileTextController,
+                            //   onSaved: (input) => controller
+                            //       .currentUser.value.mobile = input ?? "",
+                            //   decoration:
+                            //       InputDecoration(labelText: "mobile".tr),
+                            //   autovalidateMode:
+                            //       AutovalidateMode.onUserInteraction,
+                            //   validator: (value) {
+                            //     if (!GetUtils.isPhoneNumber(value!)) {
+                            //       return "Mobile is not valid".tr;
+                            //     } else {
+                            //       return null;
+                            //     }
+                            //   },
+                            // ),
 
                             //email
                             TextFormField(
                               enabled: !controller.isProcessEnabled.value,
                               controller: _emailTextController,
+                              onSaved: (input) =>
+                                  controller.currentUser.value.email = input,
                               decoration:
                                   InputDecoration(labelText: "email".tr),
                               autovalidateMode:
@@ -167,6 +175,10 @@ class SignUpView extends GetWidget<SignUpController> {
                             TextFormField(
                               enabled: !controller.isProcessEnabled.value,
                               controller: _passwordTextController,
+                              onSaved: (input) =>
+                                  controller.currentUser.value.password = input,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               decoration: InputDecoration(
                                   labelText: "password".tr,
                                   suffixIcon: IconButton(
@@ -188,8 +200,12 @@ class SignUpView extends GetWidget<SignUpController> {
                                       : null,
                             ),
                             TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               enabled: !controller.isProcessEnabled.value,
                               controller: _passwordConfirmTextController,
+                              onSaved: (input) => controller.currentUser.value
+                                  .passwordConfirmation = input,
                               decoration: InputDecoration(
                                   labelText: "password_confirm".tr,
                                   suffixIcon: IconButton(
@@ -270,17 +286,25 @@ class SignUpView extends GetWidget<SignUpController> {
                                   Helper()
                                       .showErrorToast("you_must_agree_TOS".tr);
                                   controller.submitButtonController.reset();
+                                } else if (controller.selectedCity.value.id ==
+                                    null) {
+                                  Helper().showErrorToast(
+                                      "you_must_select_city".tr);
+                                  controller.submitButtonController.reset();
                                 } else if (_formKey.currentState!.validate()) {
-                                  await controller.signUp(User(
-                                      email: _emailTextController.text,
-                                      password: _passwordTextController.text,
-                                      passwordConfirmation:
-                                          _passwordConfirmTextController.text,
-                                      name: _nameArTextController.text,
-                                      nameEn: _nameEnTextController.text,
-                                      mobile: _mobileTextController.text,
-                                      phone: _phoneTextController.text,
-                                      city: controller.selectedCity.value));
+                                  _formKey.currentState?.save();
+
+                                  // await controller.signUp(User(
+                                  //     email: _emailTextController.text,
+                                  //     password: _passwordTextController.text,
+                                  //     passwordConfirmation:
+                                  //         _passwordConfirmTextController.text,
+                                  //     name: _nameArTextController.text,
+                                  //     nameEn: _nameEnTextController.text,
+                                  //     mobile: _mobileTextController.text,
+                                  //     phone: _phoneTextController.text,
+                                  //     city: controller.selectedCity.value));
+                                  controller.signUp();
                                 } else {
                                   Helper().showErrorToast(
                                       "please_review_all_fields".tr);

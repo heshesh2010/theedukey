@@ -37,6 +37,9 @@ abstract class Routes {
 // school deteils
   static const String schoolDetails = _Paths.schoolDetails;
 
+// PHONE_VERIFICATION
+  static const String phoneVerification = _Paths.phoneVerification;
+
 // splash
   static const String splashScreen = _Paths.splashScreen;
 
@@ -49,6 +52,8 @@ abstract class Routes {
   static const String map = _Paths.map;
   static const GUEST_LOGIN = _Paths.GUEST_LOGIN;
   static const ADD_ORDER = _Paths.ADD_ORDER;
+  static const PAYMENT_METHODS = _Paths.PAYMENT_METHODS;
+  static const PAY_TAB = _Paths.PAY_TAB;
 }
 
 abstract class _Paths {
@@ -91,8 +96,14 @@ abstract class _Paths {
   //contactUs
   static const String contactUs = '/ContactUsView';
 
+// PHONE_VERIFICATION
+  static const String phoneVerification = '/PhoneVerificationView';
+
   static const String map = '/MapView';
   static const String schoolDetails = '/SchoolDetailsView';
-  static const GUEST_LOGIN = '/guest-login';
-  static const ADD_ORDER = '/add-order';
+  static const String GUEST_LOGIN = '/guest-login';
+  static const String ADD_ORDER = '/add-order';
+  static const String PAYMENT_METHODS = '/payment-methods';
+  static const String PAY_TAB = '/TapPayment';
+  static const String TAMARA = '/Tamara';
 }

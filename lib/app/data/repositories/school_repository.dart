@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
+
 import '../../core/utils/local_storage.dart';
+import '../../services/auth_service.dart';
 import '../models/facility.dart';
 import '../models/route_argument.dart';
 import '../provider/api_helper.dart';
@@ -14,8 +16,8 @@ class SchoolRepository {
 
   Future<dynamic> getFacilityApi({int? id}) async {
     dio.Response? response = await apiClient.getAsync(
-        "${LocalStorage().getUser() != null ? "student-auth/facility" : "facility"}/${id ?? (Get.arguments as RouteArgument).schoolId}?lang=${LocalStorage().getlanguageSelected() ?? "ar"}",
-        isTokenRequired: LocalStorage().getUser() != null ? true : false);
+        "${Get.find<AuthService>().isAuth ? "student-auth/facility" : "facility"}/${id ?? (Get.arguments as RouteArgument).schoolId}?lang=${LocalStorage().getlanguageSelected() ?? "ar"}",
+        isTokenRequired: Get.find<AuthService>().isAuth ? true : false);
     if (response?.statusCode == 200) {
       return Facility.fromJson(response?.data);
     } else {

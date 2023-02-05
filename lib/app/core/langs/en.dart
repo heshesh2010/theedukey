@@ -19,7 +19,9 @@ const Map<String, String> en = {
   'enter': 'Enter',
   'skip': 'Skip',
   "password or email is wrong": "password or email is wrong",
+  "you must validate your email first": "you must validate your email first",
   // signUp page
+  "you_must_select_city": "You must select city",
   'name_ar': 'Arabic full name',
   'name_en': 'English full name',
   'mobile': 'Mobile',
@@ -38,9 +40,20 @@ const Map<String, String> en = {
   'have_an_account': 'Have an account ?  ',
   "you_must_agree_TOS": "You must agree TOS",
   "terms": "Terms",
+  "We sent the OTP code to your phone, please check it and enter below":
+      "We sent the OTP code to your phone, please check it and enter below",
+  "Phone Verification": "Phone Verification",
+  'OTP Code': 'OTP Code',
+  "Verify": "Verify",
+  "Resend the OTP Code Again": "Resend the OTP Code Again",
+  "invalid_phone_number": "Invalid phone number",
+  "invalid-credential": "Invalid credential",
+  "invalid-verification-code": "Invalid verification code or expired",
+  "session_expired": "Session expired",
+  "OTP_sent_successfully": "OTP sent successfully",
   // forget pass
   'remember_pass': 'Remember pass?',
-
+  "sign_up_success": "sign up success",
 // edit profile
   'old_password': 'Old password',
   'profile_updated': 'Profile updated successfully',
@@ -121,8 +134,14 @@ const Map<String, String> en = {
   'subscriptionTypr': 'Subscription Type',
   'priceAfterDiscount': 'Price After Discount',
   'priceBeforeDiscount': 'Price Before Discount',
+  "is_tmara_enabled": "Is tmara enabled",
   'pay': 'pay',
-
+  "payment_methods": "Payment methods",
+  "choose_payment_method": "please press on the preferred payment method",
+  "payment_failed": "payment faild",
+  "payment_canceled": "payment canceled",
+  "pay_with_payTab": "pay with payTab",
+  "pay_with_tmara": "pay with tmara",
 // order status
   "is_paid": "paid",
   "new": "new",
@@ -167,7 +186,8 @@ const Map<String, String> en = {
   'camera': 'Camera',
   'currency': 'SAR',
   'OK': 'ok',
-
+  "yes": "Yes",
+  "no": "No",
   'empty_results': 'Empty results',
 
   "please_review_all_fields": "Please review all fields",

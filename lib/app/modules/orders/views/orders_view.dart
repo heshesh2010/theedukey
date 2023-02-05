@@ -11,6 +11,7 @@ import '../../../../elements/topbar.dart';
 import '../../../core/utils/first_page_error_indicator.dart';
 import '../../../core/utils/local_storage.dart';
 import '../../../data/models/order.dart';
+import '../../../services/auth_service.dart';
 import '../controllers/orders_controller.dart';
 import 'order_item.dart';
 
@@ -24,7 +25,7 @@ class OrdersView extends GetWidget<OrdersController> {
         body: Padding(
           padding:
               const EdgeInsets.only(left: 10, right: 10.0, top: 10, bottom: 15),
-          child: LocalStorage().getUser()?.token == null
+          child: !Get.find<AuthService>().isAuth
               ? const PermissionDeniedWidget()
               : GetBuilder<OrdersController>(
                   builder: (c) => RefreshIndicator(

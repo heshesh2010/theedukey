@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+
 import '../../../../constants/general.dart';
 import '../../../../helper.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import '../../../core/utils/local_storage.dart';
 import '../../../data/models/son.dart';
 import '../../../data/repositories/sons_repository.dart';
 import '../../../routes/app_pages.dart';
+import '../../../services/auth_service.dart';
 
 class SonsController extends GetxController {
   final SonsRepository repository;
@@ -184,7 +185,9 @@ class SonsController extends GetxController {
   }
 
   bool isFamilyIdExits() {
-    return LocalStorage().getUser()?.familyIdImage != null ? true : false;
+    return Get.find<AuthService>().user.value.familyIdImage != null
+        ? true
+        : false;
   }
 
   updateFamilyId() {}

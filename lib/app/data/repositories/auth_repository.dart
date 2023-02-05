@@ -1,11 +1,15 @@
+import 'package:dio/dio.dart';
+import 'package:get/get.dart' as getx;
+
 import '../../core/utils/local_storage.dart';
+import '../../providers.dart/firebase_provider.dart';
 import '../models/city.dart';
 import '../models/user.dart';
 import '../provider/api_helper.dart';
-import 'package:dio/dio.dart';
 
 class AuthRepository {
   final ApiClient apiClient;
+  final FirebaseProvider _firebaseProvider = getx.Get.find<FirebaseProvider>();
 
   AuthRepository({required this.apiClient});
 
@@ -18,6 +22,26 @@ class AuthRepository {
     } else {
       return response?.statusMessage;
     }
+  }
+
+//  Future<User> getCurrentUser() {
+//     return this.get(Get.find<AuthService>().user.value);
+//   }
+
+  Future<bool> signInWithEmailAndPassword(String email, String password) async {
+    return _firebaseProvider.signInWithEmailAndPassword(email, password);
+  }
+
+  Future<bool> signUpWithEmailAndPassword(String email, String password) async {
+    return _firebaseProvider.signUpWithEmailAndPassword(email, password);
+  }
+
+  Future<void> verifyPhone(String smsCode) async {
+    return _firebaseProvider.verifyPhone(smsCode);
+  }
+
+  Future<void> sendCodeToPhone() async {
+    return _firebaseProvider.sendCodeToPhone();
   }
 
   Future<dynamic> loginApi(User user) async {
@@ -60,7 +84,6 @@ class AuthRepository {
       "email": user?.email,
       "name": user?.name,
       "name_en": user?.nameEn,
-      "mobile": user?.mobile,
       "phone": user?.phone,
       "old_password": user?.oldPassword,
       "password": user?.password,

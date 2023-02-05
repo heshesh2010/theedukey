@@ -1,33 +1,30 @@
 import 'package:get/get.dart';
-import '../../../../elements/bottom_navigation_bar.dart';
-import '../../../../navigator_controller.dart';
-import '../../../core/utils/local_storage.dart';
-import '../../../core/values/constants/general.dart';
-import '../../../../helper.dart';
-import '../../../data/models/city.dart';
-import '../../../data/models/user.dart';
-import '../../../data/repositories/auth_repository.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import '../../../../elements/bottom_navigation_bar.dart';
+import '../../../../helper.dart';
+import '../../../../navigator_controller.dart';
+import '../../../core/utils/local_storage.dart';
+import '../../../core/values/constants/general.dart';
+import '../../../data/models/city.dart';
+import '../../../data/models/user.dart';
+import '../../../data/repositories/auth_repository.dart';
 import '../../../routes/app_pages.dart';
+import '../../../services/auth_service.dart';
 
 class AuthController extends GetxController {
   final AuthRepository repository;
   AuthController({required this.repository});
 
-  late Rx<User?> currentUser = User().obs;
+  final Rx<User> currentUser = Get.find<AuthService>().user;
+
   String? selectedImage;
   String? selectedIdImage;
   String? selectedPersonalImage;
   String? selectedCertificateImage;
   String? selectedFamilyIdImage;
-
-  @override
-  void onInit() {
-    currentUser = LocalStorage().getUser().obs;
-    super.onInit();
-  }
+  final loading = false.obs;
 
   var isProcessEnabled = false.obs;
   RxBool passwordVisible = false.obs;
@@ -39,7 +36,7 @@ class AuthController extends GetxController {
       RoundedLoadingButtonController();
 
   logout() {
-    currentUser.value = null;
+    currentUser.value = User();
     GetStorage().remove(kLocalKey["userInfo"]!);
     Get.toNamed(Routes.login);
     update();
@@ -51,9 +48,13 @@ class AuthController extends GetxController {
 // showLoadingDialog();
       dynamic response = await repository.loginApi(user);
       if (response is User) {
+        // await repository.signInWithEmailAndPassword(
+        //     currentUser.value.email ?? "", currentUser.value.token ?? "");
+
+        response.auth = true;
+        currentUser.value = response;
         LocalStorage().saveUser(response);
         submitButtonController.success();
-        currentUser = LocalStorage().getUser().obs;
         Get.to(
           () => const NavigatorPage(),
         );
@@ -69,8 +70,10 @@ class AuthController extends GetxController {
         });
         if (response == "false") {
           Helper().showErrorToast("password or email is wrong".tr);
+        } else if (response == "you must validate your email first") {
+          Helper().showErrorToast("you must validate your email first".tr);
         } else {
-          Helper().showErrorToast(response.statusMessage.toString());
+          Helper().showErrorToast(response.toString());
         }
       }
     } on Exception catch (exception) {
@@ -117,21 +120,21 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<dynamic> signUp(User user) async {
-    isProcessEnabled = true.obs;
-    dynamic response = await repository.signUpApi(user);
-    if (response is User) {
-      submitButtonController.success();
-    } else {
-      isProcessEnabled = false.obs;
-      submitButtonController.reset();
-      Helper().showErrorToast(Helper().getErrorStringFromMap(response));
+  // Future<dynamic> signUp(User user) async {
+  //   isProcessEnabled = true.obs;
+  //   dynamic response = await repository.signUpApi(user);
+  //   if (response is User) {
+  //     submitButtonController.success();
+  //   } else {
+  //     isProcessEnabled = false.obs;
+  //     submitButtonController.reset();
+  //     Helper().showErrorToast(Helper().getErrorStringFromMap(response));
 
-      Future.delayed(const Duration(seconds: 3), () {
-        submitButtonController.reset();
-      });
-    }
-  }
+  //     Future.delayed(const Duration(seconds: 3), () {
+  //       submitButtonController.reset();
+  //     });
+  //   }
+  // }
 
   Future<dynamic> getCities() async {
     dynamic response = await repository.getCitiesApi();

@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
-import '../../../core/utils/local_storage.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
+
 import '../../../../helper.dart';
+import '../../../core/utils/local_storage.dart';
 import '../../../data/models/city.dart';
 import '../../../data/models/user.dart';
 import '../../../data/repositories/auth_repository.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
-
 import '../../../routes/app_pages.dart';
+import '../../../services/auth_service.dart';
 
 class EditProfileController extends GetxController {
   final AuthRepository repository;
@@ -14,7 +15,7 @@ class EditProfileController extends GetxController {
 
   late Rx<City> selectedCity = City(name: "choose_city".tr).obs;
 
-  late Rx<User?> currentUser = User().obs;
+  late Rx<User?> currentUser = Get.find<AuthService>().user;
   String? selectedImage;
   String? selectedIdImage;
   String? selectedPersonalImage;
@@ -24,7 +25,6 @@ class EditProfileController extends GetxController {
   @override
   void onInit() {
     getCities();
-    currentUser = LocalStorage().getUser().obs;
     super.onInit();
   }
 
@@ -45,7 +45,9 @@ class EditProfileController extends GetxController {
       if (response is User) {
         LocalStorage().saveUser(response);
         submitButtonController.success();
-        currentUser = LocalStorage().getUser().obs;
+        response.auth = true;
+
+        currentUser.value = response;
         Get.toNamed(Routes.home);
         isProcessEnabled = false.obs;
 
@@ -95,7 +97,6 @@ class EditProfileController extends GetxController {
       submitButtonController.success();
       isProcessEnabled = false.obs;
 
-      currentUser = LocalStorage().getUser().obs;
       User tempUser = response;
       tempUser.token = currentUser.value!.token;
 
@@ -107,22 +108,6 @@ class EditProfileController extends GetxController {
       isProcessEnabled = false.obs;
       submitButtonController.reset();
       Helper().showErrorToast(Helper().getErrorStringFromMap(response));
-      Future.delayed(const Duration(seconds: 3), () {
-        submitButtonController.reset();
-      });
-    }
-  }
-
-  Future<dynamic> signUp(User user) async {
-    isProcessEnabled = true.obs;
-    dynamic response = await repository.signUpApi(user);
-    if (response is User) {
-      submitButtonController.success();
-    } else {
-      isProcessEnabled = false.obs;
-      submitButtonController.reset();
-      Helper().showErrorToast(Helper().getErrorStringFromMap(response));
-
       Future.delayed(const Duration(seconds: 3), () {
         submitButtonController.reset();
       });

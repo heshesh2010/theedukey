@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
-import 'package:theedukey/app/data/models/facility.dart';
+
+import 'facility.dart';
+import 'user.dart';
 
 class RouteArgument {
   List<int>? stagesList;
@@ -12,7 +14,7 @@ class RouteArgument {
   String? rate;
   List<int>? paymentMethodList;
   RxList<Facility> schoolsList = <Facility>[].obs;
-
+  User? user;
   RouteArgument(
       {this.stagesList,
       this.keyword,
@@ -23,5 +25,6 @@ class RouteArgument {
       this.ratingsList,
       this.sonList,
       this.priceItem,
-      schoolsList});
+      schoolsList,
+      this.user});
 }

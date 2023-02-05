@@ -19,6 +19,7 @@ const Map<String, String> ar = {
   'enter': 'دخول',
   'skip': 'تخطي',
   "password or email is wrong": "كلمة المرور أو البريد الإلكتروني غير صحيحة",
+
   // signUp page
   'name_ar': 'الإسم الثلاثي',
   'name_en': 'الإسم الثلاثي باللغة الإنجليزية',
@@ -32,13 +33,13 @@ const Map<String, String> ar = {
   'terms approve': 'انا اوافق على الشروط والأحكام',
   'Email is not valid': 'البريد الإلكتروني غير صالح',
   'Mobile is not valid': 'رقم الجوال غير صالح',
-  'Phone is not valid': 'رقم الجوال غير صالح',
+  'Phone is not valid': 'رقم الهاتف غير صالح',
   'Password is require': 'كلمة المرور يجب ان تكون اكثر من 8 خانات',
   "don't_have_an_account": ' ليس لديك حساب ؟',
   'have_an_account': 'لديك حساب ؟ ',
   "terms": "الشروط والأحكام",
   "you_must_agree_TOS": "يجب الموافقة على الشروط والاحكام",
-
+  "you_must_select_city": "يجب اختيار المدينة",
   // forget pass
   'remember_pass': 'تذكرت كلمة المرور ؟ ',
 
@@ -120,9 +121,15 @@ const Map<String, String> ar = {
   'subscriptionTypr': 'نوع الاشتراك',
   'priceAfterDiscount': 'السعر بعد الخصم',
   'priceBeforeDiscount': 'السعر قبل الخصم',
+  "is_tmara_enabled": "الدفع من خلال تمارا؟",
 
   'pay': 'الدفع',
-
+  "payment_methods": "طرق الدفع",
+  "choose_payment_method": "انقر على طريقة الدفع المناسبة",
+  "payment_failed": " فشل الدفع",
+  "payment_canceled": "تم الغاء الدفع",
+  "pay_with_payTab": " دفع بواسطة بيتاب",
+  "pay_with_tmara": "دفع بواسة تمارا",
 // order status
   "is_paid": "مدفوع",
   "new": "جديد",
@@ -178,7 +185,8 @@ const Map<String, String> ar = {
   'to': 'إلى',
   'you_must_signin_to_access_to_this_section':
       'يجب تسجيل الدخول للوصول إلى هذه الصفحة',
-
+  "yes": "نعم",
+  "no": "لا",
   "after_discount": "بعد الخصم",
   "before_discount": "قبل الخصم",
   "show_more": "  عرض المزيد  ",
@@ -186,4 +194,18 @@ const Map<String, String> ar = {
 
   "no_other_results": "لا يوجد نتائج اخرى",
   "no_results": "لا يوجد نتائج",
+
+  "Phone Verification": "تفعيل الهاتف",
+  'OTP Code': 'رمز التفعيل',
+  "Verify": "تفعيل",
+  "Resend the OTP Code Again": "إعادة إرسال رمز التفعيل",
+  "We sent the OTP code to your phone, please check it and enter below":
+      "تم إرسال رمز التفعيل إلى هاتفك، يرجى التحقق منه وإدخاله أدناه",
+  "invalid_phone_number": "رقم الهاتف غير صحيح",
+  "invalid-credential": "رمز التفعيل غير صحيح او منتهي الصلاحية",
+  "invalid-verification-code": "رمز التفعيل غير صحيح او منتهي الصلاحية",
+  "session_expired": "انتهت صلاحية الرمز، يرجى إعادة إرسال رمز التفعيل",
+  "you must validate your email first": "يجب تفعيل البريد الالكتروني اولا",
+  "sign_up_success": "تم التسجيل بنجاح",
+  "OTP_sent_successfully": "تم إرسال رمز التفعيل بنجاح",
 };
