@@ -69,7 +69,7 @@ const Map<String, String> ar = {
   'title': 'عنوان الرسالة',
   'body': 'محتوى الرسالة',
   'text_length': 'يجب ان يكون طول النص اكثر من 10 احرف',
-
+  "send_success": "تم ارسال الرسالة بنجاح",
 // favorite
 
   'delete_favorite_success': 'تم الحذف من المفضلة',
@@ -129,7 +129,7 @@ const Map<String, String> ar = {
   "payment_failed": " فشل الدفع",
   "payment_canceled": "تم الغاء الدفع",
   "pay_with_payTab": " دفع بواسطة بيتاب",
-  "pay_with_tmara": "دفع بواسة تمارا",
+  "pay_with_tmara": "دفع بواسطة تمارا",
 // order status
   "is_paid": "مدفوع",
   "new": "جديد",
@@ -208,4 +208,5 @@ const Map<String, String> ar = {
   "you must validate your email first": "يجب تفعيل البريد الالكتروني اولا",
   "sign_up_success": "تم التسجيل بنجاح",
   "OTP_sent_successfully": "تم إرسال رمز التفعيل بنجاح",
+  "invalid_verification_code": "رمز التفعيل غير صحيح او منتهي الصلاحية",
 };

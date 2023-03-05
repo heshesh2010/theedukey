@@ -98,7 +98,7 @@ class SearchFilters extends GetWidget<SearchController> {
                             value: controller.stagesCheckBoxes[controller
                                 .filterData.value.stages!
                                 .indexOf(selectedType)][selectedType])),
-                        Text(selectedType.name ?? " "),
+                        Expanded(child: Text(selectedType.name ?? " ")),
                       ],
                     ),
                   );

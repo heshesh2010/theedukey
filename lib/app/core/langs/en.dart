@@ -51,6 +51,8 @@ const Map<String, String> en = {
   "invalid-verification-code": "Invalid verification code or expired",
   "session_expired": "Session expired",
   "OTP_sent_successfully": "OTP sent successfully",
+  "invalid_verification_code": "Invalid verification code",
+
   // forget pass
   'remember_pass': 'Remember pass?',
   "sign_up_success": "sign up success",
@@ -68,6 +70,7 @@ const Map<String, String> en = {
   'title': 'Title',
   'body': 'Body',
   'text_length': 'Text length must be more than 10 letters',
+  "send_success": "Send success",
 
   // menu
   'home': 'home',

@@ -27,7 +27,7 @@ class ContactUsController extends GetxController {
     if (response.contains("Send Success")) {
       btnSubmitController.success();
       Get.back();
-      Helper().showSuccessToast(response);
+      Helper().showSuccessToast("send_success".tr);
     } else {
       contactUsUpProcess = false.obs;
       btnSubmitController.reset();

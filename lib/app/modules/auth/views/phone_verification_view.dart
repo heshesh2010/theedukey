@@ -14,6 +14,7 @@ class PhoneVerificationView extends GetWidget<SignUpController> {
     return WillPopScope(
         onWillPop: Helper().onWillPop,
         child: Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: getTopBar(context, isback: true),
             body: Obx(() {
               if (controller.loading.isTrue) {
@@ -25,7 +26,7 @@ class PhoneVerificationView extends GetWidget<SignUpController> {
                     Text(
                       "We sent the OTP code to your phone, please check it and enter below"
                           .tr,
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyLarge,
                       textAlign: TextAlign.center,
                     ).paddingSymmetric(horizontal: 20, vertical: 20),
                     Padding(
@@ -40,7 +41,7 @@ class PhoneVerificationView extends GetWidget<SignUpController> {
                           // iconData: Icons.add_to_home_screen_outlined,
                         ),
                         maxLength: 6,
-                        style: Get.textTheme.headline4,
+                        style: Get.textTheme.headlineMedium,
 
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,

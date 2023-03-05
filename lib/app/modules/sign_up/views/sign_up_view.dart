@@ -13,8 +13,6 @@ class SignUpView extends GetWidget<SignUpController> {
 
   final _nameArTextController = TextEditingController(text: "");
   final _nameEnTextController = TextEditingController(text: "");
-  final _mobileTextController = TextEditingController(text: "");
-  final _phoneTextController = TextEditingController(text: "");
   final _emailTextController = TextEditingController(text: "");
   final _passwordTextController = TextEditingController(text: "");
   final _passwordConfirmTextController = TextEditingController(text: "");
@@ -23,8 +21,8 @@ class SignUpView extends GetWidget<SignUpController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.submitButtonController.reset();
-    controller.isProcessEnabled = false.obs;
+    // controller.submitButtonController.reset();
+    // controller.isProcessEnabled = false.obs;
     return Scaffold(
       appBar: getTopBar(context, isback: true),
       body: SingleChildScrollView(
@@ -42,7 +40,8 @@ class SignUpView extends GetWidget<SignUpController> {
                           children: [
                             const SizedBox(height: 20),
                             Text("signUp".tr,
-                                style: Theme.of(context).textTheme.headline1),
+                                style:
+                                    Theme.of(context).textTheme.displayLarge),
                             //ar_name
                             TextFormField(
                               enabled: !controller.isProcessEnabled.value,
@@ -277,11 +276,14 @@ class SignUpView extends GetWidget<SignUpController> {
 
                             const SizedBox(height: 20),
                             RoundedLoadingButton(
+                              animateOnTap: false,
                               controller: controller.submitButtonController,
                               color: Theme.of(context).primaryColor,
                               onPressed: () async {
                                 // showLoadingDialog(context);
                                 // btnSignUpController.stop();
+                                // controller.signUp();
+
                                 if (!controller.agreedToTOS.value) {
                                   Helper()
                                       .showErrorToast("you_must_agree_TOS".tr);

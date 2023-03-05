@@ -21,7 +21,7 @@ class ApiClient {
   Dio dio;
   ApiClient({required this.dio}) {
     // Set default configs
-    dio.options.baseUrl = 'https://dev17.toplinedev.com/theedukey/public/api/';
+    dio.options.baseUrl = 'https://theedukey.com/api/';
     dio.options.connectTimeout = 60 * 1000;
     dio.options.receiveTimeout = 60 * 1000;
     dio.options.receiveDataWhenStatusError = true;

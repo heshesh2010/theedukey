@@ -377,6 +377,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.11"
+  fluster:
+    dependency: "direct main"
+    description:
+      name: fluster
+      sha256: "3807f5d088b7798f0416b8578498046338af98bb4fb922a70e2810b8293963f6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -391,7 +399,7 @@ packages:
     source: hosted
     version: "0.7.0"
   flutter_cache_manager:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_cache_manager
       sha256: "32cd900555219333326a2d0653aaaf8671264c29befa65bbd9856d204a4c9fb3"
@@ -1322,6 +1330,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.9.5"
+  widget_to_marker:
+    dependency: "direct main"
+    description:
+      name: widget_to_marker
+      sha256: a3035d4ce401bf9679b93967e02685eb2f1b9304513d4487dc8cf2aa96649940
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   win32:
     dependency: transitive
     description:

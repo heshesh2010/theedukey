@@ -71,7 +71,7 @@ class SignUpController extends GetxController {
       // await repository.signUpWithEmailAndPassword(
       //     currentUser.value.email ?? "", currentUser.value.password ?? "");
     } catch (e) {
-      Get.back();
+      //    Get.back();
       Helper().showErrorToast(e.toString());
     } finally {
       loading.value = false;

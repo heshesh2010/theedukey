@@ -12,8 +12,8 @@ import '../services/auth_service.dart';
 
 class FirebaseProvider extends GetxService {
   final fba.FirebaseAuth _auth = fba.FirebaseAuth.instance;
-
   Future<FirebaseProvider> init() async {
+    _auth.setLanguageCode("ar");
     return this;
   }
 
@@ -57,7 +57,7 @@ class FirebaseProvider extends GetxService {
       } else if (authException.code == 'invalid-verification-code') {
         throw Exception('invalid_verification_code'.tr);
       } else if (authException.code == 'invalid-credential') {
-        throw Exception('invalid_credential'.tr);
+        throw Exception('invalid-credential'.tr);
       } else if (authException.code == "session-expired") {
         throw Exception('session_expired'.tr);
       } else {
@@ -82,7 +82,7 @@ class FirebaseProvider extends GetxService {
       } else if (authException.code == 'invalid-verification-code') {
         throw Exception('invalid_verification_code'.tr);
       } else if (authException.code == 'invalid-credential') {
-        throw Exception('invalid_credential'.tr);
+        throw Exception('invalid-credential'.tr);
       } else {
         throw Exception(authException.message);
       }

@@ -1,40 +1,48 @@
 {
   "project_info": {
-    "project_number": "509465135160",
-    "project_id": "nearest-doctor-a736f",
-    "storage_bucket": "nearest-doctor-a736f.appspot.com"
+    "project_number": "543325480372",
+    "project_id": "theedukey-6d61d",
+    "storage_bucket": "theedukey-6d61d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:509465135160:android:e6a0f817ee2b3c9d4fbecd",
+        "mobilesdk_app_id": "1:543325480372:android:f688d1ecc8c7cfed2bfee1",
         "android_client_info": {
-          "package_name": "com.nearest.doctors"
+          "package_name": "com.theedukey.theedukeysc"
         }
       },
       "oauth_client": [
         {
-          "client_id": "509465135160-aq7ijee3v8qb0soprq3knqmelb4sprna.apps.googleusercontent.com",
+          "client_id": "543325480372-pe0624r2br94kcbs8jiea3nb2h6adea2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theedukey.theedukeysc",
+            "certificate_hash": "0854c00ac45c632f2047964197c8cac5779e114e"
+          }
+        },
+        {
+          "client_id": "543325480372-fg1c66rp1cnbslikjrgc6bip68dd1n5q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCLZkeJiFK3DnuxlZFckI7aYQNNtu0J-I0"
+          "current_key": "AIzaSyBiL5jLS4njcNNZdjmslyVsb4dDCW0Ke9w"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "509465135160-aq7ijee3v8qb0soprq3knqmelb4sprna.apps.googleusercontent.com",
+              "client_id": "543325480372-fg1c66rp1cnbslikjrgc6bip68dd1n5q.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "509465135160-8vf2j80v5b37n4jqgg1vm7epg1fth5p1.apps.googleusercontent.com",
+              "client_id": "543325480372-bs29h7kaeppu8292uqhhrspnsgo3hc3o.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.nearest.doctors"
+                "bundle_id": "com.topline.theedukey"
               }
             }
           ]

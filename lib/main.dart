@@ -1,6 +1,5 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
@@ -23,20 +22,7 @@ void initServices() async {
   await GetStorage.init();
   // await Get.putAsync(() => GlobalService().init());
 
-  if (kIsWeb) {
-    await Firebase.initializeApp(
-      options: const FirebaseOptions(
-          apiKey: "AIzaSyBbjro7NeAA11o1kNcWiRh9uFB_XmRZwCk",
-          authDomain: "salontime-client.firebaseapp.com",
-          projectId: "salontime-client",
-          storageBucket: "salontime-client.appspot.com",
-          messagingSenderId: "751898176031",
-          appId: "1:751898176031:web:cae8ef94ad9036bb18832a",
-          measurementId: "G-3M4DMGGPZL"),
-    );
-  } else {
-    await Firebase.initializeApp();
-  }
+  await Firebase.initializeApp();
 
   // await Firebase.initializeApp();
   // await Get.putAsync(() => AuthService().init());

@@ -55,7 +55,8 @@ dependencies:
 
   #map
   google_maps_flutter: ^2.2.3
-
+  widget_to_marker: ^1.0.1
+  
   # tools
   image_picker:  ^0.8.6
   rounded_loading_button:  ^2.1.0
@@ -90,6 +91,8 @@ dependencies:
   firebase_auth: ^4.2.5
   firebase_messaging: ^14.2.1
   firebase_core: ^2.4.1
+  fluster: ^1.2.0
+  flutter_cache_manager: ^3.3.0
 
 
 dependency_overrides: 

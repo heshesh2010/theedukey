@@ -1,4 +1,4 @@
-package com.topline.theedukey
+package com.theedukey.theedukeysc
 
 import io.flutter.embedding.android.FlutterActivity
 
