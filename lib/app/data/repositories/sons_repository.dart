@@ -114,4 +114,25 @@ class SonsRepository {
       return response;
     }
   }
+
+  Future<dynamic> addFamilyId(
+      String selectedFamilyIdImage, guardianIdNumber) async {
+    var data = FormData.fromMap({
+      "guardian_id_number": guardianIdNumber,
+      "family_id_image": await MultipartFile.fromFile(selectedFamilyIdImage),
+    });
+
+    dynamic response = await apiClient.postAsyncNormal(
+        'student-auth/complete-account-data', data,
+        isTokenRequired: true);
+    if (response is Response) {
+      if (response.statusCode == 200) {
+        return SonDataData.fromJson(response.data["student"]);
+      } else {
+        return response;
+      }
+    } else {
+      return response;
+    }
+  }
 }

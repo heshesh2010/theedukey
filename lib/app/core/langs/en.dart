@@ -122,7 +122,8 @@ const Map<String, String> en = {
 
   'edit_picture': 'Edit picture',
   'edit_son': 'Edit Child',
-
+  "family_id_not_found": "you must add family id first",
+  "add_family_id_image": "add family id image",
 // orders
   'success': 'Success',
   'payment_success': 'Payment success',

@@ -15,15 +15,17 @@ import '../../../services/auth_service.dart';
 
 class AuthController extends GetxController {
   final AuthRepository repository;
+
+  var selectedCity = City(name: "choose_city".tr).obs;
   AuthController({required this.repository});
 
   final Rx<User> currentUser = Get.find<AuthService>().user;
 
-  String? selectedImage;
-  String? selectedIdImage;
-  String? selectedPersonalImage;
-  String? selectedCertificateImage;
-  String? selectedFamilyIdImage;
+  RxString? selectedImage = "".obs;
+  RxString? selectedIdImage = "".obs;
+  RxString? selectedPersonalImage = "".obs;
+  RxString? selectedCertificateImage = "".obs;
+  RxString? selectedFamilyIdImage = "".obs;
   final loading = false.obs;
 
   var isProcessEnabled = false.obs;
@@ -34,6 +36,12 @@ class AuthController extends GetxController {
 
   final RoundedLoadingButtonController submitButtonController =
       RoundedLoadingButtonController();
+
+  @override
+  onInit() {
+    super.onInit();
+    getCities();
+  }
 
   logout() {
     currentUser.value = User();
@@ -108,8 +116,15 @@ class AuthController extends GetxController {
     if (response is User) {
       submitButtonController.success();
       isProcessEnabled = false.obs;
+
+      User tempUser = response;
+      tempUser.token = currentUser.value.token;
+      tempUser.auth = true;
+      LocalStorage().saveUser(tempUser);
+      Get.find<AuthService>().user.value = tempUser;
       Get.back();
-      submitButtonController.reset();
+
+      Helper().showSuccessToast("profile_updated".tr);
     } else {
       isProcessEnabled = false.obs;
       submitButtonController.reset();
@@ -146,23 +161,23 @@ class AuthController extends GetxController {
   }
 
   void onSelectIdImage(value) {
-    selectedIdImage = value;
-    update();
+    selectedIdImage?.value = value;
   }
 
   void onSelectPersonalImage(value) {
-    selectedPersonalImage = value;
-    update();
+    selectedPersonalImage?.value = value;
   }
 
   void onSelectCertificateImage(value) {
-    selectedCertificateImage = value;
-    update();
+    selectedCertificateImage?.value = value;
   }
 
   void onSelectFamilyIdImage(value) {
-    selectedFamilyIdImage = value;
+    selectedFamilyIdImage?.value = value;
     // updateApi if image != null
-    update();
+  }
+
+  void setSelectedCity(value) {
+    selectedCity.value = value;
   }
 }

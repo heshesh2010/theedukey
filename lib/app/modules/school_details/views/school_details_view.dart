@@ -66,7 +66,10 @@ class SchoolDetailsView extends GetWidget<SchoolDetailsController> {
                       const SizedBox(
                         height: 40,
                       ),
-                      SchoolPrices(),
+                      controller.facility.value.prices!.isNotEmpty
+                          ? SchoolPrices()
+                          : Container(),
+
                       const SizedBox(
                         height: 40,
                       ),

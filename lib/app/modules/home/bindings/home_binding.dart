@@ -8,7 +8,6 @@ import '../../../data/repositories/orders_repository.dart';
 import '../../../data/repositories/school_repository.dart';
 import '../../../data/repositories/search_repository.dart';
 import '../../auth/controllers/auth_controller.dart';
-import '../../edit_profile/controllers/edit_profile_controller.dart';
 import '../../language/controllers/language_controller.dart';
 import '../../notifications/controllers/notifications_controller.dart';
 import '../../orders/controllers/orders_controller.dart';
@@ -34,7 +33,7 @@ class HomeBinding implements Bindings {
         repository: AuthRepository(apiClient: ApiClient(dio: Dio()))));
     Get.create(() => SignUpController(
         repository: AuthRepository(apiClient: ApiClient(dio: Dio()))));
-    Get.create(() => EditProfileController(
+    Get.create(() => AuthController(
         repository: AuthRepository(apiClient: ApiClient(dio: Dio()))));
     Get.lazyPut<SchoolDetailsController>(() => SchoolDetailsController(
         repository: SchoolRepository(apiClient: ApiClient(dio: Dio()))));

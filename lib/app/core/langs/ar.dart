@@ -89,7 +89,7 @@ const Map<String, String> ar = {
   'family_id_image': 'صورة بطاقة العائلة',
   'edit_family_id_image': 'تعديل صورة بطاقة العائلة',
 
-  'add_son': 'ة/اضافة ابن',
+  'add_son': "اضافة ابن/ة",
   'male': 'ذكر',
   'female': 'انثى',
   'gender': 'جنس الابن/ة',
@@ -97,7 +97,7 @@ const Map<String, String> ar = {
   'personal_image': 'الصوره الشخصية',
   'edit_personal_image': 'تعديل الصوره الشخصية ',
   'personal_image is not valid': 'يجب ادخال صورة الشخصية ',
-
+  "add_family_id_image": "اضافة صورة بطاقة العائلة",
   'birth_date is not valid': 'يجب ادخال تاريخ الميلاد',
   'id is not valid': 'رقم الهوية غير صالح',
   'add_son_success': 'تم اضافة الابن/ة بنجاح',
@@ -106,7 +106,7 @@ const Map<String, String> ar = {
   'add': 'اضافة',
   'edit_picture': 'تعديل الصورة',
   'edit_son': 'تعديل بيانات الابن/ة',
-
+  "family_id_not_found": "يجب اضافة بطاقة العائلة اولا",
 // orders
   'success': 'رسالة تأكيد',
   'payment_success': 'تمت العملية بنجاح',

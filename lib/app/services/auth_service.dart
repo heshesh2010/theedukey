@@ -3,13 +3,10 @@ import 'package:get_storage/get_storage.dart';
 
 import '../../constants/general.dart';
 import '../data/models/user.dart';
-import '../data/repositories/auth_repository.dart';
 
 class AuthService extends GetxService {
   final user = User().obs;
   GetStorage? _box;
-
-  AuthRepository? _usersRepo;
 
   AuthService() {
     // _usersRepo = AuthRepository(apiClient: null);
@@ -17,6 +14,7 @@ class AuthService extends GetxService {
   }
 
   Future<AuthService> init() async {
+    //  _box?.remove(kLocalKey["userInfo"]!);
     user.listen((User user) {
       // if (Get.isRegistered<SettingsService>()) {
       //   Get.find<SettingsService>().address.value.userId = user.id;

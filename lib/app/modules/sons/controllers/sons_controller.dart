@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:theedukey/app/core/utils/local_storage.dart';
+import 'package:theedukey/app/data/models/user.dart';
 
 import '../../../../constants/general.dart';
 import '../../../../helper.dart';
@@ -32,6 +34,8 @@ class SonsController extends GetxController {
   RxString selectedFamilyIdImage = "".obs;
 
   String? selectedGenderApi = "male";
+
+  Rx<User> currentUser = Get.find<AuthService>().user;
 
   @override
   void onInit() {
@@ -80,12 +84,6 @@ class SonsController extends GetxController {
 
   void onSelectCertificateImage(value) {
     selectedCertificateImage.value = value;
-    update();
-  }
-
-  void onSelectFamilyIdImage(value) {
-    selectedFamilyIdImage.value = value;
-    // updateApi if image != null
     update();
   }
 
@@ -190,5 +188,33 @@ class SonsController extends GetxController {
         : false;
   }
 
-  updateFamilyId() {}
+  void onSelectFamilyIdImage(value) {
+    selectedFamilyIdImage.value = value;
+    // updateApi if image != null
+
+    update();
+  }
+
+  updateFamilyId() async {
+    try {
+      dynamic response = await repository.addFamilyId(
+          selectedFamilyIdImage.value, currentUser.value.guardianIdNumber);
+
+      if (response is String) {
+        Helper().showErrorToast(response);
+      } else if (response is SonDataData) {
+        Get.back();
+
+        Helper().showSuccessToast("update_family_id_success".tr);
+        Get.find<AuthService>().user.value.familyIdImage =
+            response.familyIdImage;
+        LocalStorage().saveUser(Get.find<AuthService>().user.value);
+      }
+    } catch (e) {
+      print(e);
+    }
+    // Get.find<AuthService>().user.value.familyIdImage =
+    //     selectedFamilyIdImage.value;
+    update();
+  }
 }

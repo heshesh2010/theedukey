@@ -101,6 +101,15 @@ class MapController extends GetxController {
               }),
         ),
       );
+      if (getIt<SearchModel>().routeArgument!.schoolsList.indexOf(facility) ==
+          0) {
+        moveCamera(
+            double.parse(
+                facility.school?.mapLocation?.substring(0, idx).trim() ?? "0"),
+            double.parse(
+                facility.school?.mapLocation?.substring(idx! + 1).trim() ??
+                    "0"));
+      }
     }
     _clusterManager = await MapHelper.initClusterManager(
       markers,
@@ -135,6 +144,12 @@ class MapController extends GetxController {
       ..addAll(updatedMarkers);
 
     areMarkersLoading.value = false;
+  }
+
+  Future<void> moveCamera(lang, lon) async {
+    final GoogleMapController controller = await mapController.future;
+    controller.moveCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(target: LatLng(lang, lon), zoom: currentZoom)));
   }
 
   CameraPosition kGooglePlex = CameraPosition(

@@ -11,7 +11,7 @@ class FavoriteItem extends GetWidget<FavoriteController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120,
+      //  height: 120,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: Colors.white,
@@ -34,54 +34,61 @@ class FavoriteItem extends GetWidget<FavoriteController> {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(30.0),
                     child: ImageTools.image(
-                      fit: BoxFit.fitHeight,
+                      fit: BoxFit.contain,
                       url: favorite.logo ?? " ",
                       height: 100,
                       width: 100,
                     )),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        color: Color.fromRGBO(255, 191, 14, 1),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(favorite.rate ?? "0"),
-                    ],
-                  ),
-                  Text(
-                    '${favorite.name}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: Theme.of(context).focusColor,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        '${favorite.address}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star,
+                          color: Color.fromRGBO(255, 191, 14, 1),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(favorite.rate ?? "0"),
+                      ],
+                    ),
+                    Text(
+                      '${favorite.name}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: Theme.of(context).focusColor,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            '${favorite.address}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

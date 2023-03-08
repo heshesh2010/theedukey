@@ -66,7 +66,7 @@ class AuthRepository {
 
   Future<dynamic> signUpApi(User user) async {
     dynamic response = await apiClient.postAsyncNormal(
-        "student-auth/register", user.toJson(),
+        "student-auth/register", user.toMapSginUp(),
         isTokenRequired: false);
     if (response is Response) {
       if (response.statusCode == 200) {
@@ -89,6 +89,7 @@ class AuthRepository {
       "password": user?.password,
       "password_confirmation": user?.passwordConfirmation,
       "city": user?.city?.id,
+      "id_number": user?.idNumber,
       "id_image": user?.idImage != null && user?.idImage != ""
           ? await MultipartFile.fromFile(user?.idImage ?? "")
           : null,

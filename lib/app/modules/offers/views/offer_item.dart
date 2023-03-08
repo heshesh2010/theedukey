@@ -41,7 +41,7 @@ class OfferItem extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 20, left: 20),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
                 Text(
@@ -82,6 +82,9 @@ class OfferItem extends StatelessWidget {
                     ),
                   ],
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Row(
                   children: [
                     Text(
@@ -98,9 +101,17 @@ class OfferItem extends StatelessWidget {
                     ),
                     Text(
                       "${"after_discount".tr}: ${offer?.priceAfterDiscount}",
-                      style: Theme.of(context).textTheme.titleSmall,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        //     decorationColor: Colors.grey,
+                        decorationStyle: TextDecorationStyle.solid,
+                        //  decoration: TextDecoration.lineThrough,
+                      ),
                     ),
                   ],
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 ReadMoreText(
                   "${offer?.text}",
@@ -109,7 +120,7 @@ class OfferItem extends StatelessWidget {
                   trimMode: TrimMode.Line,
                   trimCollapsedText: 'show_more'.tr,
                   trimExpandedText: 'show_less'.tr,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyLarge,
                   moreStyle: const TextStyle(
                       color: Colors.black,
                       fontSize: 14,

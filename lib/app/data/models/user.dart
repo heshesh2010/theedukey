@@ -44,7 +44,7 @@ class User {
   final String? idNumber;
   final dynamic guardianIdNumber;
   final String? idImage;
-  final String? familyIdImage;
+  String? familyIdImage;
   final String? certificateImage;
   String? phone;
   String? email;
@@ -86,7 +86,7 @@ class User {
         verifiedPhone: json["phone_verify"] ?? 0,
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMapSginUp() => {
         "id": id,
         "name": name,
         "name_en": nameEn,
@@ -104,6 +104,32 @@ class User {
         "phone": phone,
         "email": email,
         "city": city?.id,
+        "map_location": mapLocation,
+        "legal_agreement": legalAgreement,
+        "email_verified_at": emailVerifiedAt,
+        "verificationId": verificationId,
+        "auth": auth,
+        "verifiedPhone": verifiedPhone,
+      };
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "name": name,
+        "name_en": nameEn,
+        "old_password": oldPassword,
+        "password": password,
+        "password_confirmation": passwordConfirmation,
+        "token": token,
+        "guardian_name": guardianName,
+        "image": image,
+        "id_number": idNumber,
+        "guardian_id_number": guardianIdNumber,
+        "id_image": idImage,
+        "family_id_image": familyIdImage,
+        "certificate_image": certificateImage,
+        "phone": phone,
+        "email": email,
+        "city": city?.toMap(),
         "map_location": mapLocation,
         "legal_agreement": legalAgreement,
         "email_verified_at": emailVerifiedAt,

@@ -36,7 +36,7 @@ class AddSonView extends GetWidget<SonsController> {
                       children: [
                         const SizedBox(height: 20),
                         Text("add_son".tr,
-                            style: Theme.of(context).textTheme.headline1),
+                            style: Theme.of(context).textTheme.displayLarge),
                         //ar_name
                         TextFormField(
                           enabled: !controller.isProcessEnabled.value,
@@ -148,7 +148,7 @@ class AddSonView extends GetWidget<SonsController> {
                         RichText(
                           text: TextSpan(
                               text: "gender".tr,
-                              style: Get.textTheme.subtitle1,
+                              style: Get.textTheme.titleMedium,
                               children: const [
                                 TextSpan(
                                     text: ' *',
@@ -173,41 +173,43 @@ class AddSonView extends GetWidget<SonsController> {
                                 child: Wrap(
                                   crossAxisAlignment: WrapCrossAlignment.center,
                                   children: [
-                                    ImagePickerHelper(
-                                      editButtonTitle: "edit_personal_image".tr,
-                                      buttonTitle: "personal_image".tr,
-                                      imageUrl: controller
-                                          .selectedPersonalImage.value,
-                                      onGet: (value) {
-                                        controller.onSelectPersonalImage(value);
-                                      },
-                                    ),
+                                    Obx(() => ImagePickerHelper(
+                                          editButtonTitle:
+                                              "edit_personal_image".tr,
+                                          buttonTitle: "personal_image".tr,
+                                          imageUrl: controller
+                                              .selectedPersonalImage.value,
+                                          onGet: (value) {
+                                            controller
+                                                .onSelectPersonalImage(value);
+                                          },
+                                        )),
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    ImagePickerHelper(
-                                      editButtonTitle: "edit_id_image".tr,
-                                      buttonTitle: "id_image".tr,
-                                      imageUrl:
-                                          controller.selectedIdImage.value,
-                                      onGet: (value) {
-                                        controller.onSelectIdImage(value);
-                                      },
-                                    ),
+                                    Obx(() => ImagePickerHelper(
+                                          editButtonTitle: "edit_id_image".tr,
+                                          buttonTitle: "id_image".tr,
+                                          imageUrl:
+                                              controller.selectedIdImage.value,
+                                          onGet: (value) {
+                                            controller.onSelectIdImage(value);
+                                          },
+                                        )),
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    ImagePickerHelper(
-                                      editButtonTitle:
-                                          "edit_certificate_image".tr,
-                                      buttonTitle: "certificate_image".tr,
-                                      imageUrl: controller
-                                          .selectedCertificateImage.value,
-                                      onGet: (value) {
-                                        controller
-                                            .onSelectCertificateImage(value);
-                                      },
-                                    ),
+                                    Obx(() => ImagePickerHelper(
+                                          editButtonTitle:
+                                              "edit_certificate_image".tr,
+                                          buttonTitle: "certificate_image".tr,
+                                          imageUrl: controller
+                                              .selectedCertificateImage.value,
+                                          onGet: (value) {
+                                            controller.onSelectCertificateImage(
+                                                value);
+                                          },
+                                        )),
                                   ],
                                 ),
                               )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:theedukey/app/modules/sons/controllers/sons_controller.dart';
 
 import '../../../../elements/drawer.dart';
 import '../../../../elements/topbar.dart';
@@ -7,7 +8,10 @@ import '../../../../helper.dart';
 import '../controllers/add_order_controller.dart';
 
 class AddOrderView extends GetWidget<AddOrderController> {
-  const AddOrderView({Key? key}) : super(key: key);
+  AddOrderView({Key? key}) : super(key: key);
+
+  SonsController sonController = Get.find<SonsController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +24,7 @@ class AddOrderView extends GetWidget<AddOrderController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("subscription_package".tr,
-                    style: Theme.of(context).textTheme.headline1),
+                    style: Theme.of(context).textTheme.displayLarge),
                 const SizedBox(
                   height: 20,
                 ),
@@ -114,7 +118,7 @@ class AddOrderView extends GetWidget<AddOrderController> {
                   height: 30,
                 ),
                 Text("subscriber_info".tr,
-                    style: Theme.of(context).textTheme.headline1),
+                    style: Theme.of(context).textTheme.displayLarge),
                 const SizedBox(
                   height: 20,
                 ),
@@ -179,7 +183,7 @@ class AddOrderView extends GetWidget<AddOrderController> {
                 ),
                 Center(
                   child: Text("also_you_can".tr,
-                      style: Theme.of(context).textTheme.headline1),
+                      style: Theme.of(context).textTheme.displayLarge),
                 ),
                 const SizedBox(
                   height: 30,
@@ -216,7 +220,7 @@ class AddOrderView extends GetWidget<AddOrderController> {
                               textCancel: "cancel".tr,
                               onCancel: () {},
                               onConfirm: () {
-                                addOrderCallBack;
+                                addOrderCallBack();
                               }),
                       child: Text(
                         "continue_and_add_sons".tr,
@@ -275,7 +279,7 @@ class AddOrderView extends GetWidget<AddOrderController> {
                                         controller.selectedSon.value.name!,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .subtitle1,
+                                            .titleMedium,
                                       ),
                                     ],
                                   ),
@@ -302,7 +306,7 @@ class AddOrderView extends GetWidget<AddOrderController> {
                                         selectedSon.name ?? " xcxc",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .subtitle1,
+                                            .titleMedium,
                                       ),
                                     ],
                                   ),
@@ -325,6 +329,8 @@ class AddOrderView extends GetWidget<AddOrderController> {
   addOrderCallBack() {
     return controller.selectedSon.value.id == null
         ? null
-        : controller.addOrderWithSon();
+        : sonController.isFamilyIdExits()
+            ? controller.addOrderWithSon()
+            : Helper().addFamilyAddDialog();
   }
 }

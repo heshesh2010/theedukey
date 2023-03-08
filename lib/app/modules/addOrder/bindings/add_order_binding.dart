@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:theedukey/app/data/repositories/sons_repository.dart';
+import 'package:theedukey/app/modules/sons/controllers/sons_controller.dart';
 
 import '../../../data/provider/api_helper.dart';
 import '../../../data/repositories/add_order_repository.dart';
@@ -11,6 +13,11 @@ class AddOrderBinding extends Bindings {
     Get.lazyPut<AddOrderController>(
       () => AddOrderController(
           repository: AddOrderRepository(apiClient: ApiClient(dio: Dio()))),
+    );
+
+    Get.create<SonsController>(
+      () => SonsController(
+          repository: SonsRepository(apiClient: ApiClient(dio: Dio()))),
     );
   }
 }

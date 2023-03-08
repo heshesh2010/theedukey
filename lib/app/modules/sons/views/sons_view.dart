@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:theedukey/helper.dart';
 import '../../../../elements/empty_results.dart';
 import '../../../../elements/no_other_results.dart';
 import '../../../core/utils/first_page_error_indicator.dart';
@@ -26,16 +27,17 @@ class SonsView extends GetWidget<SonsController> {
           onPressed: () {
             controller.isFamilyIdExits()
                 ? Get.toNamed(Routes.addSon)
-                : Get.defaultDialog(
-                    title: "certificate_image".tr,
-                    content: ImagePickerHelper(
-                      editButtonTitle: "edit_family_id_image".tr,
-                      buttonTitle: "family_id_image".tr,
-                      imageUrl: controller.selectedFamilyIdImage.value,
-                      onGet: (value) {
-                        controller.onSelectFamilyIdImage(value);
-                      },
-                    ),
+                : Helper().showCustomDialog(
+                    "add_son".tr,
+                    "family_id_not_found".tr,
+                    onCancel: () {
+                      Get.back();
+                    },
+                    onConfirm: () {
+                      Get.back();
+
+                      Helper().addFamilyAddDialog();
+                    },
                   );
           },
           child: const Icon(Icons.add),

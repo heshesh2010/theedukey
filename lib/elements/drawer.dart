@@ -24,24 +24,32 @@ class DrawerSideMenu extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 60.0, bottom: 8, right: 10),
+                        const EdgeInsets.only(top: 80.0, bottom: 8, right: 10),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SizedBox(
                           height: 80.0,
-                          width: 100.0,
-                          child: CachedNetworkImage(
-                            //     maxHeightDiskCache: 10,
-                            imageUrl: controller.currentUser.value.image ?? "",
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                            fadeOutDuration: const Duration(seconds: 1),
-                            fadeInDuration: const Duration(seconds: 3),
+                          width: 80.0,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100.0),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              //     maxHeightDiskCache: 10,
+                              imageUrl:
+                                  controller.currentUser.value.image ?? "",
+                              placeholder: (context, url) =>
+                                  const CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                              fadeOutDuration: const Duration(seconds: 1),
+                              fadeInDuration: const Duration(seconds: 3),
+                            ),
                           ),
+                        ),
+                        const SizedBox(
+                          width: 10,
                         ),
                         Column(
                           children: [
@@ -50,7 +58,7 @@ class DrawerSideMenu extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1
+                                  .titleMedium
                                   ?.copyWith(color: Colors.white),
                             ),
                             Text(
@@ -58,7 +66,7 @@ class DrawerSideMenu extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1
+                                  .titleMedium
                                   ?.copyWith(color: Colors.white),
                             ),
                           ],
@@ -75,7 +83,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('home'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.navigator ||
@@ -101,7 +109,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('notifications'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.notifications ||
@@ -126,7 +134,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('edit_profile'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.editProfile) {
@@ -145,7 +153,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('favorite'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.favorite) {
@@ -165,7 +173,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('my_orders'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.orders ||
@@ -191,7 +199,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('offers'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.offers) {
@@ -211,7 +219,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('sons'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.sons) {
@@ -230,7 +238,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('language'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.languages) {
@@ -249,7 +257,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('contact_us'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.contactUs) {
@@ -268,7 +276,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('logout'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       controller.logout();
@@ -299,7 +307,7 @@ class DrawerSideMenu extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1
+                              .titleMedium
                               ?.copyWith(color: Colors.white),
                         ),
                       ],
@@ -310,7 +318,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('home'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.navigator ||
@@ -336,7 +344,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('offers'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.offers) {
@@ -355,7 +363,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('language'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.languages) {
@@ -374,7 +382,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('contact_us'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       if (Get.currentRoute == Routes.contactUs) {
@@ -393,7 +401,7 @@ class DrawerSideMenu extends StatelessWidget {
                     title: Text('login'.tr,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.white)),
                     onTap: () {
                       Get.toNamed(Routes.login);

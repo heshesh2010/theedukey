@@ -60,6 +60,7 @@ class SonDataData {
   String? idImage;
   String? certificateImage;
   String? nameEn;
+  String? familyIdImage;
   SonDataData({
     this.id,
     this.studentId,
@@ -71,6 +72,7 @@ class SonDataData {
     this.idImage,
     this.certificateImage,
     this.nameEn,
+    this.familyIdImage,
   });
   SonDataData.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toInt();
@@ -83,6 +85,7 @@ class SonDataData {
     image = json['image']?.toString();
     idImage = json['id_image']?.toString();
     certificateImage = json['certificate_image']?.toString();
+    familyIdImage = json['family_id_image']?.toString();
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};

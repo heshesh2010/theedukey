@@ -9,14 +9,12 @@ import '../../../data/models/city.dart';
 import '../../../data/models/user.dart';
 import '../../auth/controllers/auth_controller.dart';
 import '../../sons/views/image_picker/image_picker_helper.dart';
-import '../controllers/edit_profile_controller.dart';
 
-class EditProfileView extends GetWidget<EditProfileController> {
+class EditProfileView extends GetWidget<AuthController> {
   EditProfileView({Key? key}) : super(key: key);
 
   final _nameArTextController = TextEditingController(text: "");
   final _nameEnTextController = TextEditingController(text: "");
-  final _mobileTextController = TextEditingController(text: "");
   final _emailTextController = TextEditingController(text: "");
   final _passwordTextController = TextEditingController(text: "");
   final _oldPasswordTextController = TextEditingController(text: "");
@@ -46,13 +44,14 @@ class EditProfileView extends GetWidget<EditProfileController> {
                           children: [
                             const SizedBox(height: 20),
                             Text("edit_profile".tr,
-                                style: Theme.of(context).textTheme.headline1),
+                                style:
+                                    Theme.of(context).textTheme.displayLarge),
                             //ar_name
                             TextFormField(
                               enabled: !controller.isProcessEnabled.value,
                               controller: _nameArTextController
                                 ..text =
-                                    controller.currentUser.value?.name ?? " ",
+                                    controller.currentUser.value.name ?? " ",
                               decoration: InputDecoration(
                                 labelText: "name_ar".tr,
                                 suffixText: '*',
@@ -83,7 +82,7 @@ class EditProfileView extends GetWidget<EditProfileController> {
                               enabled: !controller.isProcessEnabled.value,
                               controller: _nameEnTextController
                                 ..text =
-                                    controller.currentUser.value?.nameEn ?? " ",
+                                    controller.currentUser.value.nameEn ?? " ",
                               decoration: InputDecoration(
                                   labelText: "name_en".tr,
                                   suffixText: '*',
@@ -111,7 +110,7 @@ class EditProfileView extends GetWidget<EditProfileController> {
                             TextFormField(
                               enabled: !controller.isProcessEnabled.value,
                               controller: _idNumberTextController
-                                ..text = controller.currentUser.value?.idNumber
+                                ..text = controller.currentUser.value.idNumber
                                         ?.replaceAll(' ', '') ??
                                     "",
                               keyboardType: TextInputType.number,
@@ -133,73 +132,69 @@ class EditProfileView extends GetWidget<EditProfileController> {
                               },
                             ),
 
-                            GetBuilder<AuthController>(
-                                initState: (_) {},
-                                builder: (controller) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 20, left: 20, top: 20),
-                                    child: Wrap(
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      children: [
-                                        ImagePickerHelper(
-                                          editButtonTitle:
-                                              "edit_personal_image".tr,
-                                          buttonTitle: "personal_image".tr,
-                                          imageUrl: controller
-                                                  .selectedPersonalImage ??
-                                              controller
-                                                  .currentUser.value.image ??
-                                              "",
-                                          onGet: (value) {
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 20, left: 20, top: 20),
+                              child: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  Obx(() => ImagePickerHelper(
+                                        editButtonTitle:
+                                            "edit_personal_image".tr,
+                                        buttonTitle: "personal_image".tr,
+                                        imageUrl: controller
+                                                .selectedPersonalImage?.value ??
                                             controller
-                                                .onSelectPersonalImage(value);
-                                          },
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        ImagePickerHelper(
-                                          editButtonTitle: "edit_id_image".tr,
-                                          buttonTitle: "id_image".tr,
-                                          imageUrl:
-                                              controller.selectedIdImage ??
-                                                  controller.currentUser.value
-                                                      .idImage ??
-                                                  "",
-                                          onGet: (value) {
-                                            controller.onSelectIdImage(value);
-                                          },
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        ImagePickerHelper(
-                                          editButtonTitle:
-                                              "edit_certificate_image".tr,
-                                          buttonTitle: "certificate_image".tr,
-                                          imageUrl: controller
-                                                  .selectedCertificateImage ??
-                                              controller.currentUser.value
-                                                  .certificateImage ??
-                                              "",
-                                          onGet: (value) {
-                                            controller.onSelectCertificateImage(
-                                                value);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }),
+                                                .currentUser.value.image ??
+                                            "",
+                                        onGet: (value) {
+                                          controller
+                                              .onSelectPersonalImage(value);
+                                        },
+                                      )),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Obx(() => ImagePickerHelper(
+                                        editButtonTitle: "edit_id_image".tr,
+                                        buttonTitle: "id_image".tr,
+                                        imageUrl:
+                                            controller.selectedIdImage?.value ??
+                                                controller.currentUser.value
+                                                    .idImage ??
+                                                "",
+                                        onGet: (value) {
+                                          controller.onSelectIdImage(value);
+                                        },
+                                      )),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Obx(() => ImagePickerHelper(
+                                        editButtonTitle:
+                                            "edit_certificate_image".tr,
+                                        buttonTitle: "certificate_image".tr,
+                                        imageUrl: controller
+                                                .selectedCertificateImage
+                                                ?.value ??
+                                            controller.currentUser.value
+                                                .certificateImage ??
+                                            "",
+                                        onGet: (value) {
+                                          controller
+                                              .onSelectCertificateImage(value);
+                                        },
+                                      )),
+                                ],
+                              ),
+                            ),
 
                             //phone
                             TextFormField(
                               enabled: !controller.isProcessEnabled.value,
                               controller: _phoneTextController
                                 ..text =
-                                    controller.currentUser.value?.phone ?? " ",
+                                    controller.currentUser.value.phone ?? " ",
                               decoration:
                                   InputDecoration(labelText: "phone".tr),
                               autovalidateMode:
@@ -218,7 +213,7 @@ class EditProfileView extends GetWidget<EditProfileController> {
                               enabled: !controller.isProcessEnabled.value,
                               controller: _emailTextController
                                 ..text =
-                                    controller.currentUser.value?.email ?? " ",
+                                    controller.currentUser.value.email ?? " ",
                               decoration:
                                   InputDecoration(labelText: "email".tr),
                               autovalidateMode:
@@ -360,12 +355,13 @@ class EditProfileView extends GetWidget<EditProfileController> {
                                     passwordConfirmation:
                                         _passwordConfirmTextController.text,
                                     city: controller.selectedCity.value,
-                                    idImage: controller.selectedIdImage,
-                                    image: controller.selectedPersonalImage,
-                                    certificateImage:
-                                        controller.selectedCertificateImage,
+                                    idImage: controller.selectedIdImage?.value,
+                                    image:
+                                        controller.selectedPersonalImage?.value,
+                                    certificateImage: controller
+                                        .selectedCertificateImage?.value,
                                     familyIdImage:
-                                        controller.selectedFamilyIdImage,
+                                        controller.selectedFamilyIdImage?.value,
                                     idNumber: _idNumberTextController.text,
                                   ));
                                 } else {

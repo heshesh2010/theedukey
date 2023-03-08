@@ -102,7 +102,8 @@ class AppPages {
         name: _Paths.search,
         page: () => const SearchView(),
         binding: SearchBinding()),
-    GetPage(name: _Paths.map, page: () => MapView(), binding: MapBinding()),
+    GetPage(
+        name: _Paths.map, page: () => const MapView(), binding: MapBinding()),
     GetPage(
         name: _Paths.schoolDetails,
         page: () => const SchoolDetailsView(),
@@ -119,7 +120,7 @@ class AppPages {
     //  )
     GetPage(
       name: _Paths.ADD_ORDER,
-      page: () => const AddOrderView(),
+      page: () => AddOrderView(),
       binding: AddOrderBinding(),
     ),
     GetPage(
