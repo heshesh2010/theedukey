@@ -18,6 +18,9 @@ const Map<String, String> ar = {
   'signUp': 'تسجيل حساب جديد',
   'enter': 'دخول',
   'skip': 'تخطي',
+  'account_deleted': ' حذف الحساب',
+  'account_deleted_successfully': 'تم حذف الحساب بنجاح',
+  'delete_account_desc': 'هل أنت متأكد من حذف حسابك؟',
   "password or email is wrong": "كلمة المرور أو البريد الإلكتروني غير صحيحة",
 
   // signUp page

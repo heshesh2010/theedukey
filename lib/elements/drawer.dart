@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:theedukey/helper.dart';
 import '../app/modules/auth/controllers/auth_controller.dart';
 import '../app/modules/favorite/controllers/favorite_controller.dart';
 import '../app/modules/home/bindings/home_binding.dart';
@@ -265,6 +266,30 @@ class DrawerSideMenu extends StatelessWidget {
                       } else {
                         Get.toNamed(Routes.contactUs);
                       }
+                    },
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 20.0, left: 20.0),
+                    child: Divider(color: Colors.grey),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.delete, color: Colors.white),
+                    title: Text('delete_account'.tr,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(color: Colors.white)),
+                    onTap: () {
+                      Helper().showCustomDialog(
+                        'delete_account'.tr,
+                        'delete_account_desc'.tr,
+                        onCancel: () {
+                          Get.back();
+                        },
+                        onConfirm: () {
+                          controller.deleteAccount();
+                        },
+                      );
                     },
                   ),
                   const Padding(

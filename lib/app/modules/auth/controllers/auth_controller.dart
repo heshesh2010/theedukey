@@ -180,4 +180,16 @@ class AuthController extends GetxController {
   void setSelectedCity(value) {
     selectedCity.value = value;
   }
+
+  void deleteAccount() async {
+    dynamic response = await repository.deleteAccountApi();
+    if (response) {
+      Get.back();
+      Helper().showSuccessToast("account_deleted".tr);
+      logout();
+      logout();
+    } else {
+      Helper().showErrorToast("error".tr);
+    }
+  }
 }

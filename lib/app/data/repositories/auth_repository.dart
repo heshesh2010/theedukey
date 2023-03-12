@@ -141,4 +141,15 @@ class AuthRepository {
       return response;
     }
   }
+
+  deleteAccountApi() async {
+    Response? response = await apiClient.postAsyncNormal(
+        "student-auth/delete-account", {},
+        isTokenRequired: true);
+    if (response?.statusCode == 200) {
+      return response?.data["status"];
+    } else {
+      return response;
+    }
+  }
 }
