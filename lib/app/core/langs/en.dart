@@ -185,7 +185,7 @@ const Map<String, String> en = {
   'cancel': 'Cancel',
   'edit': 'Edit',
   'delete': 'Delete',
-  'account_deleted': 'Account delete',
+  'delete_account': 'Account delete',
   'account_deleted_successfully': 'Account delete successfully',
   'delete_account_desc': 'Are you sure you want to delete your account?',
   'gallery': 'Gallery',

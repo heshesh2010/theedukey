@@ -45,6 +45,7 @@ class AuthController extends GetxController {
 
   logout() {
     currentUser.value = User();
+    Get.find<AuthService>().user.value.auth = false;
     GetStorage().remove(kLocalKey["userInfo"]!);
     Get.toNamed(Routes.login);
     update();
@@ -185,8 +186,7 @@ class AuthController extends GetxController {
     dynamic response = await repository.deleteAccountApi();
     if (response) {
       Get.back();
-      Helper().showSuccessToast("account_deleted".tr);
-      logout();
+      Helper().showSuccessToast("account_deleted_successfully".tr);
       logout();
     } else {
       Helper().showErrorToast("error".tr);

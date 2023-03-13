@@ -103,7 +103,7 @@ class User {
         "certificate_image": certificateImage,
         "phone": phone,
         "email": email,
-        "city": city?.id,
+        "city": city?.id.toString(),
         "map_location": mapLocation,
         "legal_agreement": legalAgreement,
         "email_verified_at": emailVerifiedAt,
