@@ -10,7 +10,7 @@ class SchoolItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120,
+      //height: 120,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: Colors.white,
@@ -37,54 +37,56 @@ class SchoolItem extends StatelessWidget {
                   width: 100,
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        color: Color.fromRGBO(255, 191, 14, 1),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(school?.rate ?? "0"),
-                    ],
-                  ),
-                  Text(
-                    '${school?.name}',
-                    maxLines: 2,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: Theme.of(context).focusColor,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      SizedBox(
-                        width: 40.w,
-                        child: Text(
-                          '${school?.address}',
-                          maxLines: 2,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                  fontWeight: FontWeight.bold, fontSize: 10.sp),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star,
+                          color: Color.fromRGBO(255, 191, 14, 1),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(school?.rate ?? "0"),
+                      ],
+                    ),
+                    Text(
+                      '${school?.name}',
+                      maxLines: 2,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: Theme.of(context).focusColor,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            '${school?.address}',
+                            maxLines: 2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10.sp),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

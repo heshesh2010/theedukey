@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+
 import '../../../../elements/topbar.dart';
 import '../../../../helper.dart';
 import '../../../data/models/son.dart';
@@ -12,8 +11,7 @@ import 'image_picker/image_picker_helper.dart';
 class EditSonView extends GetWidget<SonsController> {
   EditSonView({Key? key}) : super(key: key);
 
-  final _nameArTextController = TextEditingController(text: "");
-  final _nameEnTextController = TextEditingController(text: "");
+  final _nameTextController = TextEditingController(text: "");
   final _birthDateTextController = TextEditingController(text: "");
   final _idNumberTextController = TextEditingController(text: "");
   final _formKey = GlobalKey<FormState>();
@@ -42,11 +40,11 @@ class EditSonView extends GetWidget<SonsController> {
                       children: [
                         const SizedBox(height: 20),
                         Text("edit_son".tr,
-                            style: Theme.of(context).textTheme.headline1),
+                            style: Theme.of(context).textTheme.displayLarge),
                         //ar_name
                         TextFormField(
                           enabled: !controller.isProcessEnabled.value,
-                          controller: _nameArTextController
+                          controller: _nameTextController
                             ..text = _sonData.name ?? "",
                           decoration: InputDecoration(
                             labelText: "name_ar".tr,
@@ -58,43 +56,7 @@ class EditSonView extends GetWidget<SonsController> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value != null && value.length > 5) {
-                              if (GetUtils.hasMatch(
-                                value,
-                                "[a-z]",
-                              )) {
-                                return "Name is not valid".tr;
-                              } else {
-                                return null;
-                              }
-                            } else {
-                              return "Name is not valid".tr;
-                            }
-                          },
-                        ),
-
-                        //en_name
-                        TextFormField(
-                          enabled: !controller.isProcessEnabled.value,
-                          controller: _nameEnTextController
-                            ..text = _sonData.nameEn ?? "",
-                          decoration: InputDecoration(
-                            labelText: "name_en".tr,
-                            suffixText: '*',
-                            suffixStyle: const TextStyle(
-                              color: Colors.red,
-                            ),
-                          ),
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (value) {
-                            if (value != null && value.length > 5) {
-                              if (GetUtils.hasMatch(
-                                value,
-                                "[ء-ي]",
-                              )) {
-                                return "Name is not valid".tr;
-                              } else {
-                                return null;
-                              }
+                              return null;
                             } else {
                               return "Name is not valid".tr;
                             }
@@ -106,14 +68,19 @@ class EditSonView extends GetWidget<SonsController> {
                           enabled: !controller.isProcessEnabled.value,
                           controller: _birthDateTextController
                             ..text = _sonData.birthDate ?? "",
+                          readOnly: true,
 
                           onTap: () => showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
                             firstDate: DateTime(1998),
                             lastDate: DateTime(2030),
-                          ).then((date) => _birthDateTextController.text =
-                              date.toString().split(" ")[0]),
+                          ).then((value) {
+                            if (value != null) {
+                              _birthDateTextController.text =
+                                  value.toString().split(" ")[0];
+                            }
+                          }),
                           //_birthDateTextController.text = DateFormat('yyyy-MM-d').format(date)),
                           decoration: InputDecoration(
                             labelText: "birth_date".tr,
@@ -160,7 +127,7 @@ class EditSonView extends GetWidget<SonsController> {
                         RichText(
                           text: TextSpan(
                               text: "gender".tr,
-                              style: Get.textTheme.subtitle1,
+                              style: Get.textTheme.titleMedium,
                               children: const [
                                 TextSpan(
                                     text: ' *',
@@ -255,8 +222,7 @@ class EditSonView extends GetWidget<SonsController> {
                             if (_formKey.currentState!.validate()) {
                               await controller.editSon(SonDataData(
                                 id: _sonData.id,
-                                name: _nameArTextController.text,
-                                nameEn: _nameEnTextController.text,
+                                name: _nameTextController.text,
                                 idNumber: _idNumberTextController.text,
                                 birthDate: _birthDateTextController.text,
                                 gender: controller.selectedGenderApi,

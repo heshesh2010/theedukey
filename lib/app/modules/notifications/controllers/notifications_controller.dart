@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:theedukey/app/services/auth_service.dart';
+import '../../../services/auth_service.dart';
 
 import '../../../../constants/general.dart';
 import '../../../../helper.dart';
@@ -18,15 +18,15 @@ class NotificationController extends GetxController {
   @override
   void onInit() {
     pagingController.addPageRequestListener((pageKey) {
-      _fetchNotificationPage(pageKey);
+      if (Get.find<AuthService>().isAuth) {
+        _fetchNotificationPage(pageKey);
+      }
     });
     super.onInit();
   }
 
   Future<void> _fetchNotificationPage(pageKey) async {
-    if (Get.find<AuthService>().isAuth) {
-      newNotificationItems = await getNotifications();
-    }
+    newNotificationItems = await getNotifications();
 
     try {
       final isLastPage = newNotificationItems.length < apiPageSize;

@@ -37,6 +37,7 @@ class AddOrderController extends GetxController {
         "success".tr,
         "Order_added_successfully".tr,
         onConfirm: () {
+          Get.back();
           Get.find<OrdersController>().refreshOrders();
         },
       );

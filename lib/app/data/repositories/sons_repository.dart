@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+
 import '../../core/utils/local_storage.dart';
 import '../models/son.dart';
 import '../provider/api_helper.dart';
@@ -37,7 +38,6 @@ class SonsRepository {
     var data = FormData.fromMap({
       "id": sonDataData?.id?.toString(),
       "name": sonDataData?.name,
-      "name_en": sonDataData?.nameEn,
       "gender": sonDataData?.gender,
       "id_number": sonDataData?.idNumber,
       "birth_date": sonDataData?.birthDate,
@@ -85,7 +85,6 @@ class SonsRepository {
     var data = FormData.fromMap({
       "id": sonDataData?.id?.toString(),
       "name": sonDataData?.name,
-      "name_en": sonDataData?.nameEn,
       "gender": sonDataData?.gender,
       "id_number": sonDataData?.idNumber,
       "birth_date": sonDataData?.birthDate,

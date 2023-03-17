@@ -235,9 +235,10 @@ class EditProfileView extends GetWidget<AuthController> {
                                     hint: Text(
                                       controller.selectedCity.value.name!,
                                     ),
-                                    onChanged: (dynamic value) {
+                                    onChanged: (City? value) {
                                       controller.setSelectedCity(value);
-                                      controller.selectedCity.value = value;
+                                      controller.selectedCity.value =
+                                          value ?? City();
                                       controller.update();
                                     },
                                     items: controller.citiesList

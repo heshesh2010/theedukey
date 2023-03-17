@@ -59,7 +59,6 @@ class SonDataData {
   String? image;
   String? idImage;
   String? certificateImage;
-  String? nameEn;
   String? familyIdImage;
   SonDataData({
     this.id,
@@ -71,14 +70,12 @@ class SonDataData {
     this.image,
     this.idImage,
     this.certificateImage,
-    this.nameEn,
     this.familyIdImage,
   });
   SonDataData.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toInt();
     studentId = json['student_id']?.toInt();
     name = json['name']?.toString();
-    nameEn = json['name_en']?.toString();
     gender = json['gender']?.toString();
     idNumber = json['id_number']?.toString();
     birthDate = json['birth_date']?.toString();
@@ -92,7 +89,6 @@ class SonDataData {
     data['id'] = id;
     data['student_id'] = studentId;
     data['name'] = name;
-    data['name_en'] = nameEn;
     data['gender'] = gender;
     data['id_number'] = idNumber;
     data['birth_date'] = birthDate;
@@ -125,8 +121,7 @@ class SonDataData {
         other.birthDate == birthDate &&
         other.image == image &&
         other.idImage == idImage &&
-        other.certificateImage == certificateImage &&
-        other.nameEn == nameEn;
+        other.certificateImage == certificateImage;
   }
 
   @override
@@ -139,8 +134,7 @@ class SonDataData {
         birthDate.hashCode ^
         image.hashCode ^
         idImage.hashCode ^
-        certificateImage.hashCode ^
-        nameEn.hashCode;
+        certificateImage.hashCode;
   }
 }
 

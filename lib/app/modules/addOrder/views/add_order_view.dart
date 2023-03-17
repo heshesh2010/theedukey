@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theedukey/app/modules/sons/controllers/sons_controller.dart';
 
 import '../../../../elements/drawer.dart';
 import '../../../../elements/topbar.dart';
 import '../../../../helper.dart';
+import '../../sons/controllers/sons_controller.dart';
 import '../controllers/add_order_controller.dart';
 
 class AddOrderView extends GetWidget<AddOrderController> {
@@ -174,7 +174,9 @@ class AddOrderView extends GetWidget<AddOrderController> {
                           "confirm".tr, "confirm_continue_with_main_account".tr,
                           onConfirm: () {
                         controller.addOrder();
-                      }, onCancel: () {});
+                      }, onCancel: () {
+                        Get.back();
+                      });
                     },
                   ),
                 ),
@@ -218,8 +220,12 @@ class AddOrderView extends GetWidget<AddOrderController> {
                               middleText: "confirm_continue_with_son".tr,
                               textConfirm: "confirm".tr,
                               textCancel: "cancel".tr,
-                              onCancel: () {},
+                              onCancel: () {
+                                Get.back();
+                              },
                               onConfirm: () {
+                                Get.back();
+
                                 addOrderCallBack();
                               }),
                       child: Text(

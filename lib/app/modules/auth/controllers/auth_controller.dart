@@ -32,7 +32,7 @@ class AuthController extends GetxController {
   RxBool passwordVisible = false.obs;
   var agreedToTOS = false.obs;
 
-  var citiesList = <City>[].obs;
+  RxList<City> citiesList = <City>[].obs;
 
   final RoundedLoadingButtonController submitButtonController =
       RoundedLoadingButtonController();

@@ -260,14 +260,13 @@ class SignUpView extends GetWidget<SignUpController> {
                                           title: "terms".tr,
                                           content: Expanded(
                                             child: SingleChildScrollView(
-                                                child: Obx(() => Expanded(
-                                                      child: Text(controller
-                                                          .terms.value),
-                                                    ))),
+                                                child: Obx(() => Text(
+                                                    controller.terms.value))),
                                           ),
                                           textConfirm: "terms approve".tr,
                                           confirmTextColor: Colors.white,
                                           onConfirm: () {
+                                            controller.agreedToTOS.value = true;
                                             Get.back();
                                           });
                                     })
