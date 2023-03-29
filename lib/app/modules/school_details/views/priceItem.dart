@@ -72,28 +72,29 @@ class PriceItem extends StatelessWidget {
                             context),
                         widgetTextValue(
                             price.isTmaraEnabled ? "yes".tr : "no".tr, context),
-                        widgetTextValue('${price.note}', context),
+                        widgetTextValue(price.note ?? '', context),
                       ],
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 40,
-            ),
+            const Spacer(),
             if (Get.find<AuthService>().isAuth)
-              SizedBox(
-                width: Get.width / 1.9,
-                height: 60,
-                child: ElevatedButton(
-                  child: Text(
-                    "subscribe_now".tr,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: SizedBox(
+                  width: Get.width / 1.9,
+                  height: 60,
+                  child: ElevatedButton(
+                    child: Text(
+                      "subscribe_now".tr,
+                    ),
+                    onPressed: () {
+                      Get.toNamed(Routes.ADD_ORDER,
+                          arguments: RouteArgument(priceItem: price));
+                    },
                   ),
-                  onPressed: () {
-                    Get.toNamed(Routes.ADD_ORDER,
-                        arguments: RouteArgument(priceItem: price));
-                  },
                 ),
               ),
           ],

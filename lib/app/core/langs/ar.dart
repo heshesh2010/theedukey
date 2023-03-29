@@ -177,7 +177,7 @@ const Map<String, String> ar = {
   'camera': 'الكاميرا ',
   'empty_results': 'لا يوجد نتائج',
   "please_review_all_fields": "يرجى مراجعة البيانات المٌدخلة",
-  'currency': ' ريال سعودي ',
+  'currency': 'ر.س',
   'OK': 'حسنا',
   "FirstPageException_title": "حدث خطأ ما",
   "FirstPageException_message": 'واجه التطبيق خطأ غير معروف\n'

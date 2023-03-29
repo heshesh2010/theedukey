@@ -162,81 +162,34 @@ class AddOrderView extends GetWidget<AddOrderController> {
                 const SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  width: Get.width,
-                  height: 60,
-                  child: ElevatedButton(
-                    child: Text(
-                      "continue_with_main_account".tr,
-                    ),
-                    onPressed: () {
-                      Helper().showCustomDialog(
-                          "confirm".tr, "confirm_continue_with_main_account".tr,
-                          onConfirm: () {
-                        controller.addOrder();
-                      }, onCancel: () {
-                        Get.back();
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Center(
-                  child: Text("also_you_can".tr,
-                      style: Theme.of(context).textTheme.displayLarge),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Obx(
-                  () => SizedBox(
-                    width: Get.width,
-                    height: 60,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.resolveWith<Color?>(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withOpacity(0.5);
-                            } else if (states
-                                .contains(MaterialState.disabled)) {
-                              return Colors.grey;
-                            }
-                            return Theme.of(context)
-                                .focusColor; // Use the component's default.
-                          },
-                        ),
-                      ),
-                      onPressed: controller.selectedSon.value.id == null
-                          ? null
-                          : () => Get.defaultDialog(
-                              title: "confirm".tr,
-                              middleText: "confirm_continue_with_son".tr,
-                              textConfirm: "confirm".tr,
-                              textCancel: "cancel".tr,
-                              onCancel: () {
-                                Get.back();
-                              },
-                              onConfirm: () {
-                                Get.back();
-
-                                addOrderCallBack();
-                              }),
-                      child: Text(
-                        "continue_and_add_sons".tr,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
+                // SizedBox(
+                //   width: Get.width,
+                //   height: 60,
+                //   child: ElevatedButton(
+                //     child: Text(
+                //       "continue_with_main_account".tr,
+                //     ),
+                //     onPressed: () {
+                //       Helper().showCustomDialog(
+                //           "confirm".tr, "confirm_continue_with_main_account".tr,
+                //           onConfirm: () {
+                //         controller.addOrder();
+                //       }, onCancel: () {
+                //         Get.back();
+                //       });
+                //     },
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 30,
+                // ),
+                // Center(
+                //   child: Text("also_you_can".tr,
+                //       style: Theme.of(context).textTheme.displayLarge),
+                // ),
+                // const SizedBox(
+                //   height: 30,
+                // ),
 
                 Obx(() => Center(
                       child: Container(
@@ -309,7 +262,7 @@ class AddOrderView extends GetWidget<AddOrderController> {
                                         color: Colors.white,
                                       ),
                                       Text(
-                                        selectedSon.name ?? " xcxc",
+                                        selectedSon.name ?? " son name",
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium,
@@ -323,6 +276,55 @@ class AddOrderView extends GetWidget<AddOrderController> {
                         ),
                       ),
                     )),
+                const SizedBox(
+                  height: 20,
+                ),
+
+                Obx(
+                  () => SizedBox(
+                    width: Get.width,
+                    height: 60,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.resolveWith<Color?>(
+                          (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.pressed)) {
+                              return Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(0.5);
+                            } else if (states
+                                .contains(MaterialState.disabled)) {
+                              return Colors.grey;
+                            }
+                            return Theme.of(context)
+                                .focusColor; // Use the component's default.
+                          },
+                        ),
+                      ),
+                      onPressed: controller.selectedSon.value.id == null
+                          ? null
+                          : () => Get.defaultDialog(
+                              title: "confirm".tr,
+                              middleText: "confirm_continue_with_son".tr,
+                              textConfirm: "confirm".tr,
+                              textCancel: "cancel".tr,
+                              onCancel: () {
+                                Get.back();
+                              },
+                              onConfirm: () {
+                                Get.back();
+
+                                addOrderCallBack();
+                              }),
+                      child: Text(
+                        "continue_and_add_sons".tr,
+                      ),
+                    ),
+                  ),
+                ),
+
                 // const SizedBox(
                 //   height: 300,
                 // ),

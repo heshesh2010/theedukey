@@ -24,10 +24,10 @@ class SchoolPrices extends GetWidget<SchoolDetailsController> {
               options: CarouselOptions(
                   enableInfiniteScroll: false,
                   height: 550.0,
-                  autoPlay: true,
+                  autoPlay: false,
                   viewportFraction: 1,
                   //aspectRatio: 0.5,
-                  enlargeCenterPage: true,
+                  //  enlargeCenterPage: true,
                   onPageChanged: (index, reason) {
                     controller.current.value = index;
                   }),

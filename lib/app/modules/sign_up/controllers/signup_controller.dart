@@ -107,12 +107,14 @@ class SignUpController extends GetxController {
     }
   }
 
-  Future<dynamic> getCities() async {
+  Future<List<City>> getCities() async {
     dynamic response = await repository.getCitiesApi();
     if (response is List<City>) {
       citiesList.addAll(response);
+      return citiesList;
     } else {
       Helper().showErrorToast("Something went wrong".tr);
+      return [];
     }
   }
 

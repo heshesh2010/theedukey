@@ -37,12 +37,6 @@ class AuthController extends GetxController {
   final RoundedLoadingButtonController submitButtonController =
       RoundedLoadingButtonController();
 
-  @override
-  onInit() {
-    super.onInit();
-    getCities();
-  }
-
   logout() {
     currentUser.value = User();
     Get.find<AuthService>().user.value.auth = false;
@@ -152,12 +146,14 @@ class AuthController extends GetxController {
   //   }
   // }
 
-  Future<dynamic> getCities() async {
+  Future<List<City>> getCities() async {
     dynamic response = await repository.getCitiesApi();
     if (response is List<City>) {
       citiesList.addAll(response);
+      return citiesList;
     } else {
-      Helper().showErrorToast("لا يمكن التسجيل حالياً يرجى المٌراجعة لاحقاً");
+      Helper().showErrorToast("Something went wrong".tr);
+      return [];
     }
   }
 

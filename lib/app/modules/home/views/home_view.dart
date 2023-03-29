@@ -1,11 +1,10 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
-import 'package:theedukey/app/modules/home/controllers/home_controller.dart';
+
 import '../../../../elements/drawer.dart';
 import '../../../../elements/topbar.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-
 import '../../../core/utils/image_tools.dart';
 import '../../../data/models/facility.dart';
 import '../../../data/models/route_argument.dart';
@@ -13,6 +12,7 @@ import '../../../data/models/stage.dart';
 import '../../../data/service/locator.dart';
 import '../../../data/service/search_model.dart';
 import '../../../routes/app_pages.dart';
+import '../controllers/home_controller.dart';
 import 'about_us.dart';
 
 class HomeView extends GetWidget<HomeController> {
@@ -32,7 +32,7 @@ class HomeView extends GetWidget<HomeController> {
               child: Column(
                 children: [
                   Text("search_about".tr,
-                      style: Theme.of(context).textTheme.headline4),
+                      style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 20),
                   Obx(() => Center(
                         child: Container(
@@ -44,14 +44,19 @@ class HomeView extends GetWidget<HomeController> {
                                 const BorderRadius.all(Radius.circular(20)),
                           ),
                           child: DropdownButton2(
-                            dropdownDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
+                            iconStyleData: const IconStyleData(
+                              iconSize: 0,
+                              //    color: Colors.white,
+                              //    size: 30,
                             ),
+                            // dropdownDecoration: BoxDecoration(
+                            //   borderRadius: BorderRadius.circular(14),
+                            // ),
                             isExpanded: true,
-                            iconSize: 0.0,
-                            icon: const Icon(Icons.keyboard_arrow_up_sharp),
-                            style: const TextStyle(color: Colors.white),
-                            iconEnabledColor: Colors.white,
+                            // iconSize: 0.0,
+                            // icon: const Icon(Icons.keyboard_arrow_up_sharp),
+                            // style: const TextStyle(color: Colors.white),
+                            //   iconEnabledColor: Colors.white,
                             hint: Padding(
                               padding:
                                   const EdgeInsets.only(right: 30.0, left: 30),
@@ -68,7 +73,7 @@ class HomeView extends GetWidget<HomeController> {
                                       controller.selectedStage.value.name!,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .subtitle1
+                                          .titleMedium
                                           ?.copyWith(color: Colors.white),
                                     ),
                                   ],
@@ -96,7 +101,7 @@ class HomeView extends GetWidget<HomeController> {
                                         selectedStage.name!,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .subtitle1,
+                                            .titleMedium,
                                       ),
                                     ],
                                   ),
@@ -148,10 +153,9 @@ class HomeView extends GetWidget<HomeController> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         //  shape: const CircleBorder(),
+                        foregroundColor: const Color.fromRGBO(255, 255, 255, 1),
+                        backgroundColor: Theme.of(context).primaryColor,
                         shadowColor: Colors.transparent,
-                        // padding: const EdgeInsets.all(10),
-                        primary: Theme.of(context).primaryColor,
-                        onPrimary: const Color.fromRGBO(255, 255, 255, 1),
                       ),
                       child: Text(
                         "search".tr,

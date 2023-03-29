@@ -227,31 +227,44 @@ class EditProfileView extends GetWidget<AuthController> {
                               },
                             ),
                             const SizedBox(height: 8),
-                            Obx(() => SizedBox(
-                                  height: 70,
-                                  child: DropdownButton(
-                                    //isDense: true,
-                                    isExpanded: true,
-                                    hint: Text(
-                                      controller.selectedCity.value.name!,
-                                    ),
-                                    onChanged: (City? value) {
-                                      controller.setSelectedCity(value);
-                                      controller.selectedCity.value =
-                                          value ?? City();
-                                      controller.update();
-                                    },
-                                    items: controller.citiesList
-                                        .map((City selectedType) {
-                                      return DropdownMenuItem(
-                                        value: selectedType,
-                                        child: Text(
-                                          selectedType.name!,
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                )),
+
+                            FutureBuilder<List<City>>(
+                                future: controller.getCities(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.data == null) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  } else if (snapshot.hasData &&
+                                      snapshot.data!.isNotEmpty) {
+                                    return Obx(() => SizedBox(
+                                          height: 70,
+                                          child: DropdownButton(
+                                            //isDense: true,
+                                            isExpanded: true,
+                                            hint: Text(
+                                              controller
+                                                  .selectedCity.value.name!,
+                                            ),
+                                            onChanged: (City? value) {
+                                              controller.setSelectedCity(value);
+                                              controller.selectedCity.value =
+                                                  value ?? City();
+                                              controller.update();
+                                            },
+                                            items: controller.citiesList
+                                                .map((City selectedType) {
+                                              return DropdownMenuItem(
+                                                value: selectedType,
+                                                child: Text(
+                                                  selectedType.name!,
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ));
+                                  }
+                                  return const SizedBox();
+                                }),
                             const SizedBox(height: 8),
                             TextFormField(
                                 enabled: !controller.isProcessEnabled.value,

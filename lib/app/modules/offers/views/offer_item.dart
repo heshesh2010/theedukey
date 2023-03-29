@@ -1,8 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theedukey/app/data/models/offer.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:readmore/readmore.dart';
+
+import '../../../data/models/offer.dart';
 
 class OfferItem extends StatelessWidget {
   const OfferItem({Key? key, required this.offer}) : super(key: key);
@@ -25,6 +26,9 @@ class OfferItem extends StatelessWidget {
       ),
       child: Column(
         children: [
+          const SizedBox(
+            height: 20,
+          ),
           ClipRRect(
             borderRadius: BorderRadius.circular(20.0),
             child: CachedNetworkImage(
@@ -120,7 +124,11 @@ class OfferItem extends StatelessWidget {
                   trimMode: TrimMode.Line,
                   trimCollapsedText: 'show_more'.tr,
                   trimExpandedText: 'show_less'.tr,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      height: 1.5,
+                      fontWeight: FontWeight.normal),
                   moreStyle: const TextStyle(
                       color: Colors.black,
                       fontSize: 14,

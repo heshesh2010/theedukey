@@ -1,7 +1,10 @@
 import "dart:core";
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
 import 'package:jwt_decode/jwt_decode.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
 import '../../core/utils/local_storage.dart';
 import '../../core/values/constants/general.dart';
 import '../../modules/auth/views/auth_view.dart';
@@ -22,8 +25,8 @@ class ApiClient {
   ApiClient({required this.dio}) {
     // Set default configs
     dio.options.baseUrl = 'https://theedukey.com/api/';
-    dio.options.connectTimeout = 60 * 1000;
-    dio.options.receiveTimeout = 60 * 1000;
+    dio.options.connectTimeout = const Duration(seconds: 60);
+    dio.options.receiveTimeout = const Duration(seconds: 60);
     dio.options.receiveDataWhenStatusError = true;
 
     dio.options.headers = {
@@ -39,6 +42,16 @@ class ApiClient {
     //     ),
     //   ),
     // );
+
+    dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90));
+
     dio.interceptors.add(
       QueuedInterceptorsWrapper(onRequest: (request, handler) async {
         if (request.headers["requiresToken"] == false) {
@@ -77,7 +90,7 @@ class ApiClient {
             request.extra["tokenErrorType"] =
                 TokenErrorType.refreshTokenHasExpired;
             final error =
-                DioError(requestOptions: request, type: DioErrorType.other);
+                DioError(requestOptions: request, type: DioErrorType.unknown);
             // regenerate access token
             refreshed = await _regenerateAccessToken();
             return handler.reject(error);
@@ -92,7 +105,7 @@ class ApiClient {
             request.extra["tokenErrorType"] =
                 TokenErrorType.failedToRegenerateAccessToken;
             final error =
-                DioError(requestOptions: request, type: DioErrorType.other);
+                DioError(requestOptions: request, type: DioErrorType.unknown);
             return handler.reject(error);
           }
         }
@@ -104,7 +117,7 @@ class ApiClient {
           _performLogout(dio);
 
           // create custom dio error
-          e.type = DioErrorType.other;
+          // e.error = DioErrorType.unknown;
           e.requestOptions.extra["tokenErrorType"] =
               TokenErrorType.invalidAccessToken;
         }
