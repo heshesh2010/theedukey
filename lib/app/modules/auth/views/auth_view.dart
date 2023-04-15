@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
+
 import '../../../../elements/bottom_navigation_bar.dart';
 import '../../../../elements/topbar.dart';
 import '../../../../navigator_controller.dart';
@@ -7,7 +9,6 @@ import '../../../data/models/user.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/auth_controller.dart';
 import 'forget_view.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class AuthView extends GetWidget<AuthController> {
   AuthView({Key? key}) : super(key: key);
@@ -38,7 +39,8 @@ class AuthView extends GetWidget<AuthController> {
                           children: [
                             const SizedBox(height: 40),
                             Text("login".tr,
-                                style: Theme.of(context).textTheme.headline1),
+                                style:
+                                    Theme.of(context).textTheme.displayLarge),
                             const SizedBox(height: 8),
                             TextFormField(
                               enabled: !controller.isProcessEnabled.value,

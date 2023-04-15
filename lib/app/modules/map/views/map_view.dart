@@ -29,10 +29,14 @@ class MapView extends GetWidget<MapController> {
                   zoomControlsEnabled: true,
                   initialCameraPosition: controller.kGooglePlex,
                   markers: controller.markers,
+                  onCameraMoveStarted: () => controller.onCameraMoveStarted(),
+                  // cameraTargetBounds: controller.markers.isEmpty
+                  //     ? CameraTargetBounds.unbounded
+                  //     : CameraTargetBounds(_bounds(mapData?.markers)),
                   onMapCreated: (onMapCreated) =>
                       controller.onMapCreated(onMapCreated),
-                  onCameraMove: (position) =>
-                      controller.updateMarkers(position.zoom),
+                  // onCameraMove: (position) => controller.moveCamera(
+                  //     position.target.latitude, position.target.longitude),
                 ),
               ),
 

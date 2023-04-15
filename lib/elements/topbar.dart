@@ -97,13 +97,11 @@ getTopBar(BuildContext context,
                                             .openDrawer()))),
                   ),
                   //  const Spacer(),
-                  Expanded(
-                    child: Center(
-                      child: ImageTools.image(
-                          url: 'assets/img/logo_white.png',
-                          fit: BoxFit.cover,
-                          height: 100),
-                    ),
+                  Center(
+                    child: ImageTools.image(
+                        url: 'assets/img/logo_white.png',
+                        fit: BoxFit.cover,
+                        height: 100),
                   ),
                   // const Spacer(),
                 ],

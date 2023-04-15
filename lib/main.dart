@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -44,10 +43,7 @@ void main() async {
   await GetStorage.init();
   runApp(Sizer(
     builder: (context, orientation, deviceType) {
-      return DevicePreview(
-        enabled: false,
-        builder: (context) => const MyApp(), // Wrap your app
-      );
+      return const MyApp();
     },
   ));
 }
