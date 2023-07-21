@@ -66,7 +66,7 @@ class SearchView extends StatelessWidget {
               height: 20,
             ),
             Expanded(
-              child: GetX<SearchController>(
+              child: GetX<SearchControllerGetx>(
                 //   init: SearchController(),
                 builder: (_) {
                   return _.isLoading.value

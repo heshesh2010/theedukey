@@ -37,7 +37,7 @@ class HomeBinding implements Bindings {
         repository: AuthRepository(apiClient: ApiClient(dio: Dio()))));
     Get.lazyPut<SchoolDetailsController>(() => SchoolDetailsController(
         repository: SchoolRepository(apiClient: ApiClient(dio: Dio()))));
-    Get.lazyPut(() => SearchController(
+    Get.lazyPut(() => SearchControllerGetx(
         repository: SearchRepository(apiClient: ApiClient(dio: Dio()))));
     Get.lazyPut(() => NavigatorController());
   }

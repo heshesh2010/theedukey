@@ -16,7 +16,7 @@ import '../../../services/auth_service.dart';
 class AuthController extends GetxController {
   final AuthRepository repository;
 
-  var selectedCity = City(name: "choose_city".tr).obs;
+  late Rx<City> selectedCity;
   AuthController({required this.repository});
 
   final Rx<User> currentUser = Get.find<AuthService>().user;
@@ -36,6 +36,14 @@ class AuthController extends GetxController {
 
   final RoundedLoadingButtonController submitButtonController =
       RoundedLoadingButtonController();
+
+  @override
+  void onInit() {
+    super.onInit();
+    selectedCity =
+        City(name: currentUser.value.city?.name, id: currentUser.value.city?.id)
+            .obs;
+  }
 
   logout() {
     currentUser.value = User();

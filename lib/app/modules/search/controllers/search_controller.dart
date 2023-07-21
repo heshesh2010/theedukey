@@ -10,10 +10,10 @@ import '../../../data/repositories/search_repository.dart';
 import '../../../data/service/locator.dart';
 import '../../../data/service/search_model.dart';
 
-class SearchController extends GetxController {
+class SearchControllerGetx extends GetxController {
   RxBool isLoading = true.obs;
   final SearchRepository repository;
-  SearchController({required this.repository});
+  SearchControllerGetx({required this.repository});
 
   late Rx<Stage> selectedStage = Stage(name: "stage".tr).obs;
   late Rx<PaymentMethod> selectedPaymentMethod =
@@ -59,7 +59,6 @@ class SearchController extends GetxController {
           listOfSelcetedStagesId.add(entry.key.id ?? 0);
         } // remove dublicated
         // listOfSelcetedStagesId.removeWhere((item) => item == stage.id);
-
       }
     }
 
@@ -86,7 +85,6 @@ class SearchController extends GetxController {
           listOfSelcetedPaymentMethodsId.add(entry.key.id ?? 0);
         } // remove dublicated
         // listOfSelcetedStagesId.removeWhere((item) => item == stage.id);
-
       }
     }
     updatePaymentMethodDependency(listOfSelcetedPaymentMethodsId);

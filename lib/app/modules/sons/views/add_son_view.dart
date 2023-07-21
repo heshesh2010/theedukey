@@ -128,96 +128,95 @@ class AddSonView extends GetWidget<SonsController> {
                                     ))
                               ]),
                         ),
-                        GetBuilder<SonsController>(
-                            builder: (builderContronller) {
-                          return Column(
-                            children: [
-                              Row(
+
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                addRadioButton(0, "male".tr, controller),
+                                addRadioButton(1, "female".tr, controller),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 20, left: 20, top: 20),
+                              child: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
                                 children: [
-                                  addRadioButton(0, "male".tr, controller),
-                                  addRadioButton(1, "female".tr, controller),
+                                  Obx(() => ImagePickerHelper(
+                                        editButtonTitle:
+                                            "edit_personal_image".tr,
+                                        buttonTitle: "personal_image".tr,
+                                        imageUrl: controller
+                                            .selectedPersonalImage.value,
+                                        onGet: (value) {
+                                          controller
+                                              .onSelectPersonalImage(value);
+                                        },
+                                      )),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Obx(() => ImagePickerHelper(
+                                        editButtonTitle: "edit_id_image".tr,
+                                        buttonTitle: "id_image".tr,
+                                        imageUrl:
+                                            controller.selectedIdImage.value,
+                                        onGet: (value) {
+                                          controller.onSelectIdImage(value);
+                                        },
+                                      )),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Obx(() => ImagePickerHelper(
+                                        editButtonTitle:
+                                            "edit_certificate_image".tr,
+                                        buttonTitle: "certificate_image".tr,
+                                        imageUrl: controller
+                                            .selectedCertificateImage.value,
+                                        onGet: (value) {
+                                          controller
+                                              .onSelectCertificateImage(value);
+                                        },
+                                      )),
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 20, left: 20, top: 20),
-                                child: Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: [
-                                    Obx(() => ImagePickerHelper(
-                                          editButtonTitle:
-                                              "edit_personal_image".tr,
-                                          buttonTitle: "personal_image".tr,
-                                          imageUrl: controller
-                                              .selectedPersonalImage.value,
-                                          onGet: (value) {
-                                            controller
-                                                .onSelectPersonalImage(value);
-                                          },
-                                        )),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Obx(() => ImagePickerHelper(
-                                          editButtonTitle: "edit_id_image".tr,
-                                          buttonTitle: "id_image".tr,
-                                          imageUrl:
-                                              controller.selectedIdImage.value,
-                                          onGet: (value) {
-                                            controller.onSelectIdImage(value);
-                                          },
-                                        )),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Obx(() => ImagePickerHelper(
-                                          editButtonTitle:
-                                              "edit_certificate_image".tr,
-                                          buttonTitle: "certificate_image".tr,
-                                          imageUrl: controller
-                                              .selectedCertificateImage.value,
-                                          onGet: (value) {
-                                            controller.onSelectCertificateImage(
-                                                value);
-                                          },
-                                        )),
-                                  ],
-                                ),
-                              )
-                            ],
-                          );
-                        }),
-                        const SizedBox(height: 20),
-                        RoundedLoadingButton(
-                          controller: controller.submitButtonController,
-                          color: Theme.of(context).primaryColor,
-                          onPressed: () async {
-                            // showLoadingDialog(context);
-                            // btnSignUpController.stop();
-                            if (_formKey.currentState!.validate() &&
-                                controller.selectedGenderApi != null) {
-                              await controller.addSon(SonDataData(
-                                name: _nameTextController.text,
-                                idNumber: _idNumberTextController.text,
-                                birthDate: _birthDateTextController.text,
-                                gender: controller.selectedGenderApi,
-                                idImage: controller.selectedIdImage.value,
-                                image: controller.selectedPersonalImage.value,
-                                certificateImage:
-                                    controller.selectedCertificateImage.value,
-                              ));
-                            } else {
-                              Helper().showErrorToast(
-                                  "please_review_all_fields".tr);
-                              controller.submitButtonController.reset();
-                            }
-                          },
-                          child: Text('add'.tr,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                        const SizedBox(
-                          height: 20,
+                            ),
+                            const SizedBox(height: 20),
+                            RoundedLoadingButton(
+                              controller: controller.submitButtonController,
+                              color: Theme.of(context).primaryColor,
+                              onPressed: () async {
+                                // showLoadingDialog(context);
+                                // btnSignUpController.stop();
+                                if (_formKey.currentState!.validate() &&
+                                    controller.selectedGenderApi != null) {
+                                  await controller.addSon(SonDataData(
+                                    name: _nameTextController.text,
+                                    idNumber: _idNumberTextController.text,
+                                    birthDate: _birthDateTextController.text,
+                                    gender: controller.selectedGenderApi,
+                                    idImage: controller.selectedIdImage.value,
+                                    image:
+                                        controller.selectedPersonalImage.value,
+                                    certificateImage: controller
+                                        .selectedCertificateImage.value,
+                                  ));
+                                } else {
+                                  Helper().showErrorToast(
+                                      "please_review_all_fields".tr);
+                                  controller.submitButtonController.reset();
+                                }
+                              },
+                              child: Text('add'.tr,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -231,12 +230,10 @@ class AddSonView extends GetWidget<SonsController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        GetBuilder<SonsController>(
-          builder: (_) => Radio(
-              value: controller.gender[btnIndex],
-              groupValue: controller.selectedGender,
-              onChanged: (value) => controller.onSelectGender(value)),
-        ),
+        Radio(
+            value: controller.gender[btnIndex],
+            groupValue: controller.selectedGender?.value,
+            onChanged: (value) => controller.onSelectGender(value)),
         Text(title)
       ],
     );

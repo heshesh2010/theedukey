@@ -44,7 +44,7 @@ class RelatedSchoolItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               Text(relatedItem.name ?? "0"),
               Expanded(

@@ -55,7 +55,7 @@ dependencies:
   infinite_scroll_pagination: ^3.2.0
 
   #map
-  google_maps_flutter: ^2.2.5
+  google_maps_flutter: ^2.2.7
   widget_to_marker: ^1.0.1
 
   # tools

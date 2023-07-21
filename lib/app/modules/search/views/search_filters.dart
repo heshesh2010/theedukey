@@ -8,7 +8,7 @@ import '../../../data/models/rate.dart';
 import '../../../data/models/stage.dart';
 import '../controllers/search_controller.dart';
 
-class SearchFilters extends GetWidget<SearchController> {
+class SearchFilters extends GetWidget<SearchControllerGetx> {
   const SearchFilters({Key? key}) : super(key: key);
 
   @override
@@ -186,7 +186,7 @@ class SearchFilters extends GetWidget<SearchController> {
                             value: controller.paymentMethodsCheckBoxes[
                                 controller.filterData.value.paymentMethods!
                                     .indexOf(selectedType)][selectedType])),
-                        Text(selectedType.name ?? " "),
+                        Expanded(child: Text(selectedType.name ?? " ")),
                       ],
                     ),
                   );

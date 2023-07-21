@@ -126,7 +126,7 @@ class SonsRepository {
         isTokenRequired: true);
     if (response is Response) {
       if (response.statusCode == 200) {
-        return SonDataData.fromJson(response.data);
+        return SonDataData.fromJson(response.data["student"]);
       } else {
         return response;
       }

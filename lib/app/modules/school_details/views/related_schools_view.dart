@@ -37,7 +37,7 @@ class RelatedSchoolsView extends GetWidget<SchoolDetailsController> {
                               height: 450.0,
                               autoPlay: false,
                               enableInfiniteScroll: false,
-                              viewportFraction: 0.8,
+                              viewportFraction: 1,
                               //   aspectRatio: 2.0,
                               enlargeCenterPage: true,
                               onPageChanged: (index, reason) {

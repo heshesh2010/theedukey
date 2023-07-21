@@ -72,6 +72,9 @@ class SonDataData {
     this.certificateImage,
     this.familyIdImage,
   });
+
+// json From Map
+
   SonDataData.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toInt();
     studentId = json['student_id']?.toInt();

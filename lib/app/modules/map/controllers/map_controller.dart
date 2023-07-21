@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:fluster/fluster.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -17,17 +17,7 @@ class MapController extends GetxController {
   final Completer<GoogleMapController> mapController = Completer();
 
   /// Set of displayed markers and cluster markers on the map
-  final Set<Marker> markers = {};
-  Set<Marker> FinalMarkers = {};
-
-  /// Minimum zoom at which the markers will cluster
-  final int _minClusterZoom = 0;
-
-  /// Maximum zoom at which the markers will cluster
-  final int _maxClusterZoom = 16;
-
-  /// [Fluster] instance used to manage the clusters
-  Fluster<MapMarker>? _clusterManager;
+  final RxSet<Marker> markers = <Marker>{}.obs;
 
   /// Current map zoom. Initial zoom will be 15, street level
   static double currentZoom = 15;
@@ -38,36 +28,99 @@ class MapController extends GetxController {
   /// Markers loading flag
   final Rx<bool> areMarkersLoading = true.obs;
 
-  /// Url image used on normal markers
-  final String _markerImageUrl =
-      'https://img.icons8.com/office/80/000000/marker.png';
-
-  /// Color of the cluster circle
-  final Color _clusterColor = Colors.blue;
-
-  /// Color of the cluster text
-  final Color _clusterTextColor = Colors.white;
-  // final List<MapMarker> markers = [];
-
   /// Inits [Fluster] and all the markers with network images and updates the loading state.
   void _initMarkers() async {
     areMarkersLoading.value = true;
+    Uint8List? markerIconSchool = await MapHelper()
+        .getBytesFromAsset('assets/img/school_map_icon.png', 100);
+    final BitmapDescriptor schoolIcon =
+        BitmapDescriptor.fromBytes(markerIconSchool ?? Uint8List(0));
+
+    Uint8List? markerIconCenter = await MapHelper()
+        .getBytesFromAsset('assets/img/center_map_icon.png', 100);
+    final BitmapDescriptor centerIcon =
+        BitmapDescriptor.fromBytes(markerIconCenter ?? Uint8List(0));
+
+    // markers.clear();
+    // markers.refresh();
+    await Future.forEach(
+      getIt<SearchModel>().routeArgument!.schoolsList,
+      (Facility facility) async {
+        int? idx = facility.school?.mapLocation?.indexOf(",");
+
+        bool result = await _checkIfWithinBounds(
+            double.parse(
+                facility.school?.mapLocation?.substring(0, idx).trim() ?? "0"),
+            double.parse(
+                facility.school?.mapLocation?.substring(idx! + 1).trim() ??
+                    "0"));
+        if (result) {
+          markers.add(
+            MapMarker(
+              id: getIt<SearchModel>()
+                  .routeArgument!
+                  .schoolsList
+                  .indexOf(facility)
+                  .toString(),
+              position: LatLng(
+                  double.parse(
+                      facility.school?.mapLocation?.substring(0, idx).trim() ??
+                          "0"),
+                  double.parse(facility.school?.mapLocation
+                          ?.substring(idx! + 1)
+                          .trim() ??
+                      "0")),
+
+              icon: facility.school?.facilityTypeId == 3
+                  ? centerIcon
+                  : schoolIcon,
+
+              // icon: BitmapDescriptor.fromBytes(await MapHelper()
+              //     .makeReceiptImage(facility.school?.logo ??
+              //         "https://dev17.toplinedev.com/theedukey/public/uploads/settings/1643894636.png")),
+              infoWindow: InfoWindow(
+                  title: facility.school?.name ?? " ",
+                  snippet: 'press_to_view_details'.tr,
+                  onTap: () {
+                    Get.toNamed(Routes.schoolDetails,
+                        arguments:
+                            RouteArgument(schoolId: facility.school?.id));
+                  }),
+            ).toMarker(),
+          );
+          markers.refresh();
+        }
+        areMarkersLoading.value = false;
+      },
+    );
+    // _clusterManager = await MapHelper.initClusterManager(
+    //   markers.toList(),
+    //   _minClusterZoom,
+    //   _maxClusterZoom,
+    // );
+  }
+
+////
+  ///
+  ///
+  ///
+
+  void _initMarkerstest() async {
+    areMarkersLoading.value = true;
+    Uint8List? markerIconSchool = await MapHelper()
+        .getBytesFromAsset('assets/img/school_map_icon.png', 100);
+    final BitmapDescriptor schoolIcon =
+        BitmapDescriptor.fromBytes(markerIconSchool ?? Uint8List(0));
+
+    Uint8List? markerIconCenter = await MapHelper()
+        .getBytesFromAsset('assets/img/center_map_icon.png', 100);
+    final BitmapDescriptor centerIcon =
+        BitmapDescriptor.fromBytes(markerIconCenter ?? Uint8List(0));
 
     await Future.forEach(
       getIt<SearchModel>().routeArgument!.schoolsList,
       (Facility facility) async {
-        // Uint8List image = Uint8List.fromList(await MapHelper().makeReceiptImage(
-        //     facility.school?.logo ??
-        //         "https://dev17.toplinedev.com/theedukey/public/uploads/settings/1643894636.png"));
-
-        // final BitmapDescriptor markerImage = BitmapDescriptor.fromBytes(
-        //     await MapHelper.resizeImageBytes(image, 200));
-
         int? idx = facility.school?.mapLocation?.indexOf(",");
-        // BitmapDescriptor markerImage = await MapHelper.getMarkerImageFromUrl(
-        //     facility.school?.logo ??
-        //         "https://dev17.toplinedev.com/theedukey/public/uploads/settings/1643894636.png",
-        //     targetWidth: 200);
 
         if (await _checkIfWithinBounds(
             double.parse(
@@ -91,19 +144,13 @@ class MapController extends GetxController {
                           .trim() ??
                       "0")),
 
-              // icon: await ClipRRect(
-              //     borderRadius: BorderRadius.circular(10000.0),
-              //     child: CachedNetworkImage(
-              //       height: 50,
-              //       width: 50,
-              //       fit:  BoxFit.cover,
-              //       imageUrl: facility.school?.logo ??
-              //           "https://dev17.toplinedev.com/theedukey/public/uploads/settings/1643894636.png",
-              //       errorWidget: (context, url, error) => const Icon(Icons.error),
-              //     )).toBitmapDescriptor(imageSize: const Size(50, 50)),
-              icon: BitmapDescriptor.fromBytes(await MapHelper()
-                  .makeReceiptImage(facility.school?.logo ??
-                      "https://dev17.toplinedev.com/theedukey/public/uploads/settings/1643894636.png")),
+              icon: facility.school?.facilityTypeId == 3
+                  ? centerIcon
+                  : schoolIcon,
+
+              // icon: BitmapDescriptor.fromBytes(await MapHelper()
+              //     .makeReceiptImage(facility.school?.logo ??
+              //         "https://dev17.toplinedev.com/theedukey/public/uploads/settings/1643894636.png")),
               infoWindow: InfoWindow(
                   title: facility.school?.name ?? " ",
                   snippet: 'press_to_view_details'.tr,
@@ -115,21 +162,6 @@ class MapController extends GetxController {
             ).toMarker(),
           );
         }
-
-        // if (getIt<SearchModel>().routeArgument!.schoolsList.indexOf(facility) ==
-        //     0) {
-        //   print(getIt<SearchModel>()
-        //       .routeArgument!
-        //       .schoolsList
-        //       .indexOf(facility)
-        //       .toString());
-        //   moveCamera(
-        //       double.parse(
-        //           facility.school?.mapLocation?.substring(0, idx).trim() ?? "0"),
-        //       double.parse(
-        //           facility.school?.mapLocation?.substring(idx! + 1).trim() ??
-        //               "0"));
-        // }
       },
     );
     // _clusterManager = await MapHelper.initClusterManager(
@@ -170,15 +202,35 @@ class MapController extends GetxController {
     final GoogleMapController controller = await mapController.future;
     controller.moveCamera(CameraUpdate.newCameraPosition(
         CameraPosition(target: LatLng(lang, lon), zoom: currentZoom)));
-    //_initMarkers();
 
-    update();
+    Future.delayed(const Duration(seconds: 2), () {
+      _initMarkers();
+    });
+
+    //   update();
   }
 
-  CameraPosition kGooglePlex = CameraPosition(
-    target: const LatLng(24.69596839147883, 46.686680461716264),
-    zoom: currentZoom,
-  );
+  getInitialCameraPosition() {
+    if (getIt<SearchModel>().routeArgument!.schoolsList.length == 1) {
+      var facility = getIt<SearchModel>().routeArgument!.schoolsList[0];
+      int? idx = facility.school?.mapLocation?.indexOf(",");
+
+      return CameraPosition(
+        target: LatLng(
+            double.parse(
+                facility.school?.mapLocation?.substring(0, idx).trim() ?? "0"),
+            double.parse(
+                facility.school?.mapLocation?.substring(idx! + 1).trim() ??
+                    "0")),
+        zoom: currentZoom,
+      );
+    }
+
+    return CameraPosition(
+      target: const LatLng(24.69596839147883, 46.686680461716264),
+      zoom: currentZoom,
+    );
+  }
 
 // show only markers in area of map
   // Future<void> showMarkersInArea() async {
@@ -201,12 +253,14 @@ class MapController extends GetxController {
         '[{"featureType": "poi","stylers": [{"visibility": "off"}]}]');
 
     mapController.complete(controller);
-
     isMapLoading.value = false;
 
-    _initMarkers();
+    Future.delayed(const Duration(seconds: 2), () {
+      _initMarkers();
+    });
+    //_initMarkers();
 
-    update();
+    // update();
   }
 
   Future<bool> _checkIfWithinBounds(double lat, double long) async {
@@ -220,6 +274,6 @@ class MapController extends GetxController {
 
   onCameraMoveStarted() {
     print("onCameraMoveStarted");
-    _initMarkers();
+    _initMarkerstest();
   }
 }

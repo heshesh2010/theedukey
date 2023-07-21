@@ -1,4 +1,5 @@
 {
     "explorer.sortOrder": "modified",
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "dart.flutterSdkPath": "/Users/hesham/Downloads/flutter"
 }

@@ -70,27 +70,28 @@ class SchoolData {
   final String? cityName;
   bool? isFavorite;
   final bool? canRate;
+  final int? facilityTypeId;
 
-  SchoolData({
-    this.id,
-    this.name,
-    this.about,
-    this.phone,
-    this.mobile,
-    this.email,
-    this.address,
-    this.mapLocation,
-    this.commercialRecord,
-    this.ownerId,
-    this.logo,
-    this.rate,
-    this.visits,
-    this.status,
-    this.cityId,
-    this.cityName,
-    this.isFavorite,
-    this.canRate,
-  });
+  SchoolData(
+      {this.id,
+      this.name,
+      this.about,
+      this.phone,
+      this.mobile,
+      this.email,
+      this.address,
+      this.mapLocation,
+      this.commercialRecord,
+      this.ownerId,
+      this.logo,
+      this.rate,
+      this.visits,
+      this.status,
+      this.cityId,
+      this.cityName,
+      this.isFavorite,
+      this.canRate,
+      this.facilityTypeId});
 
   SchoolData.fromJson(Map<String, dynamic> json)
       : id = json['id'] as int?,
@@ -110,7 +111,8 @@ class SchoolData {
         cityId = json['city_id'] as String?,
         cityName = json['city_name'] as String?,
         isFavorite = json['is_favorite'] as bool?,
-        canRate = json['can_rate'] as bool?;
+        canRate = json['can_rate'] as bool?,
+        facilityTypeId = json['facility_type_id'] as int?;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -128,6 +130,9 @@ class SchoolData {
         'visits': visits,
         'status': status,
         'city_id': cityId,
-        'city_name': cityName
+        'city_name': cityName,
+        'is_favorite': isFavorite,
+        'can_rate': canRate,
+        'facility_type_id': facilityTypeId
       };
 }

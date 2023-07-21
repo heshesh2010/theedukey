@@ -23,6 +23,7 @@ class SchoolGallery extends GetWidget<SchoolDetailsController> {
                   height: 40,
                 ),
                 GridView.count(
+                  physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
                   shrinkWrap: true,
                   mainAxisSpacing: 10.0,

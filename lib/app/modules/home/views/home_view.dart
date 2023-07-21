@@ -23,160 +23,169 @@ class HomeView extends GetWidget<HomeController> {
     return Scaffold(
       drawer: DrawerSideMenu(),
       appBar: getTopBar(context),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            //    const TopBar(),
-            Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25),
-              child: Column(
-                children: [
-                  Text("search_about".tr,
-                      style: Theme.of(context).textTheme.headlineMedium),
-                  const SizedBox(height: 20),
-                  Obx(() => Center(
-                        child: Container(
-                          // width: 400,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).focusColor,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: DropdownButton2(
-                            iconStyleData: const IconStyleData(
-                              iconSize: 0,
-                              //    color: Colors.white,
-                              //    size: 30,
+      body: WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              //    const TopBar(),
+              Padding(
+                padding: const EdgeInsets.only(left: 25, right: 25),
+                child: Column(
+                  children: [
+                    Text("search_about".tr,
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    const SizedBox(height: 20),
+                    Obx(() => Center(
+                          child: Container(
+                            // width: 400,
+                            height: 55,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).focusColor,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
                             ),
-                            // dropdownDecoration: BoxDecoration(
-                            //   borderRadius: BorderRadius.circular(14),
-                            // ),
-                            isExpanded: true,
-                            // iconSize: 0.0,
-                            // icon: const Icon(Icons.keyboard_arrow_up_sharp),
-                            // style: const TextStyle(color: Colors.white),
-                            //   iconEnabledColor: Colors.white,
-                            hint: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 30.0, left: 30),
-                              child: Center(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(
-                                      Icons.keyboard_arrow_down_sharp,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      controller.selectedStage.value.name!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium
-                                          ?.copyWith(color: Colors.white),
-                                    ),
-                                  ],
-                                ),
+                            child: DropdownButton2(
+                              iconStyleData: const IconStyleData(
+                                iconSize: 0,
+                                //    color: Colors.white,
+                                //    size: 30,
                               ),
-                            ),
-                            onChanged: (dynamic value) {
-                              controller.setSelectedStage(value);
-                              controller.selectedStage.value = value;
-                            },
-                            items: controller.stagesList
-                                .map((Stage selectedStage) {
-                              return DropdownMenuItem(
-                                value: selectedStage,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: 50.0, left: 50),
+                              // dropdownDecoration: BoxDecoration(
+                              //   borderRadius: BorderRadius.circular(14),
+                              // ),
+                              isExpanded: true,
+                              // iconSize: 0.0,
+                              // icon: const Icon(Icons.keyboard_arrow_up_sharp),
+                              // style: const TextStyle(color: Colors.white),
+                              //   iconEnabledColor: Colors.white,
+                              hint: Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 30.0, left: 30),
+                                child: Center(
                                   child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       const Icon(
-                                        Icons.keyboard_arrow_up_sharp,
+                                        Icons.keyboard_arrow_down_sharp,
                                         color: Colors.white,
                                       ),
                                       Text(
-                                        selectedStage.name!,
+                                        controller.selectedStage.value.name!,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .titleMedium,
+                                            .titleMedium
+                                            ?.copyWith(color: Colors.white),
                                       ),
                                     ],
                                   ),
                                 ),
-                              );
-                            }).toList(),
+                              ),
+                              onChanged: (dynamic value) {
+                                controller.setSelectedStage(value);
+                                controller.selectedStage.value = value;
+                              },
+                              items: controller.stagesList
+                                  .map((Stage selectedStage) {
+                                return DropdownMenuItem(
+                                  value: selectedStage,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 50.0, left: 50),
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.keyboard_arrow_up_sharp,
+                                          color: Colors.white,
+                                        ),
+                                        Text(
+                                          selectedStage.name!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                        ),
-                      )),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  TypeAheadField(
-                    textFieldConfiguration: TextFieldConfiguration(
-                        autofocus: false,
-                        style: DefaultTextStyle.of(context)
-                            .style
-                            .copyWith(fontStyle: FontStyle.italic),
-                        decoration: InputDecoration(
-                            hintText: "school_name".tr,
-                            border: const OutlineInputBorder())),
-                    suggestionsCallback: (pattern) async {
-                      controller.pattern = pattern;
-                      return await controller.getSuggestions(pattern);
-                    },
-                    itemBuilder: (context, Facility suggestion) {
-                      return ListTile(
-                        leading: ImageTools.image(
-                          url: suggestion.school?.logo,
-                          height: 50,
-                          width: 50,
-                        ),
-                        title: Text(suggestion.school?.name ?? ""),
-                        subtitle: Text(suggestion.school?.cityName ?? ""),
-                      );
-                    },
-                    onSuggestionSelected: (Facility suggestion) {
-                      Get.toNamed(Routes.schoolDetails,
-                          arguments: RouteArgument(
-                              schoolId: suggestion.school?.id ?? 0));
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  SizedBox(
-                    height: 55,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        //  shape: const CircleBorder(),
-                        foregroundColor: const Color.fromRGBO(255, 255, 255, 1),
-                        backgroundColor: Theme.of(context).primaryColor,
-                        shadowColor: Colors.transparent,
-                      ),
-                      child: Text(
-                        "search".tr,
-                      ),
-                      onPressed: () {
-                        getIt<SearchModel>().search(RouteArgument(stagesList: [
-                          controller.selectedStage.value.id ?? -1
-                        ], keyword: controller.pattern));
-
-                        Get.toNamed(
-                          Routes.search,
+                        )),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    TypeAheadField(
+                      textFieldConfiguration: TextFieldConfiguration(
+                          autofocus: false,
+                          style: DefaultTextStyle.of(context)
+                              .style
+                              .copyWith(fontStyle: FontStyle.italic),
+                          decoration: InputDecoration(
+                              hintText: "school_name".tr,
+                              border: const OutlineInputBorder())),
+                      suggestionsCallback: (pattern) async {
+                        controller.pattern = pattern;
+                        return await controller.getSuggestions(pattern);
+                      },
+                      itemBuilder: (context, Facility suggestion) {
+                        return ListTile(
+                          leading: ImageTools.image(
+                            url: suggestion.school?.logo,
+                            height: 50,
+                            width: 50,
+                          ),
+                          title: Text(suggestion.school?.name ?? ""),
+                          subtitle: Text(suggestion.school?.cityName ?? ""),
                         );
                       },
+                      onSuggestionSelected: (Facility suggestion) {
+                        Get.toNamed(Routes.schoolDetails,
+                            arguments: RouteArgument(
+                                schoolId: suggestion.school?.id ?? 0));
+                      },
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                ],
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    SizedBox(
+                      height: 55,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          //  shape: const CircleBorder(),
+                          foregroundColor:
+                              const Color.fromRGBO(255, 255, 255, 1),
+                          backgroundColor: Theme.of(context).primaryColor,
+                          shadowColor: Colors.transparent,
+                        ),
+                        child: Text(
+                          "search".tr,
+                        ),
+                        onPressed: () {
+                          getIt<SearchModel>().search(RouteArgument(
+                              stagesList: [
+                                controller.selectedStage.value.id ?? -1
+                              ],
+                              keyword: controller.pattern));
+
+                          Get.toNamed(
+                            Routes.search,
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
               ),
-            ),
-            const AboutUs()
-          ],
+              const AboutUs()
+            ],
+          ),
         ),
       ),
     );

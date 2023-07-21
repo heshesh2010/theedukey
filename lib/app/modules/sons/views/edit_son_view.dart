@@ -136,82 +136,70 @@ class EditSonView extends GetWidget<SonsController> {
                                     ))
                               ]),
                         ),
-                        GetBuilder<SonsController>(
-                            initState: (_) {},
-                            builder: (builderController) {
-                              return Column(
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                addRadioButton(0, "male".tr, controller),
+                                addRadioButton(1, "female".tr, controller),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 20, left: 20, top: 20),
+                              child: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
                                 children: [
-                                  Row(
-                                    children: [
-                                      addRadioButton(0, "male".tr, controller),
-                                      addRadioButton(
-                                          1, "female".tr, controller),
-                                    ],
+                                  ImagePickerHelper(
+                                    editButtonTitle: "edit_personal_image".tr,
+                                    buttonTitle: "personal_image".tr,
+                                    imageUrl: controller
+                                            .selectedPersonalImage.value.isEmpty
+                                        ? _sonData.image
+                                        : controller
+                                            .selectedPersonalImage.value,
+                                    onGet: (value) {
+                                      controller.onSelectPersonalImage(value);
+                                    },
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 20, left: 20, top: 20),
-                                    child: Wrap(
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      children: [
-                                        ImagePickerHelper(
-                                          editButtonTitle:
-                                              "edit_personal_image".tr,
-                                          buttonTitle: "personal_image".tr,
-                                          imageUrl: controller
-                                                  .selectedPersonalImage
-                                                  .value
-                                                  .isEmpty
-                                              ? _sonData.image
-                                              : controller
-                                                  .selectedPersonalImage.value,
-                                          onGet: (value) {
-                                            controller
-                                                .onSelectPersonalImage(value);
-                                          },
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        ImagePickerHelper(
-                                          editButtonTitle: "edit_id_image".tr,
-                                          buttonTitle: "id_image".tr,
-                                          imageUrl: controller
-                                                  .selectedIdImage.value.isEmpty
-                                              ? _sonData.idImage
-                                              : controller
-                                                  .selectedIdImage.value,
-                                          onGet: (value) {
-                                            controller.onSelectIdImage(value);
-                                          },
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        ImagePickerHelper(
-                                          editButtonTitle:
-                                              "edit_certificate_image".tr,
-                                          buttonTitle: "certificate_image".tr,
-                                          imageUrl: controller
-                                                  .selectedCertificateImage
-                                                  .value
-                                                  .isEmpty
-                                              ? _sonData.certificateImage
-                                              : controller
-                                                  .selectedCertificateImage
-                                                  .value,
-                                          onGet: (value) {
-                                            controller.onSelectCertificateImage(
-                                                value);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  ImagePickerHelper(
+                                    editButtonTitle: "edit_id_image".tr,
+                                    buttonTitle: "id_image".tr,
+                                    imageUrl:
+                                        controller.selectedIdImage.value.isEmpty
+                                            ? _sonData.idImage
+                                            : controller.selectedIdImage.value,
+                                    onGet: (value) {
+                                      controller.onSelectIdImage(value);
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  ImagePickerHelper(
+                                    editButtonTitle:
+                                        "edit_certificate_image".tr,
+                                    buttonTitle: "certificate_image".tr,
+                                    imageUrl: controller
+                                            .selectedCertificateImage
+                                            .value
+                                            .isEmpty
+                                        ? _sonData.certificateImage
+                                        : controller
+                                            .selectedCertificateImage.value,
+                                    onGet: (value) {
+                                      controller
+                                          .onSelectCertificateImage(value);
+                                    },
+                                  ),
                                 ],
-                              );
-                            }),
+                              ),
+                            )
+                          ],
+                        ),
                         const SizedBox(height: 20),
                         RoundedLoadingButton(
                           controller: controller.submitButtonController,
@@ -258,7 +246,7 @@ class EditSonView extends GetWidget<SonsController> {
       children: <Widget>[
         Radio(
             value: controller.gender[btnIndex],
-            groupValue: controller.selectedGender,
+            groupValue: controller.selectedGender?.value,
             onChanged: (value) => controller.onSelectGender(value)),
         Text(title)
       ],

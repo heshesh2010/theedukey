@@ -35,51 +35,50 @@ class SchoolDetailsView extends GetWidget<SchoolDetailsController> {
             ? const Center(child: CircularProgressIndicator())
             : Padding(
                 padding: const EdgeInsets.only(top: 20.0, right: 10, left: 10),
-                child: SingleChildScrollView(
+                child: ListView(
                   controller: controller.scrollController,
-                  child: Column(
-                    children: [
-                      const SchoolInfo(),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      controller.facility.value.gallery!.isNotEmpty
-                          ? const SchoolGallery()
-                          : Container(),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      SizedBox(
-                        width: Get.width / 1.5,
-                        height: 60,
-                        child: ElevatedButton.icon(
-                          icon: const Icon(Icons.pin_drop),
-                          label: Text('show_results_on_map'.tr),
-                          onPressed: () {
-                            getIt<SearchModel>().setSchoolsList(
-                                [controller.facility.value].obs);
+                  shrinkWrap: true,
+                  children: [
+                    const SchoolInfo(),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    controller.facility.value.gallery!.isNotEmpty
+                        ? const SchoolGallery()
+                        : Container(),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    SizedBox(
+                      width: Get.width / 1.5,
+                      height: 60,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.pin_drop),
+                        label: Text('show_results_on_map'.tr),
+                        onPressed: () {
+                          getIt<SearchModel>()
+                              .setSchoolsList([controller.facility.value].obs);
 
-                            Get.toNamed(Routes.map);
-                          },
-                        ),
+                          Get.toNamed(Routes.map);
+                        },
                       ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      controller.facility.value.prices!.isNotEmpty
-                          ? SchoolPrices()
-                          : Container(),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    controller.facility.value.prices!.isNotEmpty
+                        ? SchoolPrices()
+                        : Container(),
 
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      RelatedSchoolsView(),
-                      const SizedBox(
-                        height: 80,
-                      ),
-                      //RateSchool(),
-                    ],
-                  ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    RelatedSchoolsView(),
+                    const SizedBox(
+                      height: 80,
+                    ),
+                    //RateSchool(),
+                  ],
                 ),
               )));
   }

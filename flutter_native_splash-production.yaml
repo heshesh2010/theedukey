@@ -1,0 +1,9 @@
+flutter_native_splash:
+  background_image_ios: assets/background-ios.png
+  background_image: assets/background-ios.png
+
+  image_android: assets/logo.png
+  image_ios: assets/logo.png
+
+  android_12:
+  image: assets/logo.png

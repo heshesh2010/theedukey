@@ -8,7 +8,6 @@ import 'text_theme.dart';
 final ThemeData appThemeDataLight = ThemeData(
   inputDecorationTheme: appInputDecorationTheme,
   fontFamily: 'Jannat',
-
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: ButtonStyle(
       foregroundColor: MaterialStateProperty.resolveWith((states) {

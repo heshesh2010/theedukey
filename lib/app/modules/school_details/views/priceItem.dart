@@ -14,7 +14,7 @@ class PriceItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          const EdgeInsets.only(right: 8.0, left: 8.0, top: 8.0, bottom: 5),
+          const EdgeInsets.only(right: 8.0, left: 8.0, top: 8.0, bottom: 0),
       child: Container(
         //height: 100,
         decoration: BoxDecoration(
@@ -43,8 +43,8 @@ class PriceItem extends StatelessWidget {
                     children: [
                       widgetTextKey('stage'.tr, context),
                       widgetTextKey('subscriptionTypr'.tr, context),
-                      widgetTextKey('from'.tr, context),
-                      widgetTextKey('to'.tr, context),
+                      // widgetTextKey('from'.tr, context),
+                      // widgetTextKey('to'.tr, context),
                       widgetTextKey('theClass'.tr, context),
                       widgetTextKey('priceBeforeDiscount'.tr, context),
                       widgetTextKey('priceAfterDiscount'.tr, context),
@@ -61,8 +61,8 @@ class PriceItem extends StatelessWidget {
                       children: [
                         widgetTextValue('${price.stageName}', context),
                         widgetTextValue('${price.paymentMethod}', context),
-                        widgetTextValue('${price.start}', context),
-                        widgetTextValue('${price.end}', context),
+                        // widgetTextValue('${price.start}', context),
+                        // widgetTextValue('${price.end}', context),
                         widgetTextValue('${price.className}', context),
                         widgetTextValue(
                             '${price.priceBeforeDiscount}${'currency'.tr}',

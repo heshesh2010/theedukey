@@ -241,10 +241,15 @@ class EditProfileView extends GetWidget<AuthController> {
                                           child: DropdownButton(
                                             //isDense: true,
                                             isExpanded: true,
-                                            hint: Text(
-                                              controller
-                                                  .selectedCity.value.name!,
-                                            ),
+                                            value:
+                                                controller.selectedCity.value,
+
+                                            // hint: Text(
+                                            //   controller.selectedCity.value
+                                            //           .name ??
+                                            //       "choose_city".tr,
+                                            // ),
+
                                             onChanged: (City? value) {
                                               controller.setSelectedCity(value);
                                               controller.selectedCity.value =

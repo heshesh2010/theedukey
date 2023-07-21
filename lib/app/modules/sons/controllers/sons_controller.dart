@@ -26,7 +26,7 @@ class SonsController extends GetxController {
 
   List<String> gender = ["male".tr, "female".tr];
 
-  String? selectedGender = "male".tr;
+  RxString? selectedGender = "male".tr.obs;
   RxString selectedImage = "".obs;
   RxString selectedIdImage = "".obs;
   RxString selectedPersonalImage = "".obs;
@@ -89,14 +89,12 @@ class SonsController extends GetxController {
 
   void onSelectGender(value) {
     if (value == ("male".tr)) {
-      selectedGender = "male".tr;
+      selectedGender?.value = "male".tr;
       selectedGenderApi = "male";
     } else {
-      selectedGender = "female".tr;
+      selectedGender?.value = "female".tr;
       selectedGenderApi = "female";
     }
-
-    update();
   }
 
   addSon([SonDataData? sonDataData]) async {
@@ -175,7 +173,7 @@ class SonsController extends GetxController {
   void clearAllVars() {
     gender = ["male".tr, "female".tr];
     selectedImage.value = "";
-    selectedGender = "male".tr;
+    selectedGender?.value = "male".tr;
     selectedIdImage.value = "";
     selectedPersonalImage.value = "";
     selectedCertificateImage.value = "";
@@ -202,9 +200,18 @@ class SonsController extends GetxController {
 
       if (response is String) {
         Helper().showErrorToast(response);
+        submitButtonController.error();
+
+        Future.delayed(const Duration(seconds: 3), () {
+          Get.back();
+        });
       } else if (response is SonDataData) {
         Get.back();
+        submitButtonController.success();
 
+        Future.delayed(const Duration(seconds: 3), () {
+          Get.back();
+        });
         Helper().showSuccessToast("update_family_id_success".tr);
         Get.find<AuthService>().user.value.familyIdImage =
             response.familyIdImage;

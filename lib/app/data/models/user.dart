@@ -165,4 +165,85 @@ class User {
     }
     return PhoneNumber(countryISOCode: "SA", countryCode: '966', number: '');
   }
+
+  String getMobileNumberString() {
+    if (phone != null) {
+      phone = phone?.replaceAll(' ', '');
+      String? dialCode1 = phone?.substring(1, 2);
+      String? dialCode2 = phone?.substring(1, 3);
+      String? dialCode3 = phone?.substring(1, 4);
+      for (int i = 0; i < countries.length; i++) {
+        if (countries[i].dialCode == dialCode1) {
+          return phone?.substring(2) ?? "";
+        } else if (countries[i].dialCode == dialCode2) {
+          return phone?.substring(3) ?? "";
+        } else if (countries[i].dialCode == dialCode3) {
+          return phone?.substring(4) ?? "";
+        }
+      }
+    }
+    return "";
+  }
+
+  // override toString to have a beautiful log of User object
+  @override
+  String toString() {
+    return '{ $id, $name, $nameEn, $token, $guardianName, $image, $idNumber, $guardianIdNumber, $idImage, $familyIdImage, $certificateImage, $phone, $email, $city, $mapLocation, $legalAgreement, $emailVerifiedAt, $oldPassword, $password, $passwordConfirmation, $verificationId, $auth, $verifiedPhone }';
+  }
+
+  // equals comparison for objects
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is User &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          nameEn == other.nameEn &&
+          token == other.token &&
+          guardianName == other.guardianName &&
+          image == other.image &&
+          idNumber == other.idNumber &&
+          guardianIdNumber == other.guardianIdNumber &&
+          idImage == other.idImage &&
+          familyIdImage == other.familyIdImage &&
+          certificateImage == other.certificateImage &&
+          phone == other.phone &&
+          email == other.email &&
+          city == other.city &&
+          mapLocation == other.mapLocation &&
+          legalAgreement == other.legalAgreement &&
+          emailVerifiedAt == other.emailVerifiedAt &&
+          oldPassword == other.oldPassword &&
+          password == other.password &&
+          passwordConfirmation == other.passwordConfirmation &&
+          verificationId == other.verificationId &&
+          auth == other.auth &&
+          verifiedPhone == other.verifiedPhone;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      nameEn.hashCode ^
+      token.hashCode ^
+      guardianName.hashCode ^
+      image.hashCode ^
+      idNumber.hashCode ^
+      guardianIdNumber.hashCode ^
+      idImage.hashCode ^
+      familyIdImage.hashCode ^
+      certificateImage.hashCode ^
+      phone.hashCode ^
+      email.hashCode ^
+      city.hashCode ^
+      mapLocation.hashCode ^
+      legalAgreement.hashCode ^
+      emailVerifiedAt.hashCode ^
+      oldPassword.hashCode ^
+      password.hashCode ^
+      passwordConfirmation.hashCode ^
+      verificationId.hashCode ^
+      auth.hashCode ^
+      verifiedPhone.hashCode;
 }

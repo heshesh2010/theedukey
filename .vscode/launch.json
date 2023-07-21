@@ -20,7 +20,6 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
-            "deviceId": "8a95033829c79e6b3be43676cff4e1c077f2aeb4"
         }
     ]
 }

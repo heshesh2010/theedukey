@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:theedukey/app/modules/sons/controllers/sons_controller.dart';
 import 'package:theedukey/app/modules/sons/views/image_picker/image_picker_helper.dart';
 
@@ -105,6 +106,12 @@ class Helper {
   addFamilyAddDialog() {
     SonsController controller = Get.find<SonsController>();
     Get.defaultDialog(
+      titlePadding: const EdgeInsets.all(20),
+      titleStyle: const TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+      ),
+      barrierDismissible: false,
       title: "add_family_id_image".tr,
       content: Column(
         children: [
@@ -145,14 +152,40 @@ class Helper {
           const SizedBox(
             height: 20,
           ),
-          ElevatedButton(
-            onPressed: () {
-              if (_guardianIdNumberController.text.isNotEmpty &&
-                  controller.selectedFamilyIdImage.value.isNotEmpty) {
-                controller.updateFamilyId();
-              }
-            },
-            child: Text("add".tr),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      fixedSize: const Size(300, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: Text("cancel".tr)),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                child: RoundedLoadingButton(
+                  controller: controller.submitButtonController,
+                  onPressed: () {
+                    if (_guardianIdNumberController.text.isNotEmpty &&
+                        controller.selectedFamilyIdImage.value.isNotEmpty) {
+                      controller.updateFamilyId();
+                    } else {
+                      showErrorToast("please_review_all_fields".tr);
+                      controller.submitButtonController.reset();
+                    }
+                  },
+                  child: Text("add".tr),
+                ),
+              ),
+            ],
           ),
         ],
       ),

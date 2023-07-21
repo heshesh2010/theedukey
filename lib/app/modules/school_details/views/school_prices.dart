@@ -13,7 +13,7 @@ class SchoolPrices extends GetWidget<SchoolDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => SizedBox(
-        height: 600,
+        height: 700,
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,9 +23,9 @@ class SchoolPrices extends GetWidget<SchoolDetailsController> {
               carouselController: _controller,
               options: CarouselOptions(
                   enableInfiniteScroll: false,
-                  height: 550.0,
+                  height: 600.0,
                   autoPlay: false,
-                  viewportFraction: 1,
+                  viewportFraction: 1.0,
                   //aspectRatio: 0.5,
                   //  enlargeCenterPage: true,
                   onPageChanged: (index, reason) {
