@@ -69,25 +69,6 @@ class FirebaseProvider extends GetxService {
   Future<void> sendCodeToPhone() async {
     Get.find<AuthService>().user.value.verificationId = '';
 
-    autoRetrieve(String verId) {}
-    smsCodeSent(String verId, [int? forceCodeResent]) {
-      Get.find<AuthService>().user.value.verificationId = verId;
-    }
-
-    verifiedSuccess(fba.AuthCredential auth) async {}
-
-    verifyFailed(fba.FirebaseAuthException authException) {
-      if (authException.code == 'invalid-phone-number') {
-        throw Exception('invalid_phone_number'.tr);
-      } else if (authException.code == 'invalid-verification-code') {
-        throw Exception('invalid_verification_code'.tr);
-      } else if (authException.code == 'invalid-credential') {
-        throw Exception('invalid-credential'.tr);
-      } else {
-        throw Exception(authException.message);
-      }
-    }
-
     await _auth.verifyPhoneNumber(
       phoneNumber: Get.find<AuthService>().user.value.phone,
       timeout: const Duration(seconds: 30),
@@ -96,6 +77,25 @@ class FirebaseProvider extends GetxService {
       codeSent: smsCodeSent,
       codeAutoRetrievalTimeout: autoRetrieve,
     );
+  }
+
+  autoRetrieve(String verId) {}
+  smsCodeSent(String verId, [int? forceCodeResent]) {
+    Get.find<AuthService>().user.value.verificationId = verId;
+  }
+
+  verifiedSuccess(fba.AuthCredential auth) async {}
+
+  verifyFailed(fba.FirebaseAuthException authException) {
+    if (authException.code == 'invalid-phone-number') {
+      throw Exception('invalid_phone_number'.tr);
+    } else if (authException.code == 'invalid-verification-code') {
+      throw Exception('invalid_verification_code'.tr);
+    } else if (authException.code == 'invalid-credential') {
+      throw Exception('invalid-credential'.tr);
+    } else {
+      throw Exception(authException.message);
+    }
   }
 
   Future signOut() async {

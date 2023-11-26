@@ -81,25 +81,33 @@ class AuthRepository {
 
   Future<dynamic> updateProfileApi(User? user) async {
     var data = FormData.fromMap({
-      "email": user?.email,
-      "name": user?.name,
-      "name_en": user?.nameEn,
-      "phone": user?.phone,
-      "old_password": user?.oldPassword,
-      "password": user?.password,
-      "password_confirmation": user?.passwordConfirmation,
-      "city": user?.city?.id,
-      "id_number": user?.idNumber,
-      "id_image": user?.idImage != null && user?.idImage != ""
-          ? await MultipartFile.fromFile(user?.idImage ?? "")
-          : null,
-      "certificate_image":
-          user?.certificateImage != null && user?.certificateImage != ""
-              ? await MultipartFile.fromFile(user?.certificateImage ?? "")
-              : null,
-      "image": user?.image != null && user?.image != ""
-          ? await MultipartFile.fromFile(user?.image ?? "")
-          : null,
+      if (user?.email != null && user?.email != "") "email": user?.email,
+      if (user?.name != null && user?.name != "") "name": user?.name,
+      if (user?.nameEn != null && user?.nameEn != "") "name_en": user?.nameEn,
+      if (user?.phone != null && user?.phone != "") "phone": user?.phone,
+      if (user?.oldPassword != null && user?.oldPassword != "")
+        "old_password": user?.oldPassword,
+      if (user?.password != null && user?.password != "")
+        "password": user?.password,
+      if (user?.passwordConfirmation != null &&
+          user?.passwordConfirmation != "")
+        "password_confirmation": user?.passwordConfirmation,
+      if (user?.city != null && user?.city?.id != null) "city": user?.city?.id,
+      if (user?.idNumber != null && user?.idNumber != "")
+        "id_number": user?.idNumber,
+      if (user?.idImage != null && user?.idImage != "")
+        "id_image": user?.idImage != null && user?.idImage != ""
+            ? await MultipartFile.fromFile(user?.idImage ?? "")
+            : null,
+      if (user?.certificateImage != null && user?.certificateImage != "")
+        "certificate_image":
+            user?.certificateImage != null && user?.certificateImage != ""
+                ? await MultipartFile.fromFile(user?.certificateImage ?? "")
+                : null,
+      if (user?.image != null && user?.image != "")
+        "image": user?.image != null && user?.image != ""
+            ? await MultipartFile.fromFile(user?.image ?? "")
+            : null,
     });
 
     dynamic response = await apiClient.postAsyncNormal(
